@@ -1,0 +1,14 @@
+name: willshex
+description: All the base classes usually used for calling willshex apis plus the storage library for local persistence.
+# version: 1.0.0
+# homepage: https://www.willshex.com
+# author: billy1380 <william.shakour@gmail.com.com>
+
+environment:
+  sdk: '>=2.0.0-dev.52.0 <2.0.0'
+
+#dependencies:
+#  path: ^1.4.1
+
+dev_dependencies:
+  test: ^0.12.30

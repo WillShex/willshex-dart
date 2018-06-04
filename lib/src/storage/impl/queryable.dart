@@ -1,0 +1,47 @@
+//
+//  Queryable.dart
+//  storage
+//
+//  Created by William Shakour (billy1380) on 28 Mar 2018.
+//  Copyright © 2018 WillShex Limited. All rights reserved.
+//
+
+import 'dart:async';
+
+import '../result.dart';
+import '../../datatype.dart';
+import 'simplequeryimpl.dart';
+import 'loaderimpl.dart';
+import 'queryimpl.dart';
+import '../cmd/loader.dart';
+
+///
+/// @author William Shakour (billy1380)
+///
+abstract class Queryable<T extends DataType> extends SimpleQueryImpl<T> {
+  Queryable.protected() : super.protected();
+
+  Queryable(LoaderImpl<Loader> loader) : super(loader);
+
+  @override
+  Result<T> first() {
+    QueryImpl<T> q = createQuery();
+    return q.first();
+  }
+
+  @override
+  Future<int> count() {
+    QueryImpl<T> q = createQuery();
+    return q.count();
+  }
+
+  @override
+  Future<List<T>> list() async {
+    QueryImpl<T> q = createQuery();
+    return q.list();
+  }
+
+  Queryable<T> clone() {
+    return super.clone();
+  }
+}
