@@ -6,7 +6,7 @@ Future<String> path() {
   return Future.value(".");
 }
 
-Class<DataType> CLASS_DATA_TYPE = new Class(DataType);
+const Class<DataType> CLASS_DATA_TYPE = const Class(DataType);
 
 main() async {
   var awesome = StorageProvider.provide(path).cache(true)

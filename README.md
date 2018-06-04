@@ -14,7 +14,7 @@ A simple usage example:
       return Future.value(".");
     }
 
-    Class<DataType> CLASS_DATA_TYPE = new Class(DataType);
+    const Class<DataType> CLASS_DATA_TYPE = const Class(DataType);
 
     main() async {
       var awesome = StorageProvider.provide(path).cache(true)
@@ -25,8 +25,9 @@ A simple usage example:
     }
 
 
+
 ## Features and bugs
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: http://gihub.com/willshex/willshex-dart
+[tracker]: https://github.com/WillShex/willshex-dart/issues
