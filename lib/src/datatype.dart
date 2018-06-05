@@ -19,6 +19,9 @@ class DataType extends Jsonable {
     this.deleted,
   });
 
+  DataType.json(Map<String, dynamic> json) : super.json(json);
+  DataType.string(String string) : super.string(string);
+
   @override
   void fromJson(Map<String, dynamic> json) {
     super.fromJson(json);

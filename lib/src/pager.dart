@@ -6,6 +6,8 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
+import 'dart:convert';
+
 import 'jsonable.dart';
 import 'sortdirectiontype.dart';
 
@@ -27,6 +29,9 @@ class Pager extends Jsonable {
     this.next,
     this.previous,
   });
+
+  Pager.json(Map<String, dynamic> json) : super.json(json);
+  Pager.string(String string) : super.string(string);
 
   @override
   void fromJson(Map<String, dynamic> json) {
