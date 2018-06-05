@@ -15,6 +15,9 @@ class Request extends Jsonable {
     this.accessCode,
   });
 
+  Request.json(Map<String, dynamic> json) : super.json(json);
+  Request.string(String string) : super.string(string);
+
   @override
   void fromJson(Map<String, dynamic> json) {
     super.fromJson(json);

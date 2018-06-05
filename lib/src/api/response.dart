@@ -17,6 +17,9 @@ class Response extends ws.Jsonable {
     this.error,
   });
 
+  Response.json(Map<String, dynamic> json) : super.json(json);
+  Response.string(String string) : super.string(string);
+
   @override
   void fromJson(Map<String, dynamic> json) {
     super.fromJson(json);

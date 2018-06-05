@@ -17,6 +17,9 @@ class Error extends Jsonable {
     this.message,
   });
 
+  Error.json(Map<String, dynamic> json) : super.json(json);
+  Error.string(String string) : super.string(string);
+
   @override
   void fromJson(Map<String, dynamic> json) {
     super.fromJson(json);
