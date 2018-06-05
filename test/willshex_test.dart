@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:willshex/willshex.dart';
 import 'package:test/test.dart';
@@ -14,7 +13,7 @@ void main() {
     Storage awesome;
 
     Future<String> path() {
-      return Future.value(".");
+      return new Future.value("./data");
     }
 
     setUp(() {
@@ -22,8 +21,8 @@ void main() {
         ..register(new Class<TestType>(TestType), () => new TestType());
     });
 
-    test('First Test', () {
-      expect(awesome.save().entity(new TestType(id: 1)), isTrue);
+    test('First Test', () async {
+      expect(await awesome.save().entity(new TestType(id: 1)).now(), 1);
     });
   });
 }
