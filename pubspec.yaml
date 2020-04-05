@@ -5,10 +5,10 @@ description: All the base classes usually used for calling willshex apis plus th
 # author: billy1380 <william.shakour@gmail.com.com>
 
 environment:
-  sdk: '>=2.0.0-dev.52.0 <2.0.0'
+  sdk: ">=2.0.0-dev.52.0 <3.0.0"
 
 #dependencies:
 #  path: ^1.4.1
 
 dev_dependencies:
-  test: ^0.12.30
+  test: ">0.12.30"

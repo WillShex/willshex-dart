@@ -14,6 +14,6 @@ import 'impl/storageimpl.dart';
 ///
 class StorageProvider {
   static Storage provide(PathProvider path) {
-    return new StorageImpl<Storage>(path);
+    return StorageImpl<Storage>(path);
   }
 }

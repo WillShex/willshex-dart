@@ -6,8 +6,6 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import 'dart:convert';
-
 import 'jsonable.dart';
 import 'sortdirectiontype.dart';
 

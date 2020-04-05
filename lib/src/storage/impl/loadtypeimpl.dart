@@ -59,11 +59,11 @@ class LoadTypeImpl<T extends DataType> extends Queryable<T>
 
   @override
   QueryImpl<T> createQuery() {
-    return new QueryImpl<T>.typed(loader, dataClass);
+    return QueryImpl<T>.typed(loader, dataClass);
   }
 
   @override
   SimpleQueryImpl<T> newInstance() {
-    return new LoadTypeImpl<T>(null, null);
+    return LoadTypeImpl<T>(null, null);
   }
 }

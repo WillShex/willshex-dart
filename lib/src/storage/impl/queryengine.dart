@@ -46,11 +46,11 @@ class QueryEngine {
 
   Future<List<T>> query<T extends DataType>(QueryImpl<T> query) async {
     if (query.dataClass == null)
-      throw new AssertionError("Cannot query without a type");
+      throw AssertionError("Cannot query without a type");
 
     Directory folder =
         await store.ensureFolder(query.dataClass.getSimpleName());
-    Stream<FileSystemEntity> records = new Directory("${folder.path}").list();
+    Stream<FileSystemEntity> records = Directory("${folder.path}").list();
 
     List<Map<String, dynamic>> objects = <Map<String, dynamic>>[];
     Map<String, dynamic> object;

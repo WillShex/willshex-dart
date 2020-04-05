@@ -22,7 +22,7 @@ class SaverImpl implements Saver {
 
   @override
   Result<int> entity<E extends DataType>(E entity) {
-    return new Result<int>(() async {
+    return Result<int>(() async {
       Map<int, E> saved = await entities(<E>[entity]).now();
       return saved.values.length > 0 ? saved.values.first.id : null;
     });

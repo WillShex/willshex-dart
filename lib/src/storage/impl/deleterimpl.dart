@@ -25,7 +25,7 @@ class DeleterImpl implements Deleter {
 
   @override
   DeleteType type(Class<DataType> type) {
-    return new DeleteTypeImpl(this, type);
+    return DeleteTypeImpl(this, type);
   }
 
   Result<Null> ids(Class<dynamic> type, Iterable<int> ids) {
@@ -44,7 +44,7 @@ class DeleterImpl implements Deleter {
 
     for (T t in entities) {
       if (type == null) {
-        type = new Class(t.runtimeType);
+        type = Class(t.runtimeType);
       }
 
       if (t.id != null) {

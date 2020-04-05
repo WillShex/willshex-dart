@@ -42,13 +42,27 @@ class IndexRegion<T extends num> implements Region<Pair<T, int>> {
     Region<Pair<T, int>> part;
     switch (value) {
       case 0:
-        part = new IndexRegion(start, halfWay);
+        part = IndexRegion(start, halfWay);
         break;
       case 1:
-        part = new IndexRegion(halfWay, end);
+        part = IndexRegion(halfWay, end);
         break;
     }
 
     return part;
   }
 }
+
+// void main(List<String> args) {
+//   StringRegion s = StringRegion.weight(double.maxFinite * 0.5, double.maxFinite);
+//   StringRegion t = StringRegion("abd", double.maxFinite);
+
+//   bool sa = s.contains("abcd");
+//   print("s contains abcd: $sa");
+
+//   bool tc = t.contains("cdef");
+//   print("t contains c: $tc");
+
+//   StringRegion leftS = s.split(0);
+//   StringRegion rightS = s.split(1);
+// }

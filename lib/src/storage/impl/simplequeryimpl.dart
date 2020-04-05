@@ -70,20 +70,20 @@ abstract class SimpleQueryImpl<T extends DataType> implements SimpleQuery<T> {
   QueryExecute<int> getIds() {
     final QueryImpl<T> q = createQuery();
     q.isIdsOnly = true;
-    return new QueryExecute<int>(() {
-      return new Result<int>(() async {
+    return QueryExecute<int>(() {
+      return Result<int>(() async {
         List<int> ids = await loader.createQueryEngine().queryIds(q.limit(1));
         return ids.length > 0 ? ids.first : null;
       });
     }, () async {
-      loader.createQueryEngine().queryIds(q);
+      return loader.createQueryEngine().queryIds(q);
     });
   }
 
   SimpleQueryImpl<T> clone() {
     SimpleQueryImpl<T> impl = newInstance();
 
-    if (impl == null) throw new Exception(new Class(this.runtimeType).getName());
+    if (impl == null) throw Exception(Class(this.runtimeType).getName());
 
     impl.loader = this.loader;
     impl.dataClass = this.dataClass;

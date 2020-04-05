@@ -61,8 +61,8 @@ class QueryHelper {
     } else if (_isJsonPrimitive(e)) {
       return comparePrimitives(e, e2);
     } else
-      throw new AssertionError("Comparing objects [${e.toString()}] and [${e2
-              .toString()}] which are of different types!");
+      throw AssertionError(
+          "Comparing objects [${e.toString()}] and [${e2.toString()}] which are of different types!");
   }
 
   static int compareArrays(List<dynamic> a1, List<dynamic> a2) {

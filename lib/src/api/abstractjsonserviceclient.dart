@@ -23,7 +23,7 @@ abstract class AbstractJsonServiceClient {
 
       print("Recieved [$responseText] to [${response.request.url}");
     } else if (response.statusCode >= 400)
-      throw new HttpException("$response.statusCode: $response.reasonPhrase",
+      throw HttpException("$response.statusCode: $response.reasonPhrase",
           uri: response.request.url);
 
     return output;

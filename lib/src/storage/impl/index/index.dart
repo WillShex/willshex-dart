@@ -12,7 +12,7 @@ class Index<T> extends AbstractTree<T> {
   Index() : super(_creator, 2);
 
   static Index<T> _creator<T>() {
-    return new Index<T>();
+    return Index<T>();
   }
 
   static Index<T> createIndex<T>(Region<T> region, int capacity) {

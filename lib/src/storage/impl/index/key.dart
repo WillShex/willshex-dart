@@ -13,7 +13,7 @@ class Key extends AbstractTree<int> {
   Key() : super(_creator, 2);
 
   static Key _creator() {
-    return new Key();
+    return Key();
   }
 
   static Key createKey(KeyRegion region, int capacity) {

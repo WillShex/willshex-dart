@@ -29,7 +29,7 @@ class Response extends ws.Jsonable {
     }
 
     if (json["error"] != null) {
-      error = new ws.Error()..fromJson(json["error"]);
+      error = ws.Error()..fromJson(json["error"]);
     }
   }
 

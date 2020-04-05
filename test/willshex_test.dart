@@ -13,16 +13,16 @@ void main() {
     Storage awesome;
 
     Future<String> path() {
-      return new Future.value("./data");
+      return Future.value("./data");
     }
 
     setUp(() {
       awesome = StorageProvider.provide(path).cache(true)
-        ..register(new Class<TestType>(TestType), () => new TestType());
+        ..register(Class<TestType>(TestType), () => TestType());
     });
 
     test('First Test', () async {
-      expect(await awesome.save().entity(new TestType(id: 1)).now(), 1);
+      expect(await awesome.save().entity(TestType(id: 1)).now(), 1);
     });
   });
 }

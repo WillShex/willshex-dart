@@ -21,7 +21,7 @@ abstract class AbstractTree<T> {
   List<T> points;
   CreateFunction<AbstractTree<T>> creator;
 
-  AbstractTree(this.creator, int branches) : children = new List(branches);
+  AbstractTree(this.creator, int branches) : children = List(branches);
 
   static AbstractTree<T> createTree<T>(
       Region<T> region, int capacity, CreateFunction<AbstractTree<T>> creator) {

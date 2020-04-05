@@ -21,11 +21,12 @@ import '../storageimpl.dart';
 /// @author William Shakour (billy1380)
 ///
 class IndexHelper {
-  static Future<Index<I>> loadIndex<T, I>(
-      {@required StorageImpl<Storage> storage,
-      Class<T> type,
-      String colName,
-      String path}) async {
+  static Future<Index<I>> loadIndex<T, I>({
+    @required StorageImpl<Storage> storage,
+    Class<T> type,
+    String colName,
+    String path,
+  }) async {
     return null;
   }
 

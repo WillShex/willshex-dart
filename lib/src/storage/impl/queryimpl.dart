@@ -87,11 +87,11 @@ class QueryImpl<T extends DataType> extends SimpleQueryImpl<T>
       condition = condition.substring(1).trim();
     }
 
-    _ensureOrder().add(new Order(condition, direction));
+    _ensureOrder().add(Order(condition, direction));
   }
 
   void addFilter(String condition, dynamic value) {
-    Filter filter = new Filter();
+    Filter filter = Filter();
 
     condition = condition.trim();
     bool foundOperation = false;
@@ -162,7 +162,7 @@ class QueryImpl<T extends DataType> extends SimpleQueryImpl<T>
 
   @override
   Result<T> first() {
-    return new Result<T>(() async {
+    return Result<T>(() async {
       Iterator<T> entities = (await limit(1).resultIterable()).iterator;
       return entities.moveNext() ? entities.current : null;
     });
@@ -191,7 +191,7 @@ class QueryImpl<T extends DataType> extends SimpleQueryImpl<T>
 
   @override
   SimpleQueryImpl<T> newInstance() {
-    return new QueryImpl._private();
+    return QueryImpl._private();
   }
 
   List<Filter> get allFilters => this._filters;

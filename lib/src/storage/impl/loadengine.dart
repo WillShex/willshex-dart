@@ -28,13 +28,13 @@ class LoadEngine {
 
   Result<Map<int, T>> load<T extends DataType>(
       final Class<T> type, final Iterable<int> ids) {
-    return new Result<Map<int, T>>(() async {
+    return Result<Map<int, T>>(() async {
       final Map<int, T> loaded = <int, T>{};
       File recordFileHandle;
       T entity;
       Directory folder = await store.ensureFolder(type.getSimpleName());
       for (int id in ids) {
-        recordFileHandle = new File("${folder.path}/${id.toString()}.json");
+        recordFileHandle = File("${folder.path}/${id.toString()}.json");
 
         if (await recordFileHandle.exists()) {
           (entity = store.creators[type]())

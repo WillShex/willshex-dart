@@ -41,7 +41,7 @@ class StorageImpl<S extends Storage> implements Storage {
   Future<Directory> get folder async {
     if (_storageHandle == null) {
       String path = await _pathProvider();
-      _storageHandle = new Directory("$path");
+      _storageHandle = Directory("$path");
       if (await _storageHandle.exists()) {
         // do nothing
       } else {
@@ -54,7 +54,7 @@ class StorageImpl<S extends Storage> implements Storage {
 
   Future<Directory> ensureFolder(String name) async {
     Directory parent = await this.folder;
-    Directory folder = new Directory("${parent.path}/$name");
+    Directory folder = Directory("${parent.path}/$name");
 
     if (await folder.exists()) {
       // do nothing
@@ -67,17 +67,17 @@ class StorageImpl<S extends Storage> implements Storage {
 
   @override
   Loader load() {
-    return new LoaderImpl<Loader>(this);
+    return LoaderImpl<Loader>(this);
   }
 
   @override
   Saver save() {
-    return new SaverImpl(this);
+    return SaverImpl(this);
   }
 
   @override
   Deleter delete() {
-    return new DeleterImpl(this);
+    return DeleterImpl(this);
   }
 
   @override
@@ -88,7 +88,7 @@ class StorageImpl<S extends Storage> implements Storage {
 
   @override
   Compactor compact() {
-    return new CompactorImpl(this);
+    return CompactorImpl(this);
   }
 
   @override
@@ -121,6 +121,6 @@ class StorageImpl<S extends Storage> implements Storage {
   }
 
   WriteEngine createWriteEngine() {
-    return new WriteEngine(this);
+    return WriteEngine(this);
   }
 }

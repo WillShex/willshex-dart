@@ -35,10 +35,10 @@ class KeyRegion implements Region<int> {
     KeyRegion part;
     switch (value) {
       case 0:
-        part = new KeyRegion(start, halfWay);
+        part = KeyRegion(start, halfWay);
         break;
       case 1:
-        part = new KeyRegion(halfWay, end);
+        part = KeyRegion(halfWay, end);
         break;
     }
 

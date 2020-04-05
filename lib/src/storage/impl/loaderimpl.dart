@@ -37,12 +37,12 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
 
   @override
   LoadType<E> type<E extends DataType>(Class<E> type) {
-    return new LoadTypeImpl<E>(this, type);
+    return LoadTypeImpl<E>(this, type);
   }
 
   @override
   QueryImpl<DataType> createQuery() {
-    return new QueryImpl<DataType>(this);
+    return QueryImpl<DataType>(this);
   }
 
   @override
@@ -53,7 +53,7 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
     Class<E> type;
     for (E entity in entities) {
       if (type == null) {
-        type = new Class(entity.runtimeType);
+        type = Class(entity.runtimeType);
       }
 
       ids.add(entity.id);
@@ -63,11 +63,11 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
   }
 
   LoadEngine createLoadEngine() {
-    return new LoadEngine(this, store);
+    return LoadEngine(this, store);
   }
 
   QueryEngine createQueryEngine() {
-    return new QueryEngine(this, store);
+    return QueryEngine(this, store);
   }
 
   @override
@@ -87,7 +87,7 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
 
   @override
   Result<E> entity<E extends DataType>(final E entity) {
-    return new Result<E>(() async {
+    return Result<E>(() async {
       Map<int, E> entities = await this.entities(<E>[entity]).now();
       return entities.values.length > 0 ? entities.values.first : null;
     });
@@ -95,7 +95,7 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
 
   @override
   Result<T> id<T extends DataType>(final Class<T> type, final int id) {
-    return new Result<T>(() async {
+    return Result<T>(() async {
       Map<int, T> entities = await this.ids(type, <int>[id]).now();
       return entities.values.length > 0 ? entities.values.first : null;
     });
@@ -109,6 +109,6 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
 
   @override
   SimpleQueryImpl<DataType> newInstance() {
-    return new LoaderImpl<Loader>._private();
+    return LoaderImpl<Loader>._private();
   }
 }

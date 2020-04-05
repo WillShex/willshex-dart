@@ -31,7 +31,7 @@ class DataType extends Jsonable {
     }
 
     if (json["created"] != null) {
-      created = new DateTime.fromMicrosecondsSinceEpoch(json["created"]);
+      created = DateTime.fromMicrosecondsSinceEpoch(json["created"]);
     }
 
     if (json["deleted"] != null) {

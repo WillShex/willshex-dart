@@ -22,7 +22,7 @@ class CompactorImpl implements Compactor {
 
   @override
   Result<Null> type<E>(Class<E> type) {
-    return new Result<Null>(() {
+    return Result<Null>(() {
       return null;
     });
   }

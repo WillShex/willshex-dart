@@ -24,7 +24,7 @@ class WriteEngine {
   WriteEngine(this.store);
 
   Result<Map<int, T>> save<T extends DataType>(final Iterable<T> entities) {
-    return new Result<Map<int, T>>(() async {
+    return Result<Map<int, T>>(() async {
       Class<dynamic> type;
       Map<int, T> saved = <int, T>{};
 
@@ -32,7 +32,7 @@ class WriteEngine {
       List<T> update;
       for (T entity in entities) {
         if (type == null) {
-          type = new Class(entity.runtimeType);
+          type = Class(entity.runtimeType);
         }
 
         if (entity.id == null) {
@@ -60,12 +60,12 @@ class WriteEngine {
   }
 
   Result<Null> delete<T>(final Class<T> type, final Iterable<int> ids) {
-    return new Result<Null>(() async {
+    return Result<Null>(() async {
       File recordFileHandle;
       Directory folder =
           type == null ? null : await store.ensureFolder(type.getSimpleName());
       for (int id in ids) {
-        recordFileHandle = new File("${folder.path}/${id.toString()}.json");
+        recordFileHandle = File("${folder.path}/${id.toString()}.json");
         if (await recordFileHandle.exists()) {
           await recordFileHandle.delete();
         }
@@ -74,7 +74,7 @@ class WriteEngine {
   }
 
   Result<Null> compact<T extends DataType>(Class<T> type) {
-    return new Result<Null>(() async {});
+    return Result<Null>(() async {});
   }
 
   Future<int> _nextAutoIncrement(Class<dynamic> type, int increment) async {
@@ -98,14 +98,14 @@ class WriteEngine {
 
   Future<Null> _setCounter(Class<dynamic> type, String name, int value) async {
     Directory folder = await store.ensureFolder(type.getSimpleName());
-    File counterFileHandle = new File("${folder.path}/.$name");
+    File counterFileHandle = File("${folder.path}/.$name");
     await counterFileHandle.writeAsString(value.toString());
   }
 
   Future<int> _getCounter(Class<dynamic> type, String name) async {
     int counter;
     Directory folder = await store.ensureFolder(type.getSimpleName());
-    File counterFileHandle = new File("${folder.path}/.$name");
+    File counterFileHandle = File("${folder.path}/.$name");
     if (await counterFileHandle.exists()) {
       counter = int.parse(await counterFileHandle.readAsString());
     } else {
@@ -122,7 +122,7 @@ class WriteEngine {
     id -= entities.length;
     for (T entity in entities) {
       entity.id = id;
-      await new File("${folder.path}/${id.toString()}.json")
+      await File("${folder.path}/${id.toString()}.json")
           .writeAsString(entity.toString());
       inserted[id] = entity;
       id++;
@@ -142,7 +142,7 @@ class WriteEngine {
         await _setAutoIncrement(type, autoInc = entity.id);
       }
 
-      await new File("${folder.path}/${entity.id.toString()}.json")
+      await File("${folder.path}/${entity.id.toString()}.json")
           .writeAsString(entity.toString());
       updated[entity.id] = entity;
     }
