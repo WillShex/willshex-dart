@@ -21,4 +21,13 @@ class Class<T> {
   String getName() {
     return t.toString();
   }
+
+  @override
+  int get hashCode {
+    return t.hashCode;
+  }
+
+  bool operator ==(other) {
+    return other != null && other.t == this.t;
+  }
 }
