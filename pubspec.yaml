@@ -7,8 +7,9 @@ description: All the base classes usually used for calling willshex apis plus th
 environment:
   sdk: ">=2.0.0-dev.52.0 <3.0.0"
 
-#dependencies:
+dependencies:
 #  path: ^1.4.1
+   http: ^0.12.0+4
 
 dev_dependencies:
   test: ">0.12.30"
