@@ -37,7 +37,13 @@ class LoadEngine {
         recordFileHandle = File("${folder.path}/${id.toString()}.json");
 
         if (await recordFileHandle.exists()) {
-          (entity = store.creators[type]())
+          final CreateFunction creator = store.creators[type];
+
+          if (creator == null) {
+            throw Exception("Looks like ${type.getName()} was not registered");
+          }
+
+          (entity = creator())
               .fromString(await recordFileHandle.readAsString());
           if (entity.id != null) {
             loaded[id] = entity;
