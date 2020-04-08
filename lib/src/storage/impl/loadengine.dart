@@ -34,20 +34,34 @@ class LoadEngine {
       T entity;
       Directory folder = await store.ensureFolder(type.getSimpleName());
       for (int id in ids) {
-        recordFileHandle = File("${folder.path}/${id.toString()}.json");
+        entity = null;
 
-        if (await recordFileHandle.exists()) {
-          final CreateFunction creator = store.creators[type];
+        if (store.useCache) {
+          entity = store.ensureCacheType(type)[id];
+        } else {
+          recordFileHandle = File("${folder.path}/${id.toString()}.json");
 
-          if (creator == null) {
-            throw Exception("Looks like ${type.getName()} was not registered");
+          if (await recordFileHandle.exists()) {
+            final CreateFunction creator = store.creators[type];
+
+            if (creator == null) {
+              throw Exception(
+                  "Looks like ${type.getName()} was not registered");
+            }
+
+            (entity = creator())
+                .fromString(await recordFileHandle.readAsString());
+
+            if (entity.id != null) {
+              if (store.useCache) {
+                store.ensureCacheType(type)[id] = entity;
+              }
+            }
           }
+        }
 
-          (entity = creator())
-              .fromString(await recordFileHandle.readAsString());
-          if (entity.id != null) {
-            loaded[id] = entity;
-          }
+        if (entity != null && entity.id != null) {
+          loaded[id] = entity;
         }
       }
 

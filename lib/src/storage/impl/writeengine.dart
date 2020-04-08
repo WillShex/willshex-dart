@@ -25,7 +25,7 @@ class WriteEngine {
 
   Result<Map<int, T>> save<T extends DataType>(final Iterable<T> entities) {
     return Result<Map<int, T>>(() async {
-      Class<dynamic> type;
+      Class<T> type;
       Map<int, T> saved = <int, T>{};
 
       List<T> insert;
@@ -69,6 +69,10 @@ class WriteEngine {
         if (await recordFileHandle.exists()) {
           await recordFileHandle.delete();
         }
+
+        if (store.useCache) {
+          store.ensureCache().remove(id);
+        }
       }
     });
   }
@@ -77,32 +81,32 @@ class WriteEngine {
     return Result<Null>(() async {});
   }
 
-  Future<int> _nextAutoIncrement(Class<dynamic> type, int increment) async {
+  Future<int> _nextAutoIncrement(Class<DataType> type, int increment) async {
     return _incrementCounter(type, "autoinc", increment);
   }
 
-  Future<int> getAutoIncrement(Class<dynamic> type) {
+  Future<int> getAutoIncrement(Class<DataType> type) {
     return _getCounter(type, "autoinc");
   }
 
-  Future<Null> _setAutoIncrement(Class<dynamic> type, int value) async {
+  Future<Null> _setAutoIncrement(Class<DataType> type, int value) async {
     await _setCounter(type, "autoinc", value);
   }
 
   Future<int> _incrementCounter(
-      Class<dynamic> type, String name, int increment) async {
+      Class<DataType> type, String name, int increment) async {
     int next = await _getCounter(type, name) + increment;
     await _setCounter(type, name, next);
     return next;
   }
 
-  Future<Null> _setCounter(Class<dynamic> type, String name, int value) async {
+  Future<Null> _setCounter(Class<DataType> type, String name, int value) async {
     Directory folder = await store.ensureFolder(type.getSimpleName());
     File counterFileHandle = File("${folder.path}/.$name");
     await counterFileHandle.writeAsString(value.toString());
   }
 
-  Future<int> _getCounter(Class<dynamic> type, String name) async {
+  Future<int> _getCounter(Class<DataType> type, String name) async {
     int counter;
     Directory folder = await store.ensureFolder(type.getSimpleName());
     File counterFileHandle = File("${folder.path}/.$name");
@@ -115,7 +119,7 @@ class WriteEngine {
   }
 
   Future<Map<int, T>> _insert<T extends DataType>(
-      Class<dynamic> type, List<T> entities) async {
+      Class<T> type, List<T> entities) async {
     Map<int, T> inserted = <int, T>{};
     Directory folder = await store.ensureFolder(type.getSimpleName());
     int id = await _nextAutoIncrement(type, entities.length);
@@ -125,6 +129,11 @@ class WriteEngine {
       await File("${folder.path}/${id.toString()}.json")
           .writeAsString(entity.toString());
       inserted[id] = entity;
+
+      if (store.useCache) {
+        store.ensureCacheType(type)[id] = entity;
+      }
+
       id++;
     }
 
@@ -132,7 +141,7 @@ class WriteEngine {
   }
 
   Future<Map<int, T>> _update<T extends DataType>(
-      Class<dynamic> type, List<T> entities) async {
+      Class<T> type, List<T> entities) async {
     Map<int, T> updated = <int, T>{};
     int autoInc;
     Directory folder = await store.ensureFolder(type.getSimpleName());
@@ -145,6 +154,10 @@ class WriteEngine {
       await File("${folder.path}/${entity.id.toString()}.json")
           .writeAsString(entity.toString());
       updated[entity.id] = entity;
+
+      if (store.useCache) {
+        store.ensureCacheType(type)[entity.id] = entity;
+      }
     }
 
     return updated;

@@ -33,7 +33,7 @@ class StorageImpl<S extends Storage> implements Storage {
   Directory _storageHandle;
   PathProvider _pathProvider;
   bool useCache;
-  Map<String, Map<int, DataType>> c;
+  Map<Class<DataType>, Map<int, DataType>> c;
   Map<Class<DataType>, CreateFunction> creators;
 
   StorageImpl(this._pathProvider);
@@ -105,16 +105,16 @@ class StorageImpl<S extends Storage> implements Storage {
   }
 
   Map<int, DataType> ensureCacheType<T extends DataType>(Class<T> type) {
-    if (!ensureCache().containsKey(type.getName())) {
-      ensureCache()[type.getName()] = <int, T>{};
+    if (!ensureCache().containsKey(type)) {
+      ensureCache()[type] = <int, T>{};
     }
 
-    return ensureCache()[type.getName()];
+    return ensureCache()[type];
   }
 
-  Map<String, Map<int, DataType>> ensureCache() {
+  Map<Class<DataType>, Map<int, DataType>> ensureCache() {
     if (c == null) {
-      c = <String, Map<int, DataType>>{};
+      c = <Class<DataType>, Map<int, DataType>>{};
     }
 
     return c;

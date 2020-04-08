@@ -17,7 +17,7 @@ import '../../datatype.dart';
 ///
 class DeleteTypeImpl implements DeleteType {
   DeleterImpl deleter;
-  Class<dynamic> type;
+  Class<DataType> type;
 
   DeleteTypeImpl(this.deleter, this.type);
 

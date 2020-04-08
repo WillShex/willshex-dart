@@ -9,6 +9,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
+import 'package:path/path.dart';
 
 import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/sortdirectiontype.dart';
@@ -57,8 +58,22 @@ class QueryEngine {
     // int startAt = query.startAt == null ? 0 : query.startAt;
     // int matchedCount = 0;
     await for (FileSystemEntity record in records) {
+      object = null;
       if (record is File && record.path.endsWith(".json")) {
-        object = jsonDecode(await record.readAsString());
+        if (store.useCache) {
+          String name = basenameWithoutExtension(record.path);
+          int possibleId = int.tryParse(name);
+
+          if (possibleId != null) {
+            object =
+                store.ensureCacheType(query.dataClass)[possibleId].toJson();
+          }
+        }
+
+        if (object == null) {
+          object = jsonDecode(await record.readAsString());
+        }
+
         if (QueryHelper.isMatchAll(object, query.allFilters)) {
           // if (matchedCount >= startAt) {
           objects.add(object);
@@ -89,16 +104,20 @@ class QueryEngine {
     }
 
     List<T> matched = <T>[];
-    CreateFunction create = store.creators[query.dataClass];
 
-    T instance;
-    for (Map<String, dynamic> object in objects) {
-      matched.add(instance = create());
+    if (query.isIdsOnly) {
+      CreateFunction create = store.creators[query.dataClass];
+      matched.addAll(objects.map((f) {
+        return create()..id = f["id"];
+      }));
+    } else {
+      Map<int, T> loaded = await loader
+          .createLoadEngine()
+          .load(query.dataClass, objects.map((f) => f["id"]))
+          .now();
 
-      if (query.isIdsOnly) {
-        instance.id = object["id"];
-      } else {
-        instance.fromJson(object);
+      for (Map<String, dynamic> object in objects) {
+        matched.add(loaded[object["id"]]);
       }
     }
 

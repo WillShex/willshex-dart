@@ -28,7 +28,7 @@ class DeleterImpl implements Deleter {
     return DeleteTypeImpl(this, type);
   }
 
-  Result<Null> ids(Class<dynamic> type, Iterable<int> ids) {
+  Result<Null> ids(Class<DataType> type, Iterable<int> ids) {
     return store.createWriteEngine().delete(type, ids);
   }
 

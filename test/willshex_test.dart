@@ -57,9 +57,14 @@ void main() {
     });
 
     test("Read object (uncached)", () async {
-      final Test4Type saved = Test4Type()..id = 3;
-      expect(await uncached.save().entity(saved).now(), 3);
-      expect((await uncached.load().type(T4).id(1).now()).id, saved.id);
+      int id = 3;
+      final Test4Type saved = Test4Type()..id = id;
+      expect(await uncached.save().entity(saved).now(), id);
+
+      Test4Type loaded;
+      expect(
+          (loaded = await uncached.load().type(T4).id(id).now()).id, saved.id);
+      expect(false, saved == loaded);
     });
   });
 }
