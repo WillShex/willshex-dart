@@ -38,7 +38,9 @@ class LoadEngine {
 
         if (store.useCache) {
           entity = store.ensureCacheType(type)[id];
-        } else {
+        }
+
+        if (entity == null) {
           recordFileHandle = File("${folder.path}/${id.toString()}.json");
 
           if (await recordFileHandle.exists()) {

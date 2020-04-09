@@ -65,8 +65,9 @@ class QueryEngine {
           int possibleId = int.tryParse(name);
 
           if (possibleId != null) {
-            object =
-                store.ensureCacheType(query.dataClass)[possibleId].toJson();
+            T found = store.ensureCacheType(query.dataClass)[possibleId];
+
+            if (found != null) object = found.toJson();
           }
         }
 
