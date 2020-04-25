@@ -19,3 +19,6 @@ export 'src/storage/cloneable.dart';
 export 'src/storage/result.dart';
 export 'src/storage/storage.dart';
 export 'src/storage/storageprovider.dart';
+
+export 'src/utility/jsonutils.dart';
+export 'src/utility/stringutils.dart';
