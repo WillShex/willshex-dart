@@ -14,7 +14,7 @@ class Jsonable {
   Jsonable.json(Map<String, dynamic> json) {
     fromJson(json);
   }
-  
+
   Jsonable.string(String string) : this.json(jsonDecode(string));
 
   void fromJson(Map<String, dynamic> json) {}
