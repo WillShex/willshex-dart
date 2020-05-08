@@ -59,8 +59,8 @@ class WriteEngine {
     });
   }
 
-  Result<Null> delete<T>(final Class<T> type, final Iterable<int> ids) {
-    return Result<Null>(() async {
+  Result<void> delete<T>(final Class<T> type, final Iterable<int> ids) {
+    return Result<void>(() async {
       File recordFileHandle;
       Directory folder =
           type == null ? null : await store.ensureFolder(type.getSimpleName());
@@ -77,8 +77,8 @@ class WriteEngine {
     });
   }
 
-  Result<Null> compact<T extends DataType>(Class<T> type) {
-    return Result<Null>(() async {});
+  Result<void> compact<T extends DataType>(Class<T> type) {
+    return Result<void>(() async {});
   }
 
   Future<int> _nextAutoIncrement(Class<DataType> type, int increment) async {
@@ -89,7 +89,7 @@ class WriteEngine {
     return _getCounter(type, "autoinc");
   }
 
-  Future<Null> _setAutoIncrement(Class<DataType> type, int value) async {
+  Future<void> _setAutoIncrement(Class<DataType> type, int value) async {
     await _setCounter(type, "autoinc", value);
   }
 
@@ -100,7 +100,7 @@ class WriteEngine {
     return next;
   }
 
-  Future<Null> _setCounter(Class<DataType> type, String name, int value) async {
+  Future<void> _setCounter(Class<DataType> type, String name, int value) async {
     Directory folder = await store.ensureFolder(type.getSimpleName());
     File counterFileHandle = File("${folder.path}/.$name");
     await counterFileHandle.writeAsString(value.toString());

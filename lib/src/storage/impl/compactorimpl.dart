@@ -21,8 +21,8 @@ class CompactorImpl implements Compactor {
   CompactorImpl(this.store);
 
   @override
-  Result<Null> type<E>(Class<E> type) {
-    return Result<Null>(() {
+  Result<void> type<E>(Class<E> type) {
+    return Result<void>(() {
       return null;
     });
   }

@@ -13,5 +13,5 @@ import '../class.dart';
 /// @author William Shakour (billy1380)
 ///
 abstract class Compactor {
-  Result<Null> type<E>(Class<E> type);
+  Result<void> type<E>(Class<E> type);
 }

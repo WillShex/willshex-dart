@@ -12,7 +12,7 @@ import '../result.dart';
 /// @author William Shakour (billy1380)
 ///
 abstract class DeleteIds {
-  Result<Null> id(int id);
+  Result<void> id(int id);
 
-  Result<Null> ids(Iterable<int> ids);
+  Result<void> ids(Iterable<int> ids);
 }

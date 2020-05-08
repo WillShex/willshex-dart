@@ -10,24 +10,25 @@
 /// @author William Shakour (billy1380)
 ///
 class Class<T> {
-  final Type t;
+  final Type _t;
 
-  const Class(this.t);
+  const Class(this._t);
 
   String getSimpleName() {
-    return t.toString();
+    return _t.toString();
   }
 
   String getName() {
-    return t.toString();
+    return _t.toString();
   }
 
   @override
   int get hashCode {
-    return t.hashCode;
+    return _t.hashCode;
   }
 
+  @override
   bool operator ==(other) {
-    return other != null && other.t == this.t;
+    return other != null && other is Class && other._t == this._t;
   }
 }

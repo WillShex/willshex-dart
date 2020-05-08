@@ -28,17 +28,17 @@ class DeleterImpl implements Deleter {
     return DeleteTypeImpl(this, type);
   }
 
-  Result<Null> ids(Class<DataType> type, Iterable<int> ids) {
+  Result<void> ids(Class<DataType> type, Iterable<int> ids) {
     return store.createWriteEngine().delete(type, ids);
   }
 
   @override
-  Result<Null> entity<T extends DataType>(T entity) {
+  Result<void> entity<T extends DataType>(T entity) {
     return entities(<T>[entity]);
   }
 
   @override
-  Result<Null> entities<T extends DataType>(Iterable<T> entities) {
+  Result<void> entities<T extends DataType>(Iterable<T> entities) {
     List<int> ids = <int>[];
     Class<DataType> type;
 

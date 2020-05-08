@@ -22,22 +22,22 @@ class DeleteTypeImpl implements DeleteType {
   DeleteTypeImpl(this.deleter, this.type);
 
   @override
-  Result<Null> id(int id) {
+  Result<void> id(int id) {
     return ids(<int>[id]);
   }
 
   @override
-  Result<Null> ids(Iterable<int> ids) {
+  Result<void> ids(Iterable<int> ids) {
     return deleter.ids(type, ids);
   }
 
   @override
-  Result<Null> entity<T extends DataType>(T entity) {
+  Result<void> entity<T extends DataType>(T entity) {
     return entities(<T>[entity]);
   }
 
   @override
-  Result<Null> entities<T extends DataType>(Iterable<T> entities) {
+  Result<void> entities<T extends DataType>(Iterable<T> entities) {
     List<int> ids = <int>[];
     for (T entity in entities) {
       ids.add(entity.id);

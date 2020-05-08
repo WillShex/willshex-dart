@@ -17,7 +17,7 @@ import 'deletetype.dart';
 abstract class Deleter {
   DeleteType type(Class<DataType> type);
 
-  Result<Null> entity<T extends DataType>(T entity);
+  Result<void> entity<T extends DataType>(T entity);
 
-  Result<Null> entities<T extends DataType>(Iterable<T> entities);
+  Result<void> entities<T extends DataType>(Iterable<T> entities);
 }

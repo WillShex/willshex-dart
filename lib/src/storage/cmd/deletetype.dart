@@ -14,7 +14,7 @@ import '../../datatype.dart';
 /// @author William Shakour (billy1380)
 ///
 abstract class DeleteType implements DeleteIds {
-  Result<Null> entity<T extends DataType>(T entity);
+  Result<void> entity<T extends DataType>(T entity);
 
-  Result<Null> entities<T extends DataType>(Iterable<T> entities);
+  Result<void> entities<T extends DataType>(Iterable<T> entities);
 }

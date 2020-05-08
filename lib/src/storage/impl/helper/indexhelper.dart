@@ -30,7 +30,7 @@ class IndexHelper {
     return null;
   }
 
-  static Future<Null> saveIndex<T, I>(
+  static Future<void> saveIndex<T, I>(
       {@required StorageImpl<Storage> storage,
       Index<I> index,
       Class<T> type,
@@ -44,7 +44,7 @@ class IndexHelper {
     return null;
   }
 
-  static Future<Null> saveKey<T>(
+  static Future<void> saveKey<T>(
       {@required StorageImpl<Storage> storage,
       @required Key key,
       @required Class<T> type,
