@@ -6,9 +6,10 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../result.dart';
-import '../class.dart';
-import '../../datatype.dart';
+import 'dart:async';
+
+import 'package:willshex/willshex.dart';
+
 import 'deletetype.dart';
 
 ///
@@ -17,7 +18,7 @@ import 'deletetype.dart';
 abstract class Deleter {
   DeleteType type(Class<DataType> type);
 
-  Result<void> entity<T extends DataType>(T entity);
+  Future<void> entity<T extends DataType>(T entity);
 
-  Result<void> entities<T extends DataType>(Iterable<T> entities);
+  Future<void> entities<T extends DataType>(Iterable<T> entities);
 }

@@ -9,11 +9,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import '../../datatype.dart';
-import '../result.dart';
-import 'storageimpl.dart';
-import '../class.dart';
-import '../storage.dart';
+import 'package:willshex/src/storage/impl/storageimpl.dart';
+import 'package:willshex/willshex.dart';
 
 ///
 /// @author William Shakour (billy1380)
@@ -23,8 +20,8 @@ class WriteEngine {
 
   WriteEngine(this.store);
 
-  Result<Map<int, T>> save<T extends DataType>(final Iterable<T> entities) {
-    return Result<Map<int, T>>(() async {
+  Future<Map<int, T>> save<T extends DataType>(final Iterable<T> entities) {
+    return Future<Map<int, T>>(() async {
       Class<T> type;
       Map<int, T> saved = <int, T>{};
 
@@ -59,8 +56,8 @@ class WriteEngine {
     });
   }
 
-  Result<void> delete<T>(final Class<T> type, final Iterable<int> ids) {
-    return Result<void>(() async {
+  Future<void> delete<T>(final Class<T> type, final Iterable<int> ids) {
+    return Future<void>(() async {
       File recordFileHandle;
       Directory folder =
           type == null ? null : await store.ensureFolder(type.getSimpleName());
@@ -77,8 +74,8 @@ class WriteEngine {
     });
   }
 
-  Result<void> compact<T extends DataType>(Class<T> type) {
-    return Result<void>(() async {});
+  Future<void> compact<T extends DataType>(Class<T> type) {
+    return Future<void>(() async {});
   }
 
   Future<int> _nextAutoIncrement(Class<DataType> type, int increment) async {

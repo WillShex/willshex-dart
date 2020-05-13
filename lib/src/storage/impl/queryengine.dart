@@ -15,6 +15,7 @@ import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/sortdirectiontype.dart';
 import 'package:willshex/src/storage/storage.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
+import 'package:willshex/src/utility/typedef.dart';
 
 import 'order.dart';
 
@@ -107,15 +108,14 @@ class QueryEngine {
     List<T> matched = <T>[];
 
     if (query.isIdsOnly) {
-      CreateFunction create = store.creators[query.dataClass];
+      CreateFunction<T> create = store.creators[query.dataClass];
       matched.addAll(objects.map((f) {
         return create()..id = f["id"];
       }));
     } else {
       Map<int, T> loaded = await loader
           .createLoadEngine()
-          .load(query.dataClass, objects.map((f) => f["id"]))
-          .now();
+          .load(query.dataClass, objects.map((f) => f["id"]));
 
       for (Map<String, dynamic> object in objects) {
         matched.add(loaded[object["id"]]);

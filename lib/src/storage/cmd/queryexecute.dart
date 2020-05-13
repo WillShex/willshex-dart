@@ -8,25 +8,23 @@
 
 import 'dart:async';
 
-import '../result.dart';
-
 typedef Future<List<T>> ListFunction<T>();
-typedef Result<T> FirstFunction<T>();
+typedef Future<T> FirstFunction<T>();
 
 ///
 /// @author William Shakour (billy1380)
 ///
 class QueryExecute<T> {
-  ListFunction _listCall;
-  FirstFunction _firstCall;
+  ListFunction<T> _listCall;
+  FirstFunction<T> _firstCall;
 
   QueryExecute(this._firstCall, this._listCall);
 
-  Future<List<T>> list() async {
+  Future<List<T>> get list async {
     return _listCall();
   }
 
-  Result<T> first() {
+  Future<T> get first {
     return _firstCall();
   }
 }

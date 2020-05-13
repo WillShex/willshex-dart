@@ -8,17 +8,14 @@
 
 import 'dart:async';
 
-import '../result.dart';
+import 'package:willshex/src/storage/cmd/loader.dart';
+import 'package:willshex/src/storage/cmd/query.dart';
+import 'package:willshex/willshex.dart';
+
 import 'simplequeryimpl.dart';
-import '../cmd/query.dart';
-import '../cloneable.dart';
-import '../../datatype.dart';
 import 'order.dart';
 import 'filter.dart';
-import '../../sortdirectiontype.dart';
-import '../class.dart';
 import 'loaderimpl.dart';
-import '../cmd/loader.dart';
 
 ///
 /// @author William Shakour (billy1380)
@@ -35,7 +32,7 @@ class QueryImpl<T extends DataType> extends SimpleQueryImpl<T>
   bool isDistinct = false;
   bool isIdsOnly = false;
 
-  QueryImpl._private() : super.protected();
+  QueryImpl._() : super.protected();
 
   QueryImpl(LoaderImpl<Loader> loader) : super(loader);
 
@@ -151,18 +148,18 @@ class QueryImpl<T extends DataType> extends SimpleQueryImpl<T>
   void toggleReverse() => isReverse = !isReverse;
 
   @override
-  Future<int> count() async {
+  Future<int> get count async {
     return await loader.createQueryEngine().queryCount(this);
   }
 
   @override
-  Future<List<T>> list() async {
+  Future<List<T>> get list async {
     return await loader.createQueryEngine().query(this);
   }
 
   @override
-  Result<T> first() {
-    return Result<T>(() async {
+  Future<T> get first {
+    return Future<T>(() async {
       Iterator<T> entities = (await limit(1).resultIterable()).iterator;
       return entities.moveNext() ? entities.current : null;
     });
@@ -190,8 +187,8 @@ class QueryImpl<T extends DataType> extends SimpleQueryImpl<T>
   }
 
   @override
-  SimpleQueryImpl<T> newInstance() {
-    return QueryImpl._private();
+  SimpleQueryImpl<T> get newInstance {
+    return QueryImpl._();
   }
 
   List<Filter> get allFilters => this._filters;

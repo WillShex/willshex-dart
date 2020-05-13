@@ -25,5 +25,5 @@ abstract class SimpleQuery<T> implements QueryExecute<T> {
 
   QueryExecute<int> getIds();
 
-  Future<int> count();
+  Future<int> get count;
 }

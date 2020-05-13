@@ -31,39 +31,39 @@ void main() {
     setUpAll(() async {
       new Directory(await path()).delete(recursive: true);
 
-      cached = StorageProvider.provide(path).cache(true)
-        ..register(T1, () => Test1Type())
-        ..register(T2, () => Test2Type())
-        ..register(T3, () => Test3Type());
+      cached = StorageProvider.provide(path).cache(true);
 
-      uncached = StorageProvider.provide(path).cache(false)
-        ..register(T4, () => Test4Type());
+      cached[T1] = () => Test1Type();
+      cached[T2] = () => Test2Type();
+      cached[T3] = () => Test3Type();
+
+      uncached = StorageProvider.provide(path).cache(false);
+      uncached[T4] = () => Test4Type();
     });
 
     test("Store data with set id", () async {
-      expect(await cached.save().entity(Test1Type(id: 1)).now(), 1);
-      expect(await cached.save().entity(Test1Type(id: 4)).now(), 4);
+      expect(await cached.save.entity(Test1Type(id: 1)), 1);
+      expect(await cached.save.entity(Test1Type(id: 4)), 4);
     });
 
     test("Store data with unset ids (auto-increment)", () async {
-      expect(await cached.save().entity(Test2Type()).now(), 1);
-      expect(await cached.save().entity(Test2Type()).now(), 2);
+      expect(await cached.save.entity(Test2Type()), 1);
+      expect(await cached.save.entity(Test2Type()), 2);
     });
 
     test("Read object (cached)", () async {
       final Test3Type saved = Test3Type();
-      expect(await cached.save().entity(saved).now(), 1);
-      expect(await cached.load().id(T3, 1).now(), saved);
+      expect(await cached.save.entity(saved), 1);
+      expect(await cached.load.id(T3, 1), saved);
     });
 
     test("Read object (uncached)", () async {
       int id = 3;
       final Test4Type saved = Test4Type()..id = id;
-      expect(await uncached.save().entity(saved).now(), id);
+      expect(await uncached.save.entity(saved), id);
 
       Test4Type loaded;
-      expect(
-          (loaded = await uncached.load().type(T4).id(id).now()).id, saved.id);
+      expect((loaded = await uncached.load.type(T4).id(id)).id, saved.id);
       expect(false, saved == loaded);
     });
   });

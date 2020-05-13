@@ -8,12 +8,13 @@
 
 import 'dart:async';
 
-import '../result.dart';
-import '../../datatype.dart';
+
+import 'package:willshex/src/storage/cmd/loader.dart';
+import 'package:willshex/willshex.dart';
+
 import 'simplequeryimpl.dart';
 import 'loaderimpl.dart';
 import 'queryimpl.dart';
-import '../cmd/loader.dart';
 
 ///
 /// @author William Shakour (billy1380)
@@ -24,21 +25,21 @@ abstract class Queryable<T extends DataType> extends SimpleQueryImpl<T> {
   Queryable(LoaderImpl<Loader> loader) : super(loader);
 
   @override
-  Result<T> first() {
+  Future<T> get first {
     QueryImpl<T> q = createQuery();
-    return q.first();
+    return q.first;
   }
 
   @override
-  Future<int> count() {
+  Future<int> get count {
     QueryImpl<T> q = createQuery();
-    return q.count();
+    return q.count;
   }
 
   @override
-  Future<List<T>> list() async {
+  Future<List<T>> get list async {
     QueryImpl<T> q = createQuery();
-    return q.list();
+    return q.list;
   }
 
   Queryable<T> clone() {

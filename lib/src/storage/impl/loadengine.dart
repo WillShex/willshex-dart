@@ -6,17 +6,17 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:willshex/src/datatype.dart';
-import 'package:willshex/src/storage/result.dart';
 import 'package:willshex/src/storage/class.dart';
-import 'package:willshex/src/storage/storage.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
+import 'package:willshex/src/storage/storage.dart';
+import 'package:willshex/src/utility/typedef.dart';
 
-import 'storageimpl.dart';
 import 'loaderimpl.dart';
-
+import 'storageimpl.dart';
 ///
 /// @author William Shakour (billy1380)
 ///
@@ -26,9 +26,9 @@ class LoadEngine {
 
   LoadEngine(this.loader, this.store);
 
-  Result<Map<int, T>> load<T extends DataType>(
+  Future<Map<int, T>> load<T extends DataType>(
       final Class<T> type, final Iterable<int> ids) {
-    return Result<Map<int, T>>(() async {
+    return Future<Map<int, T>>(() async {
       final Map<int, T> loaded = <int, T>{};
       File recordFileHandle;
       T entity;
@@ -44,7 +44,7 @@ class LoadEngine {
           recordFileHandle = File("${folder.path}/${id.toString()}.json");
 
           if (await recordFileHandle.exists()) {
-            final CreateFunction creator = store.creators[type];
+            final CreateFunction<T> creator = store.creators[type];
 
             if (creator == null) {
               throw Exception(

@@ -6,12 +6,13 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
+import 'dart:async';
+
 import 'package:willshex/src/datatype.dart';
-import 'package:willshex/src/storage/result.dart';
-import 'package:willshex/src/storage/cmd/simplequery.dart';
 import 'package:willshex/src/storage/class.dart';
-import 'package:willshex/src/storage/cmd/queryexecute.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
+import 'package:willshex/src/storage/cmd/queryexecute.dart';
+import 'package:willshex/src/storage/cmd/simplequery.dart';
 
 import 'loaderimpl.dart';
 import 'queryimpl.dart';
@@ -71,7 +72,7 @@ abstract class SimpleQueryImpl<T extends DataType> implements SimpleQuery<T> {
     final QueryImpl<T> q = createQuery();
     q.isIdsOnly = true;
     return QueryExecute<int>(() {
-      return Result<int>(() async {
+      return Future<int>(() async {
         List<int> ids = await loader.createQueryEngine().queryIds(q.limit(1));
         return ids.length > 0 ? ids.first : null;
       });
@@ -81,7 +82,7 @@ abstract class SimpleQueryImpl<T extends DataType> implements SimpleQuery<T> {
   }
 
   SimpleQueryImpl<T> clone() {
-    SimpleQueryImpl<T> impl = newInstance();
+    SimpleQueryImpl<T> impl = newInstance;
 
     if (impl == null) throw Exception(Class(this.runtimeType).getName());
 
@@ -91,5 +92,5 @@ abstract class SimpleQueryImpl<T extends DataType> implements SimpleQuery<T> {
     return impl;
   }
 
-  SimpleQueryImpl<T> newInstance();
+  SimpleQueryImpl<T> get newInstance;
 }

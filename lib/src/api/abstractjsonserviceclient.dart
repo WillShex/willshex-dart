@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:willshex/src/utility/typedef.dart';
 
 import 'request.dart';
 import 'response.dart';
@@ -11,7 +12,8 @@ abstract class AbstractJsonServiceClient {
 
   AbstractJsonServiceClient({this.url});
 
-  T parseResponse<T extends Response>(http.Response response, T create()) {
+  T parseResponse<T extends Response>(
+      http.Response response, CreateFunction<T> create) {
     String responseText;
     T output;
     if (response.statusCode >= 200 &&

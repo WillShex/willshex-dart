@@ -6,13 +6,13 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../result.dart';
+import 'dart:async';
 
 ///
 /// @author William Shakour (billy1380)
 ///
 abstract class DeleteIds {
-  Result<void> id(int id);
+  Future<void> id(int id);
 
-  Result<void> ids(Iterable<int> ids);
+  Future<void> ids(Iterable<int> ids);
 }

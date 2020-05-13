@@ -6,6 +6,8 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
+import 'package:willshex/src/utility/typedef.dart';
+
 import 'class.dart';
 import '../datatype.dart';
 import 'cmd/compactor.dart';
@@ -19,15 +21,19 @@ import 'cmd/loader.dart';
 abstract class Storage {
   static const String VERSION = "0.1alpha";
 
-  Loader load();
+  Loader get load;
 
-  Saver save();
+  Saver get save;
 
-  Deleter delete();
+  Deleter get delete;
 
   Storage cache(bool cache);
 
-  Compactor compact();
+  Compactor get compact;
 
-  void register<T extends DataType>(Class<T> type, T create());
+  void register<T extends DataType>(Class<T> type, CreateFunction<T> create);
+
+  void operator []=(Class type, CreateFunction create) {
+    register<DataType>(type, create);
+  }
 }

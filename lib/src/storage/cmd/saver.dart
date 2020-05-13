@@ -6,14 +6,15 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../result.dart';
-import '../../datatype.dart';
+import 'dart:async';
+
+import 'package:willshex/willshex.dart';
 
 ///
 /// @author William Shakour (billy1380)
 ///
 abstract class Saver {
-  Result<int> entity<E extends DataType>(E entity);
+  Future<int> entity<E extends DataType>(E entity);
 
-  Result<Map<int, E>> entities<E extends DataType>(Iterable<E> entities);
+  Future<Map<int, E>> entities<E extends DataType>(Iterable<E> entities);
 }

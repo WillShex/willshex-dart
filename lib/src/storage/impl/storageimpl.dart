@@ -16,6 +16,7 @@ import 'package:willshex/src/storage/class.dart';
 import 'package:willshex/src/storage/cmd/deleter.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
 import 'package:willshex/src/storage/cmd/compactor.dart';
+import 'package:willshex/src/utility/typedef.dart';
 
 import 'loaderimpl.dart';
 import 'saverimpl.dart';
@@ -23,13 +24,12 @@ import 'deleterimpl.dart';
 import 'writeengine.dart';
 import 'compactorimpl.dart';
 
-typedef T CreateFunction<T>();
 typedef Future<String> PathProvider();
 
 ///
 /// @author William Shakour (billy1380)
 ///
-class StorageImpl<S extends Storage> implements Storage {
+class StorageImpl<S extends Storage> extends Storage {
   Directory _storageHandle;
   PathProvider _pathProvider;
   bool useCache;
@@ -66,17 +66,17 @@ class StorageImpl<S extends Storage> implements Storage {
   }
 
   @override
-  Loader load() {
+  Loader get load {
     return LoaderImpl<Loader>(this);
   }
 
   @override
-  Saver save() {
+  Saver get save {
     return SaverImpl(this);
   }
 
   @override
-  Deleter delete() {
+  Deleter get delete {
     return DeleterImpl(this);
   }
 
@@ -87,7 +87,7 @@ class StorageImpl<S extends Storage> implements Storage {
   }
 
   @override
-  Compactor compact() {
+  Compactor get compact {
     return CompactorImpl(this);
   }
 

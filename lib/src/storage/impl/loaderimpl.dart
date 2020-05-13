@@ -10,7 +10,6 @@ import 'dart:async';
 
 import 'package:willshex/src/storage/cloneable.dart';
 import 'package:willshex/src/storage/class.dart';
-import 'package:willshex/src/storage/result.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
 import 'package:willshex/src/storage/storage.dart';
 import 'package:willshex/src/datatype.dart';
@@ -32,7 +31,7 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
     implements Loader, Cloneable {
   StorageImpl<Storage> store;
 
-  LoaderImpl._private() : super.protected();
+  LoaderImpl._() : super.protected();
   LoaderImpl(this.store) : super(null);
 
   @override
@@ -46,7 +45,7 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
   }
 
   @override
-  Result<Map<int, E>> entities<E extends DataType>(Iterable<E> entities) {
+  Future<Map<int, E>> entities<E extends DataType>(Iterable<E> entities) {
     LoadEngine engine = createLoadEngine();
 
     List<int> ids = <int>[];
@@ -72,7 +71,7 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
 
   @override
   Future<E> now<E extends DataType>(Class<E> type, int id) async {
-    Map<int, E> loaded = await createLoadEngine().load(type, <int>[id]).now();
+    Map<int, E> loaded = await createLoadEngine().load(type, <int>[id]);
     return loaded.values.length > 0 ? loaded.values.first : null;
   }
 
@@ -86,29 +85,29 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
   }
 
   @override
-  Result<E> entity<E extends DataType>(final E entity) {
-    return Result<E>(() async {
-      Map<int, E> entities = await this.entities(<E>[entity]).now();
+  Future<E> entity<E extends DataType>(final E entity) {
+    return Future<E>(() async {
+      Map<int, E> entities = await this.entities(<E>[entity]);
       return entities.values.length > 0 ? entities.values.first : null;
     });
   }
 
   @override
-  Result<T> id<T extends DataType>(final Class<T> type, final int id) {
-    return Result<T>(() async {
-      Map<int, T> entities = await this.ids(type, <int>[id]).now();
+  Future<T> id<T extends DataType>(final Class<T> type, final int id) {
+    return Future<T>(() async {
+      Map<int, T> entities = await this.ids(type, <int>[id]);
       return entities.values.length > 0 ? entities.values.first : null;
     });
   }
 
   @override
-  Result<Map<int, T>> ids<T extends DataType>(
+  Future<Map<int, T>> ids<T extends DataType>(
       Class<T> type, Iterable<int> ids) {
     return createLoadEngine().load(type, ids);
   }
 
   @override
-  SimpleQueryImpl<DataType> newInstance() {
-    return LoaderImpl<Loader>._private();
+  SimpleQueryImpl<DataType> get newInstance {
+    return LoaderImpl<Loader>._();
   }
 }

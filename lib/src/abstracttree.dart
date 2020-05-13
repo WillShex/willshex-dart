@@ -6,13 +6,13 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
+import 'package:willshex/src/utility/typedef.dart';
+
 abstract class Region<T> {
   Region<T> split(int value);
   bool intersects(Region<T> region);
   bool contains(T t);
 }
-
-typedef T CreateFunction<T>();
 
 abstract class AbstractTree<T> {
   final List<AbstractTree<T>> children;

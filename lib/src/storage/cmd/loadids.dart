@@ -6,14 +6,15 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../result.dart';
+import 'dart:async';
+
 import 'package:willshex/src/datatype.dart';
 
 ///
 /// @author William Shakour (billy1380)
 ///
 abstract class LoadIds<T extends DataType> {
-  Result<T> id(int id);
+  Future<T> id(int id);
 
-  Result<Map<int, T>> ids(Iterable<int> ids);
+  Future<Map<int, T>> ids(Iterable<int> ids);
 }

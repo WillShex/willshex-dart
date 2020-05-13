@@ -6,14 +6,13 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../result.dart';
-import '../cmd/deleter.dart';
-import 'storageimpl.dart';
-import '../class.dart';
-import '../cmd/deletetype.dart';
-import '../../datatype.dart';
-import 'deletetypeimpl.dart';
-import '../storage.dart';
+import 'dart:async';
+
+import 'package:willshex/src/storage/cmd/deleter.dart';
+import 'package:willshex/src/storage/cmd/deletetype.dart';
+import 'package:willshex/src/storage/impl/deletetypeimpl.dart';
+import 'package:willshex/src/storage/impl/storageimpl.dart';
+import 'package:willshex/willshex.dart';
 
 ///
 /// @author William Shakour (billy1380)
@@ -28,17 +27,17 @@ class DeleterImpl implements Deleter {
     return DeleteTypeImpl(this, type);
   }
 
-  Result<void> ids(Class<DataType> type, Iterable<int> ids) {
+  Future<void> ids(Class<DataType> type, Iterable<int> ids) {
     return store.createWriteEngine().delete(type, ids);
   }
 
   @override
-  Result<void> entity<T extends DataType>(T entity) {
+  Future<void> entity<T extends DataType>(T entity) {
     return entities(<T>[entity]);
   }
 
   @override
-  Result<void> entities<T extends DataType>(Iterable<T> entities) {
+  Future<void> entities<T extends DataType>(Iterable<T> entities) {
     List<int> ids = <int>[];
     Class<DataType> type;
 

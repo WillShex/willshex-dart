@@ -16,7 +16,6 @@ export 'src/api/statustype.dart';
 
 export 'src/storage/class.dart';
 export 'src/storage/cloneable.dart';
-export 'src/storage/result.dart';
 export 'src/storage/storage.dart';
 export 'src/storage/storageprovider.dart';
 

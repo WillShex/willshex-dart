@@ -6,12 +6,13 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../result.dart';
-import '../class.dart';
+import 'dart:async';
+
+import 'package:willshex/willshex.dart';
 
 ///
 /// @author William Shakour (billy1380)
 ///
 abstract class Compactor {
-  Result<void> type<E>(Class<E> type);
+  Future<void> type<E>(Class<E> type);
 }

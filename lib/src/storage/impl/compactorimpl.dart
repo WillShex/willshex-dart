@@ -6,11 +6,12 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../result.dart';
+import 'package:willshex/src/storage/cmd/compactor.dart';
+import 'package:willshex/willshex.dart';
+
 import 'storageimpl.dart';
-import '../cmd/compactor.dart';
-import '../class.dart';
-import '../storage.dart';
+
+import 'dart:async';
 
 ///
 /// @author William Shakour (billy1380)
@@ -21,9 +22,7 @@ class CompactorImpl implements Compactor {
   CompactorImpl(this.store);
 
   @override
-  Result<void> type<E>(Class<E> type) {
-    return Result<void>(() {
-      return null;
-    });
+  Future<void> type<E>(Class<E> type) {
+    return null;
   }
 }

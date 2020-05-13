@@ -6,16 +6,17 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
+import 'dart:async';
+
+import 'package:willshex/src/storage/cmd/loader.dart';
+import 'package:willshex/src/storage/cmd/loadtype.dart';
+import 'package:willshex/src/storage/cmd/query.dart';
+import 'package:willshex/src/storage/impl/loaderimpl.dart';
+import 'package:willshex/src/storage/impl/queryable.dart';
+import 'package:willshex/src/storage/impl/queryimpl.dart';
+import 'package:willshex/willshex.dart';
+
 import 'simplequeryimpl.dart';
-import '../result.dart';
-import '../../datatype.dart';
-import 'queryable.dart';
-import '../cmd/loadtype.dart';
-import 'loaderimpl.dart';
-import '../cmd/loader.dart';
-import '../class.dart';
-import '../cmd/query.dart';
-import 'queryimpl.dart';
 
 ///
 /// @author William Shakour (billy1380)
@@ -27,12 +28,12 @@ class LoadTypeImpl<T extends DataType> extends Queryable<T>
   }
 
   @override
-  Result<T> id(final int id) {
+  Future<T> id(final int id) {
     return loader.id(dataClass, id);
   }
 
   @override
-  Result<Map<int, T>> ids(Iterable<int> ids) {
+  Future<Map<int, T>> ids(Iterable<int> ids) {
     return loader.ids(dataClass, ids);
   }
 
@@ -63,7 +64,7 @@ class LoadTypeImpl<T extends DataType> extends Queryable<T>
   }
 
   @override
-  SimpleQueryImpl<T> newInstance() {
+  SimpleQueryImpl<T> get newInstance {
     return LoadTypeImpl<T>(null, null);
   }
 }

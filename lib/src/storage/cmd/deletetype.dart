@@ -6,15 +6,17 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../result.dart';
+import 'package:willshex/willshex.dart';
+
 import 'deleteids.dart';
-import '../../datatype.dart';
+
+import 'dart:async';
 
 ///
 /// @author William Shakour (billy1380)
 ///
 abstract class DeleteType implements DeleteIds {
-  Result<void> entity<T extends DataType>(T entity);
+  Future<void> entity<T extends DataType>(T entity);
 
-  Result<void> entities<T extends DataType>(Iterable<T> entities);
+  Future<void> entities<T extends DataType>(Iterable<T> entities);
 }
