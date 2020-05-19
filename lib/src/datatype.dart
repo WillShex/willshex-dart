@@ -48,7 +48,7 @@ class DataType extends Jsonable {
     }
 
     if (created != null) {
-      json["created"] = created.microsecondsSinceEpoch;
+      json["created"] = created.millisecondsSinceEpoch;
     }
 
     if (deleted != null) {
