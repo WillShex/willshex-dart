@@ -23,7 +23,7 @@ A simple usage example:
       awesome[CLASS_DATA_TYPE_2] = () => DataType2();
       await awesome.save().entity(DataType(id: 1));
       DataType loaded = await awesome.load().type(CLASS_DATA_TYPE).first().now();
-      print('awesome: ${loaded.id}');
+      _log.info('awesome: ${loaded.id}');
     }
 
 ## Features and bugs

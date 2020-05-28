@@ -8,6 +8,7 @@
 
 import 'dart:async';
 
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'dart:math';
 
@@ -21,6 +22,8 @@ import '../storageimpl.dart';
 /// @author William Shakour (billy1380)
 ///
 class IndexHelper {
+  static final Logger _log = Logger("IndexHelper");
+
   static Future<Index<I>> loadIndex<T, I>({
     @required StorageImpl<Storage> storage,
     Class<T> type,
@@ -78,7 +81,7 @@ class IndexHelper {
       value += s.codeUnitAt(i) * pow(10.0, -i);
     }
 
-    print("$s weighs: $value");
+    _log.info("$s weighs: $value");
 
     return value;
   }

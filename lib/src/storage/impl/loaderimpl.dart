@@ -8,6 +8,7 @@
 
 import 'dart:async';
 
+import 'package:logging/logging.dart';
 import 'package:willshex/src/storage/cloneable.dart';
 import 'package:willshex/src/storage/class.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
@@ -29,6 +30,7 @@ import 'simplequeryimpl.dart';
 ///
 class LoaderImpl<L extends Loader> extends Queryable<DataType>
     implements Loader, Cloneable {
+  static final Logger _log = Logger("LoaderImpl");
   StorageImpl<Storage> store;
 
   LoaderImpl._() : super.protected();
@@ -79,7 +81,7 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
     try {
       return super.clone();
     } on Exception catch (e) {
-      print(e);
+      _log.warning(e);
     }
     return null;
   }

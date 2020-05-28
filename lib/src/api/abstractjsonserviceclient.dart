@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:logging/logging.dart';
 import 'package:willshex/src/utility/typedef.dart';
 
 import 'request.dart';
 import 'response.dart';
 
 abstract class AbstractJsonServiceClient {
+  static final Logger _log = Logger("AbstractJsonServiceClient");
   String url;
 
   AbstractJsonServiceClient({this.url});
@@ -23,7 +25,7 @@ abstract class AbstractJsonServiceClient {
         "null" != responseText.toLowerCase()) {
       output = create()..fromString(responseText);
 
-      print("Recieved [$responseText] to [${response.request.url}");
+      _log.info("Recieved [$responseText] to [${response.request.url}");
     } else if (response.statusCode >= 400)
       throw HttpException("$response.statusCode: $response.reasonPhrase",
           uri: response.request.url);
@@ -35,7 +37,7 @@ abstract class AbstractJsonServiceClient {
     String requestData = "action=$action&request=";
     requestData += Uri.encodeComponent(input.toString());
 
-    print("Sending [$input] to [$url] with action [$action]");
+    _log.info("Sending [$input] to [$url] with action [$action]");
 
     return await http.post(Uri.parse(url),
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
