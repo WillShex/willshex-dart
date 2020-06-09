@@ -23,7 +23,7 @@ abstract class SimpleQuery<T> implements QueryExecute<T> {
 
   SimpleQuery<T> reverse();
 
-  QueryExecute<int> getIds();
+  QueryExecute<int> get allIds;
 
   Future<int> get count;
 }

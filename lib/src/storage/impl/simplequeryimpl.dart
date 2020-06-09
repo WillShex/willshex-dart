@@ -68,7 +68,7 @@ abstract class SimpleQueryImpl<T extends DataType> implements SimpleQuery<T> {
   }
 
   @override
-  QueryExecute<int> getIds() {
+  QueryExecute<int> get allIds {
     final QueryImpl<T> q = createQuery();
     q.isIdsOnly = true;
     return QueryExecute<int>(() {
