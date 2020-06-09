@@ -23,11 +23,11 @@ class DeleterImpl implements Deleter {
   DeleterImpl(this.store);
 
   @override
-  DeleteType type(Class<DataType> type) {
+  DeleteType type<T extends DataType>(Class<T> type) {
     return DeleteTypeImpl(this, type);
   }
 
-  Future<void> ids(Class<DataType> type, Iterable<int> ids) {
+  Future<void> ids<T extends DataType>(Class<T> type, Iterable<int> ids) {
     return store.createWriteEngine().delete(type, ids);
   }
 
@@ -39,7 +39,7 @@ class DeleterImpl implements Deleter {
   @override
   Future<void> entities<T extends DataType>(Iterable<T> entities) {
     List<int> ids = <int>[];
-    Class<DataType> type;
+    Class<T> type;
 
     for (T t in entities) {
       if (type == null) {

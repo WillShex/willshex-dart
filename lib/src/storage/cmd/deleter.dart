@@ -16,7 +16,7 @@ import 'deletetype.dart';
 /// @author William Shakour (billy1380)
 ///
 abstract class Deleter {
-  DeleteType type(Class<DataType> type);
+  DeleteType type<T extends DataType>(Class<T> type);
 
   Future<void> entity<T extends DataType>(T entity);
 

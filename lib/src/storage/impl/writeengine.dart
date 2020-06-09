@@ -78,32 +78,31 @@ class WriteEngine {
     return Future<void>(() async {});
   }
 
-  Future<int> _nextAutoIncrement(Class<DataType> type, int increment) async {
+  Future<int> _nextAutoIncrement<T extends DataType>(Class<T> type, int increment) async {
     return _incrementCounter(type, "autoinc", increment);
   }
 
-  Future<int> getAutoIncrement(Class<DataType> type) {
+  Future<int> getAutoIncrement<T extends DataType>(Class<T> type) {
     return _getCounter(type, "autoinc");
   }
 
-  Future<void> _setAutoIncrement(Class<DataType> type, int value) async {
+  Future<void> _setAutoIncrement<T extends DataType>(Class<T> type, int value) async {
     await _setCounter(type, "autoinc", value);
   }
 
-  Future<int> _incrementCounter(
-      Class<DataType> type, String name, int increment) async {
+  Future<int> _incrementCounter<T extends DataType>(Class<T> type, String name, int increment) async {
     int next = await _getCounter(type, name) + increment;
     await _setCounter(type, name, next);
     return next;
   }
 
-  Future<void> _setCounter(Class<DataType> type, String name, int value) async {
+  Future<void> _setCounter<T extends DataType>(Class<T> type, String name, int value) async {
     Directory folder = await store.ensureFolder(type.getSimpleName());
     File counterFileHandle = File("${folder.path}/.$name");
     await counterFileHandle.writeAsString(value.toString());
   }
 
-  Future<int> _getCounter(Class<DataType> type, String name) async {
+  Future<int> _getCounter<T extends DataType>(Class<T> type, String name) async {
     int counter;
     Directory folder = await store.ensureFolder(type.getSimpleName());
     File counterFileHandle = File("${folder.path}/.$name");
