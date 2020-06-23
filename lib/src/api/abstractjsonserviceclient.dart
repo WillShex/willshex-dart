@@ -8,11 +8,44 @@ import 'package:willshex/src/utility/typedef.dart';
 import 'request.dart';
 import 'response.dart';
 
+typedef void SuccessCallback<S extends Request, T extends Response>(
+    S input, T output);
+typedef void FailureCallback<T extends Request>(T input, Exception caught);
+
 abstract class AbstractJsonServiceClient {
   static final Logger _log = Logger("AbstractJsonServiceClient");
   String url;
 
   AbstractJsonServiceClient({this.url});
+
+  Future<void> call<S extends Request, T extends Response>(
+      String callName,
+      S input,
+      SuccessCallback<S, T> onSuccess,
+      FailureCallback<S> onFailure,
+      CreateFunction<T> creator) async {
+    try {
+      onCallStart(this, callName, input);
+      http.Response response = await sendRequest(callName, input);
+      try {
+        Response output = parseResponse(response, creator);
+        if (onSuccess != null) {
+          onSuccess(input, output);
+        }
+        onCallSuccess(this, callName, input, output);
+      } on Exception catch (e) {
+        if (onFailure != null) {
+          onFailure(input, e);
+        }
+        onCallFailure(this, callName, input, e);
+      }
+    } on Exception catch (e) {
+      if (onFailure != null) {
+        onFailure(input, e);
+      }
+      onCallFailure(this, callName, input, e);
+    }
+  }
 
   T parseResponse<T extends Response>(
       http.Response response, CreateFunction<T> create) {
