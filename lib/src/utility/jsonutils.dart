@@ -56,7 +56,7 @@ class JsonUtils {
   static String _strip(String json, List<String> values) {
     if (values == null) return json;
 
-    StringBuffer stripped = new StringBuffer(json.length);
+    StringBuffer stripped = StringBuffer();
 
     bool inStringValue = false;
     bool escaped = false;
@@ -164,7 +164,7 @@ class JsonUtils {
     String indent = "";
     bool newLineAfter = true, newLineBefore = false;
 
-    StringBuffer beautifulJson = new StringBuffer();
+    StringBuffer beautifulJson = StringBuffer();
     for (int i = 0; i < length; i++) {
       current = stripped[i];
 

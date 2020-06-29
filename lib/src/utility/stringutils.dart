@@ -382,7 +382,7 @@ class StringUtils {
   /// @param value string to decode
   /// @return decoded string
   static String urldecode(String value) {
-    StringBuffer replaced = new StringBuffer(value);
+    StringBuffer replaced = StringBuffer(value);
 
     int i, start = 0;
     for (i = 0; i < _REPLACE_CHARS.length; i++) {
@@ -408,7 +408,7 @@ class StringUtils {
 	 * @return encoded string
 	 */
   static String urlencode(String value) {
-    StringBuffer replaced = new StringBuffer(value);
+    StringBuffer replaced = StringBuffer(value);
 
     int i, start = 0;
     for (i = 0; i < _ESCAPE_CHARS.length; i++) {
@@ -427,7 +427,7 @@ class StringUtils {
   /// @param value string to rotate
   /// @return rotated result
   static String rot13(String value) {
-    StringBuffer buffer = new StringBuffer(value.length);
+    StringBuffer buffer = StringBuffer();
 
     int count = value.length;
     int index;
@@ -486,7 +486,7 @@ class StringUtils {
       [String allowed = _ALLOWED_CHARS,
       String replacement = "-",
       int maxLength = 100]) {
-    StringBuffer restricted = new StringBuffer();
+    StringBuffer restricted = StringBuffer();
 
     if (value != null && value.length > 0) {
       value = value.toLowerCase();
@@ -511,7 +511,7 @@ class StringUtils {
   }
 
   static String camelCase(String value) {
-    StringBuffer restricted = new StringBuffer();
+    StringBuffer restricted = StringBuffer();
 
     if (value != null && value.length > 0) {
       int size = value.length;
@@ -559,7 +559,7 @@ class StringUtils {
   }
 
   static String pascalCase(String value) {
-    StringBuffer restricted = new StringBuffer();
+    StringBuffer restricted = StringBuffer();
 
     if (value != null && value.length > 0) {
       int size = value.length;
@@ -604,7 +604,7 @@ class StringUtils {
 
   static String expandByCase(String value, bool capitalFirst,
       bool capitalAfterSpace, String space, String append) {
-    StringBuffer expanded = new StringBuffer();
+    StringBuffer expanded = StringBuffer();
     if (value != null && value.length > 0) {
       int size = value.length;
       bool inNumbers = false, isNumber = false, addSpace = false;
@@ -660,7 +660,7 @@ class StringUtils {
   }
 
   static String constantName(String value, String prefix, String suffix) {
-    StringBuffer constant = new StringBuffer();
+    StringBuffer constant = StringBuffer();
 
     constant.write(prefix);
 
@@ -718,7 +718,7 @@ class StringUtils {
   /// @param count The number of times to repeat the string
   /// @return
   static String repeat(String string, int count) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuffer buffer = StringBuffer();
 
     for (int i = 0; i < count; i++) {
       buffer.write(string);
@@ -802,7 +802,7 @@ class StringUtils {
     if (strings != null) {
       List<String> split;
       String modified;
-      StringBuffer buffer = new StringBuffer();
+      StringBuffer buffer = StringBuffer();
 
       for (String string in strings) {
         modified = restrict(string, _ALLOWED_CHARS, " ", 2147483647);
@@ -829,5 +829,12 @@ class StringUtils {
 
   static bool isNotEmpty(String value) {
     return !isEmpty(value);
+  }
+
+  static bool equalsIgnoreCase(String s1, String s2) {
+    String s1Lower = s1 == null ? s1 : s1.toLowerCase();
+    String s2Lower = s2 == null ? s2 : s2.toLowerCase();
+
+    return s1 == s2;
   }
 }
