@@ -343,7 +343,9 @@ const String _CAMEL_PASCAL_ALLOWED = _UPPER + _LOWER + _NUMBERS;
 
 /// @author William Shakour
 ///
-class StringUtils {
+abstract class StringUtils {
+  StringUtils._();
+
   static String sanitise(String value) {
     return value;
     // value.replace("<", "").replace(">", "");
