@@ -833,10 +833,6 @@ abstract class StringUtils {
     return !isEmpty(value);
   }
 
-  static bool equalsIgnoreCase(String s1, String s2) {
-    String s1Lower = s1 == null ? s1 : s1.toLowerCase();
-    String s2Lower = s2 == null ? s2 : s2.toLowerCase();
-
-    return s1 == s2;
-  }
+  static bool equalsIgnoreCase(String s1, String s2) =>
+      s1?.toLowerCase() == s2?.toLowerCase();
 }

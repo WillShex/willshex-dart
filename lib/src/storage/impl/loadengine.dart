@@ -7,7 +7,7 @@
 //
 
 import 'dart:async';
-import 'dart:io';
+import 'package:universal_io/io.dart';
 
 import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/storage/class.dart';
@@ -17,6 +17,7 @@ import 'package:willshex/src/utility/typedef.dart';
 
 import 'loaderimpl.dart';
 import 'storageimpl.dart';
+
 ///
 /// @author William Shakour (billy1380)
 ///
