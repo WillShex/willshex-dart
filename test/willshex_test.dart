@@ -41,12 +41,12 @@ void main() {
 
       cached = StorageProvider.provide(path).cache(true);
 
-      cached[T1] = () => Test1Type();
-      cached[T2] = () => Test2Type();
-      cached[T3] = () => Test3Type();
+      cached.register(T1, () => Test1Type());
+      cached.register(T2, () => Test2Type());
+      cached.register(T3, () => Test3Type());
 
       uncached = StorageProvider.provide(path).cache(false);
-      uncached[T4] = () => Test4Type();
+      uncached.register(T4, () => Test4Type());
     });
 
     test("Store data with set id", () async {

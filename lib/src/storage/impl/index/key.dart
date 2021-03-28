@@ -10,13 +10,15 @@ import '../../../abstracttree.dart';
 import 'keyregion.dart';
 
 class Key extends AbstractTree<int> {
-  Key() : super(_creator, 2);
+  static const max = 4294967296;
+
+  Key._() : super(_creator, 2);
 
   static Key _creator() {
-    return Key();
+    return Key._();
   }
 
-  static Key createKey(KeyRegion region, int capacity) {
-    return AbstractTree.createTree(region, capacity, _creator);
+  static Key createKey([int capacity = 10]) {
+    return AbstractTree.createTree(KeyRegion(0, max), capacity, _creator);
   }
 }

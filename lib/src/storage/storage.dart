@@ -19,7 +19,7 @@ import 'cmd/loader.dart';
 /// @author William Shakour (billy1380)
 ///
 abstract class Storage {
-  static const String VERSION = "0.1alpha";
+  static const String VERSION = "0.0.1";
 
   Loader get load;
 
@@ -31,9 +31,8 @@ abstract class Storage {
 
   Compactor get compact;
 
-  void register<T extends DataType>(Class<T> type, CreateFunction<T> create);
-
-  void operator []=(Class type, CreateFunction create) {
-    register<DataType>(type, create);
-  }
+  void register<T extends DataType>(
+    Class<T> type,
+    CreateFunction<T> create,
+  );
 }
