@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:logging/logging.dart';
 import 'package:universal_io/io.dart';
 
 import 'package:willshex/willshex.dart';
@@ -21,15 +22,22 @@ const Class<Test3Type> T3 = Class<Test3Type>(Test3Type);
 const Class<Test4Type> T4 = Class<Test4Type>(Test4Type);
 
 void main() {
+  Logger.root.level = Level.ALL; // defaults to Level.INFO
+  Logger.root.onRecord.listen((record) {
+    print('${record.level.name}: ${record.time}: ${record.message}');
+  });
+
+  // Logger log = Logger("test:main");
+
   group("Storage Tests", () {
     Storage cached, uncached;
 
-    Future<String> path() {
-      return Future.value("./data");
-    }
+    Future<String> path() => Future.value("./data");
 
     setUpAll(() async {
-      new Directory(await path()).delete(recursive: true);
+      Directory(await path()).delete(
+        recursive: true,
+      );
 
       cached = StorageProvider.provide(path).cache(true);
 

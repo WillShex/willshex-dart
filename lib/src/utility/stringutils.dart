@@ -730,8 +730,13 @@ abstract class StringUtils {
   }
 
   static Iterable<String> longestCommonParts(String lhs, String rhs) {
-    List<List<int>> table =
-        List.generate(lhs.length, (i) => List<int>(rhs.length));
+    List<List<int>> table = List.generate(
+        lhs.length,
+        (i) => List<int>.filled(
+              rhs.length,
+              null,
+              growable: true,
+            ));
     int longest = 0;
     Set<String> result = HashSet<String>();
 

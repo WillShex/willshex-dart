@@ -1,6 +1,6 @@
 name: willshex
 description: All the base classes usually used for calling willshex apis plus the storage library for local persistence.
-# version: 1.0.0
+version: 0.0.1
 homepage: https://www.willshex.com
 author: billy1380 <william.shakour@gmail.com>
 
@@ -8,10 +8,10 @@ environment:
   sdk: ">=2.0.0-dev.52.0 <3.0.0"
 
 dependencies:
-  path: ^1.6.4
-  http: ^0.12.0+4
-  logging: ^0.11.4
-  universal_io: ^1.0.2
+  path: ^1.8.0
+  http: ^0.13.1
+  logging: ^1.0.1
+  universal_io: ^2.0.3
 
 dev_dependencies:
   test: ">0.12.30"

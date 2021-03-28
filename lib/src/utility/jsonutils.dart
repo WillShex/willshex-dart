@@ -203,7 +203,7 @@ class JsonUtils {
     int length = stripped.length;
     String current;
 
-    StringBuffer uglyJson = new StringBuffer();
+    StringBuffer uglyJson = StringBuffer();
     for (int i = 0; i < length; i++) {
       current = stripped[i];
 
