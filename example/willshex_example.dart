@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:math';
 
+import 'package:willshex/src/storage/impl/helper/indexhelper.dart';
+import 'package:willshex/src/storage/impl/index/key.dart';
 import 'package:willshex/willshex.dart';
 import 'package:logging/logging.dart';
 
@@ -10,17 +13,36 @@ Future<String> path() {
 const Class<DataType> CLASS_DATA_TYPE = Class(DataType);
 
 final Logger _log = Logger("main");
+final Random random = Random(1);
 
 main() async {
   _setupLogging();
 
-  var awesome = StorageProvider.provide(path).cache(true);
+  Storage awesome = StorageProvider.provide(path).cache(false);
 
-  awesome[CLASS_DATA_TYPE] = () => DataType();
+  awesome.register(
+    CLASS_DATA_TYPE,
+    () => DataType(),
+  );
 
-  await awesome.save.entity(DataType(id: 1));
-  DataType loaded = await awesome.load.type(CLASS_DATA_TYPE).first;
-  _log.info('awesome: ${loaded?.id}');
+  Key key = Key.createKey(100);
+
+  _log.info("Creating entities");
+  for (int i = 0; i < 1000; i++) {
+    DataType e = DataType(id: random.nextInt(Key.max));
+    await awesome.save.entity(e);
+    key.add(e.id);
+  }
+
+  // DataType loaded = await awesome.load.type(CLASS_DATA_TYPE).first;
+  // _log.info('awesome: ${loaded?.id}');
+
+  _log.info("Saving index");
+  await IndexHelper.saveKey(
+    storage: awesome,
+    key: key,
+    type: CLASS_DATA_TYPE,
+  );
 }
 
 void _setupLogging() {

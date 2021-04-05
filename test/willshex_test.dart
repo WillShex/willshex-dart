@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:logging/logging.dart';
-import 'package:universal_io/io.dart';
+import 'dart:io';
 
-import 'package:willshex/willshex.dart';
+import 'package:logging/logging.dart';
 import 'package:test/test.dart';
+import 'package:willshex/willshex.dart';
 
 class Test1Type extends DataType {
   Test1Type({int id, DateTime created, bool deleted})

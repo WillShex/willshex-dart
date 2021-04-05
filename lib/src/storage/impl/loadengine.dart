@@ -7,7 +7,7 @@
 //
 
 import 'dart:async';
-import 'package:universal_io/io.dart';
+import 'dart:io';
 
 import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/storage/class.dart';

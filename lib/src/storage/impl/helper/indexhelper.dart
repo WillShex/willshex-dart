@@ -8,11 +8,11 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
 
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:universal_io/io.dart';
-import 'dart:math';
 
 import '../../class.dart';
 import '../../storage.dart';
@@ -62,10 +62,10 @@ class IndexHelper {
   }) async {
     if (type != null) {
       Directory keyFolder = Directory(
-          "${(await storage.ensureFolder(type.getSimpleName())).path}/.key/${path ?? ""}");
+          "${(await storage.ensureFolder(type.getSimpleName())).path}/.key/");
 
       // remove .key folder
-      if (await keyFolder.exists()) {
+      if (await keyFolder.exists() && path == null) {
         await keyFolder.delete(
           recursive: true,
         );
@@ -75,7 +75,7 @@ class IndexHelper {
       }
 
       if (key.points != null) {
-        File pointsFile = File("${keyFolder.absolute.path}/points.text");
+        File pointsFile = File("${keyFolder.absolute.path}ids${path ?? ""}");
         pointsFile = await pointsFile.create(
           recursive: true,
         );
@@ -97,7 +97,7 @@ class IndexHelper {
   }
 
   static String _path(String path, int index) {
-    return path == null ? "$index" : "$path$index";
+    return path == null ? "${index}" : "${path}${index}";
   }
 
   static double weigh(String s) {
