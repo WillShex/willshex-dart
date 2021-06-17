@@ -3,13 +3,14 @@ description: All the base classes usually used for calling willshex apis plus th
 version: 0.0.1
 homepage: https://www.willshex.com
 author: billy1380 <william.shakour@gmail.com>
+publish_to: "none"
 
 environment:
   sdk: ">=2.0.0-dev.52.0 <3.0.0"
 
 dependencies:
   path: ^1.8.0
-  http: ^0.13.1
+  http: ^0.13.3
   logging: ^1.0.1
 
 dev_dependencies:
