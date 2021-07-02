@@ -9,9 +9,9 @@
 import 'jsonable.dart';
 
 class DataType extends Jsonable {
-  int id;
-  DateTime created;
-  bool deleted;
+  int? id;
+  DateTime? created;
+  bool? deleted;
 
   DataType({
     this.id,
@@ -48,7 +48,7 @@ class DataType extends Jsonable {
     }
 
     if (created != null) {
-      json["created"] = created.millisecondsSinceEpoch;
+      json["created"] = created?.millisecondsSinceEpoch;
     }
 
     if (deleted != null) {

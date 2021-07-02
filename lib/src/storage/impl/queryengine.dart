@@ -40,7 +40,7 @@ class QueryEngine {
     List<T> entities = await query(q);
     List<int> ids = <int>[]..length = entities.length;
     for (T entity in entities) {
-      ids.add(entity.id);
+      ids.add(entity.id!);
     }
     return ids;
   }
@@ -49,31 +49,29 @@ class QueryEngine {
     if (query.dataClass == null)
       throw AssertionError("Cannot query without a type");
 
-    Directory folder =
-        await store.ensureFolder(query.dataClass.getSimpleName());
+    Directory folder = await store.ensureFolder(query.dataClass!.simpleName);
     Stream<FileSystemEntity> records = Directory("${folder.path}").list();
 
     List<Map<String, dynamic>> objects = <Map<String, dynamic>>[];
-    Map<String, dynamic> object;
+
     // int startAt = query.startAt == null ? 0 : query.startAt;
     // int matchedCount = 0;
     await for (FileSystemEntity record in records) {
-      object = null;
+      Map<String, dynamic> object;
+
       if (record is File && record.path.endsWith(".json")) {
         if (store.useCache) {
           String name = basenameWithoutExtension(record.path);
-          int possibleId = int.tryParse(name);
+          int? possibleId = int.tryParse(name);
 
           if (possibleId != null) {
-            T found = store.ensureCacheType(query.dataClass)[possibleId];
+            T? found = store.ensureCacheType(query.dataClass!)[possibleId];
 
             if (found != null) object = found.toJson();
           }
         }
 
-        if (object == null) {
-          object = jsonDecode(await record.readAsString());
-        }
+        object = jsonDecode(await record.readAsString());
 
         if (QueryHelper.isMatchAll(object, query.allFilters)) {
           // if (matchedCount >= startAt) {
@@ -101,23 +99,24 @@ class QueryEngine {
     }
 
     if (query.isReverse) {
-      objects = objects.reversed;
+      objects = objects.reversed.toList();
     }
 
     List<T> matched = <T>[];
 
     if (query.isIdsOnly) {
-      CreateFunction<T> create = store.creators[query.dataClass];
+      CreateFunction<T> create =
+          store.creators![query.dataClass] as CreateFunction<T>;
       matched.addAll(objects.map((f) {
         return create()..id = f["id"];
       }));
     } else {
       Map<int, T> loaded = await loader
           .createLoadEngine()
-          .load(query.dataClass, objects.map((f) => f["id"]));
+          .load(query.dataClass!, objects.map((f) => f["id"]));
 
       for (Map<String, dynamic> object in objects) {
-        matched.add(loaded[object["id"]]);
+        matched.add(loaded[object["id"]]!);
       }
     }
 

@@ -11,31 +11,35 @@ enum StatusType {
   failure,
 }
 
-String fromStatusTypeToString(StatusType value) {
-  String statusType;
+String? fromStatusTypeToString(StatusType? value) {
+  String? statusType;
 
-  switch (value) {
-    case StatusType.success:
-      statusType = "success";
-      break;
-    case StatusType.failure:
-      statusType = "failure";
-      break;
+  if (value != null) {
+    switch (value) {
+      case StatusType.success:
+        statusType = "success";
+        break;
+      case StatusType.failure:
+        statusType = "failure";
+        break;
+    }
   }
 
   return statusType;
 }
 
-StatusType fromStringToStatusType(String value) {
-  StatusType statusType;
+StatusType? fromStringToStatusType(String? value) {
+  StatusType? statusType;
 
-  switch (value) {
-    case "success":
-      statusType = StatusType.success;
-      break;
-    case "failure":
-      statusType = StatusType.failure;
-      break;
+  if (value != null) {
+    switch (value) {
+      case "success":
+        statusType = StatusType.success;
+        break;
+      case "failure":
+        statusType = StatusType.failure;
+        break;
+    }
   }
 
   return statusType;

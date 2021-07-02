@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:willshex/src/storage/impl/helper/indexhelper.dart';
 import 'package:willshex/src/storage/impl/index/key.dart';
+import 'package:willshex/src/storage/impl/storageimpl.dart';
 import 'package:willshex/willshex.dart';
 import 'package:logging/logging.dart';
 
@@ -31,7 +32,7 @@ main() async {
   for (int i = 0; i < 1000; i++) {
     DataType e = DataType(id: random.nextInt(Key.max));
     await awesome.save.entity(e);
-    key.add(e.id);
+    key.add(e.id!);
   }
 
   // DataType loaded = await awesome.load.type(CLASS_DATA_TYPE).first;
@@ -39,7 +40,7 @@ main() async {
 
   _log.info("Saving index");
   await IndexHelper.saveKey(
-    storage: awesome,
+    storage: awesome as StorageImpl<Storage>,
     key: key,
     type: CLASS_DATA_TYPE,
   );

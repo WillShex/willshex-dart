@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 import 'package:willshex/willshex.dart';
 
 class Test1Type extends DataType {
-  Test1Type({int id, DateTime created, bool deleted})
+  Test1Type({int? id, DateTime? created, bool? deleted})
       : super(id: id, created: created, deleted: deleted);
 }
 
@@ -30,7 +30,7 @@ void main() {
   // Logger log = Logger("test:main");
 
   group("Storage Tests", () {
-    Storage cached, uncached;
+    late Storage cached, uncached;
 
     Future<String> path() => Future.value("./data");
 
@@ -71,7 +71,7 @@ void main() {
       expect(await uncached.save.entity(saved), id);
 
       Test4Type loaded;
-      expect((loaded = await uncached.load.type(T4).id(id)).id, saved.id);
+      expect((loaded = (await uncached.load.type(T4).id(id))!).id, saved.id);
       expect(false, saved == loaded);
     });
   });

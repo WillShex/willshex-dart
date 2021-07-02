@@ -10,13 +10,13 @@ import 'jsonable.dart';
 import 'sortdirectiontype.dart';
 
 class Pager extends Jsonable {
-  int start;
-  int count;
-  String sortBy;
-  SortDirectionType sortDirection;
-  int totalCount;
-  String next;
-  String previous;
+  int? start;
+  int? count;
+  String? sortBy;
+  SortDirectionType? sortDirection;
+  int? totalCount;
+  String? next;
+  String? previous;
 
   Pager({
     this.start,

@@ -22,11 +22,11 @@ class WriteEngine {
 
   Future<Map<int, T>> save<T extends DataType>(final Iterable<T> entities) {
     return Future<Map<int, T>>(() async {
-      Class<T> type;
+      Class<T>? type;
       Map<int, T> saved = <int, T>{};
 
-      List<T> insert;
-      List<T> update;
+      List<T>? insert;
+      List<T>? update;
       for (T entity in entities) {
         if (type == null) {
           type = Class(entity.runtimeType);
@@ -46,11 +46,11 @@ class WriteEngine {
       }
 
       if (insert != null) {
-        saved.addAll(await _insert(type, insert));
+        saved.addAll(await _insert(type!, insert));
       }
 
       if (update != null) {
-        saved.addAll(await _update(type, update));
+        saved.addAll(await _update(type!, update));
       }
       return saved;
     });
@@ -59,8 +59,7 @@ class WriteEngine {
   Future<void> delete<T>(final Class<T> type, final Iterable<int> ids) {
     return Future<void>(() async {
       File recordFileHandle;
-      Directory folder =
-          type == null ? null : await store.ensureFolder(type.getSimpleName());
+      Directory folder = await store.ensureFolder(type.simpleName);
       for (int id in ids) {
         recordFileHandle = File("${folder.path}/${id.toString()}.json");
         if (await recordFileHandle.exists()) {
@@ -78,7 +77,8 @@ class WriteEngine {
     return Future<void>(() async {});
   }
 
-  Future<int> _nextAutoIncrement<T extends DataType>(Class<T> type, int increment) async {
+  Future<int> _nextAutoIncrement<T extends DataType>(
+      Class<T> type, int increment) async {
     return _incrementCounter(type, "autoinc", increment);
   }
 
@@ -86,25 +86,29 @@ class WriteEngine {
     return _getCounter(type, "autoinc");
   }
 
-  Future<void> _setAutoIncrement<T extends DataType>(Class<T> type, int value) async {
+  Future<void> _setAutoIncrement<T extends DataType>(
+      Class<T> type, int value) async {
     await _setCounter(type, "autoinc", value);
   }
 
-  Future<int> _incrementCounter<T extends DataType>(Class<T> type, String name, int increment) async {
+  Future<int> _incrementCounter<T extends DataType>(
+      Class<T> type, String name, int increment) async {
     int next = await _getCounter(type, name) + increment;
     await _setCounter(type, name, next);
     return next;
   }
 
-  Future<void> _setCounter<T extends DataType>(Class<T> type, String name, int value) async {
-    Directory folder = await store.ensureFolder(type.getSimpleName());
+  Future<void> _setCounter<T extends DataType>(
+      Class<T> type, String name, int value) async {
+    Directory folder = await store.ensureFolder(type.simpleName);
     File counterFileHandle = File("${folder.path}/.$name");
     await counterFileHandle.writeAsString(value.toString());
   }
 
-  Future<int> _getCounter<T extends DataType>(Class<T> type, String name) async {
+  Future<int> _getCounter<T extends DataType>(
+      Class<T> type, String name) async {
     int counter;
-    Directory folder = await store.ensureFolder(type.getSimpleName());
+    Directory folder = await store.ensureFolder(type.simpleName);
     File counterFileHandle = File("${folder.path}/.$name");
     if (await counterFileHandle.exists()) {
       counter = int.parse(await counterFileHandle.readAsString());
@@ -117,7 +121,7 @@ class WriteEngine {
   Future<Map<int, T>> _insert<T extends DataType>(
       Class<T> type, List<T> entities) async {
     Map<int, T> inserted = <int, T>{};
-    Directory folder = await store.ensureFolder(type.getSimpleName());
+    Directory folder = await store.ensureFolder(type.simpleName);
     int id = await _nextAutoIncrement(type, entities.length);
     id -= entities.length;
     for (T entity in entities) {
@@ -140,19 +144,19 @@ class WriteEngine {
       Class<T> type, List<T> entities) async {
     Map<int, T> updated = <int, T>{};
     int autoInc;
-    Directory folder = await store.ensureFolder(type.getSimpleName());
+    Directory folder = await store.ensureFolder(type.simpleName);
     for (T entity in entities) {
       autoInc = await getAutoIncrement(type);
-      if (entity.id > autoInc) {
-        await _setAutoIncrement(type, autoInc = entity.id);
+      if (entity.id! > autoInc) {
+        await _setAutoIncrement(type, autoInc = entity.id!);
       }
 
       await File("${folder.path}/${entity.id.toString()}.json")
           .writeAsString(entity.toString());
-      updated[entity.id] = entity;
+      updated[entity.id!] = entity;
 
       if (store.useCache) {
-        store.ensureCacheType(type)[entity.id] = entity;
+        store.ensureCacheType(type)[entity.id!] = entity;
       }
     }
 

@@ -14,11 +14,11 @@ class Class<T> {
 
   const Class(this._t);
 
-  String getSimpleName() {
+  String get simpleName {
     return _t.toString();
   }
 
-  String getName() {
+  String get name {
     return _t.toString();
   }
 
@@ -28,7 +28,7 @@ class Class<T> {
   }
 
   @override
-  bool operator ==(other) {
+  bool operator ==(dynamic other) {
     return other != null && other is Class && other._t == this._t;
   }
 }

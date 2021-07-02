@@ -15,10 +15,10 @@ abstract class Region<T> {
 }
 
 abstract class AbstractTree<T> {
-  final List<AbstractTree<T>> children;
-  int capacity;
-  Region<T> bounds;
-  List<T> points;
+  final List<AbstractTree<T>?> children;
+  late int capacity;
+  late Region<T> bounds;
+  List<T>? points;
   CreateFunction<AbstractTree<T>> creator;
 
   AbstractTree(this.creator, int branches)
@@ -46,9 +46,9 @@ abstract class AbstractTree<T> {
           points = [];
         }
 
-        points.add(p);
+        points!.add(p);
 
-        if (points.length == capacity) {
+        if (points!.length == capacity) {
           _subdivideBinary();
         }
 
@@ -64,7 +64,7 @@ abstract class AbstractTree<T> {
 
     if (bounds.intersects(r)) {
       if (points != null) {
-        for (T p in points) {
+        for (T p in points!) {
           counted++;
           if (r.contains(p)) {
             found.add(p);
@@ -74,7 +74,7 @@ abstract class AbstractTree<T> {
         if (_isSubdivided()) {
           for (int i = 0; i < children.length; i++) {
             if (children[i] != null) {
-              counted += children[i].countQuery(r, found);
+              counted += children[i]?.countQuery(r, found) ?? 0;
             }
           }
         }
@@ -93,14 +93,14 @@ abstract class AbstractTree<T> {
   }
 
   bool _isSubdivided() {
-    return points != null && points.length == capacity;
+    return points != null && points!.length == capacity;
   }
 
   bool _addToChildren(T p) {
     bool added = false;
 
     for (int i = 0; i < children.length; i++) {
-      if (children[i].add(p)) {
+      if (children[i]?.add(p) ?? false) {
         added = true;
         break;
       }

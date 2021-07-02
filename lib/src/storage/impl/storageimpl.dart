@@ -30,11 +30,17 @@ typedef Future<String> PathProvider();
 /// @author William Shakour (billy1380)
 ///
 class StorageImpl<S extends Storage> extends Storage {
-  Directory _storageHandle;
+  Directory? _storageHandle;
   PathProvider _pathProvider;
-  bool useCache;
-  Map<Class<DataType>, Map<int, DataType>> c;
-  Map<Class<DataType>, CreateFunction> creators;
+  bool? _useCache;
+  Map<Class<DataType>, Map<int, DataType>>? c;
+  Map<Class<DataType>, CreateFunction<DataType>>? creators;
+
+  bool get useCache {
+    return _useCache ?? false;
+  }
+
+  set useCache(bool value) => _useCache = value;
 
   StorageImpl(this._pathProvider);
 
@@ -42,14 +48,14 @@ class StorageImpl<S extends Storage> extends Storage {
     if (_storageHandle == null) {
       String path = await _pathProvider();
       _storageHandle = Directory("$path");
-      if (await _storageHandle.exists()) {
+      if (await _storageHandle!.exists()) {
         // do nothing
       } else {
-        await _storageHandle.create(recursive: true);
+        await _storageHandle!.create(recursive: true);
       }
     }
 
-    return _storageHandle;
+    return _storageHandle!;
   }
 
   Future<Directory> ensureFolder(String name) async {
@@ -92,32 +98,32 @@ class StorageImpl<S extends Storage> extends Storage {
   }
 
   @override
-  void register<T extends DataType>(Class<T> type, CreateFunction create) {
+  void register<T extends DataType>(Class<T> type, CreateFunction<T> create) {
     ensureCreators()[type] = create;
   }
 
-  Map<Class<DataType>, Function> ensureCreators() {
+  Map<Class, CreateFunction<DataType>> ensureCreators() {
     if (creators == null) {
-      creators = <Class<DataType>, CreateFunction>{};
+      creators = <Class<DataType>, CreateFunction<DataType>>{};
     }
 
-    return creators;
+    return creators!;
   }
 
-  Map<int, DataType> ensureCacheType<T extends DataType>(Class<T> type) {
-    if (!ensureCache().containsKey(type)) {
-      ensureCache()[type] = <int, T>{};
+  Map<int, T> ensureCacheType<T extends DataType>(Class<T> type) {
+    if (!ensureCache<T>().containsKey(type)) {
+      ensureCache<T>()[type] = <int, T>{};
     }
 
-    return ensureCache()[type];
+    return ensureCache<T>()[type]!;
   }
 
-  Map<Class<DataType>, Map<int, DataType>> ensureCache() {
+  Map<Class<T>, Map<int, T>> ensureCache<T extends DataType>() {
     if (c == null) {
       c = <Class<DataType>, Map<int, DataType>>{};
     }
 
-    return c;
+    return c!.cast();
   }
 
   WriteEngine createWriteEngine() {

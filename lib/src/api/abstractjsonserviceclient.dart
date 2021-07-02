@@ -9,26 +9,26 @@ import 'request.dart';
 import 'response.dart';
 
 typedef void SuccessCallback<S extends Request, T extends Response>(
-    S input, T output);
+    S input, T? output);
 typedef void FailureCallback<T extends Request>(T input, Exception caught);
 
 abstract class AbstractJsonServiceClient {
   static final Logger _log = Logger("AbstractJsonServiceClient");
-  String url;
+  String? url;
 
   AbstractJsonServiceClient({this.url});
 
   Future<void> call<S extends Request, T extends Response>(
       String callName,
       S input,
-      SuccessCallback<S, T> onSuccess,
-      FailureCallback<S> onFailure,
+      SuccessCallback<S, T>? onSuccess,
+      FailureCallback<S>? onFailure,
       CreateFunction<T> creator) async {
     try {
       onCallStart(this, callName, input);
       http.Response response = await sendRequest(callName, input);
       try {
-        Response output = parseResponse(response, creator);
+        T? output = parseResponse(response, creator);
         if (onSuccess != null) {
           onSuccess(input, output);
         }
@@ -47,21 +47,20 @@ abstract class AbstractJsonServiceClient {
     }
   }
 
-  T parseResponse<T extends Response>(
+  T? parseResponse<T extends Response>(
       http.Response response, CreateFunction<T> create) {
     String responseText;
-    T output;
+    T? output;
     if (response.statusCode >= 200 &&
         response.statusCode < 300 &&
-        (responseText = response.body) != null &&
-        "" != responseText &&
+        (responseText = response.body).isNotEmpty &&
         "null" != responseText.toLowerCase()) {
       output = create()..fromString(responseText);
 
-      _log.info("Recieved [$responseText] to [${response.request.url}");
+      _log.info("Recieved [$responseText] to [${response.request?.url}");
     } else if (response.statusCode >= 400)
       throw HttpException("$response.statusCode: $response.reasonPhrase",
-          uri: response.request.url);
+          uri: response.request?.url);
 
     return output;
   }
@@ -72,7 +71,7 @@ abstract class AbstractJsonServiceClient {
 
     _log.info("Sending [$input] to [$url] with action [$action]");
 
-    return await http.post(Uri.parse(url),
+    return await http.post(Uri.parse(url!),
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
         body: requestData);
   }
@@ -80,8 +79,8 @@ abstract class AbstractJsonServiceClient {
   void onCallStart<T extends Response>(
       AbstractJsonServiceClient origin, String callName, Request input) {}
 
-  void onCallSuccess(AbstractJsonServiceClient origin, String callName,
-      Request input, Response output) {}
+  void onCallSuccess<T extends Response>(AbstractJsonServiceClient origin, String callName,
+      Request input, T? output) {}
 
   void onCallFailure(AbstractJsonServiceClient origin, String callName,
       Request input, Exception caught) {}

@@ -16,7 +16,7 @@ import '../../../datatype.dart';
 ///
 class QueryHelper {
   static void sort(
-      List<Map<String, dynamic>> objects, final List<Order> order) {
+      List<Map<String, dynamic>> objects, final List<Order>? order) {
     objects.sort((o1, o2) {
       dynamic value, value2;
       int result;
@@ -87,7 +87,7 @@ class QueryHelper {
     return 0;
   }
 
-  static bool isMatchAll(Map<String, dynamic> object, List<Filter> filters) {
+  static bool isMatchAll(Map<String, dynamic> object, List<Filter>? filters) {
     bool isMatch = true;
 
     if (filters != null) {

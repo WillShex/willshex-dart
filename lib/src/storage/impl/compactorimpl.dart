@@ -22,7 +22,5 @@ class CompactorImpl implements Compactor {
   CompactorImpl(this.store);
 
   @override
-  Future<void> type<E>(Class<E> type) {
-    return null;
-  }
+  Future<void> type<E>(Class<E> type) async {}
 }

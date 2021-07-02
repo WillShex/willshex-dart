@@ -31,7 +31,8 @@ import 'simplequeryimpl.dart';
 class LoaderImpl<L extends Loader> extends Queryable<DataType>
     implements Loader, Cloneable {
   static final Logger _log = Logger("LoaderImpl");
-  StorageImpl<Storage> store;
+  
+  late StorageImpl<Storage> store;
 
   LoaderImpl._() : super.protected();
   LoaderImpl(this.store) : super(null);
@@ -51,16 +52,16 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
     LoadEngine engine = createLoadEngine();
 
     List<int> ids = <int>[];
-    Class<E> type;
+    Class<E>? type;
     for (E entity in entities) {
       if (type == null) {
         type = Class(entity.runtimeType);
       }
 
-      ids.add(entity.id);
+      ids.add(entity.id!);
     }
 
-    return engine.load(type, ids);
+    return engine.load(type!, ids);
   }
 
   LoadEngine createLoadEngine() {
@@ -72,33 +73,26 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
   }
 
   @override
-  Future<E> now<E extends DataType>(Class<E> type, int id) async {
+  Future<E?> now<E extends DataType>(Class<E> type, int id) async {
     Map<int, E> loaded = await createLoadEngine().load(type, <int>[id]);
-    return loaded.values.length > 0 ? loaded.values.first : null;
+    return loaded.values.isNotEmpty ? loaded.values.first : null;
   }
 
-  LoaderImpl<L> clone() {
-    try {
-      return super.clone();
-    } on Exception catch (e) {
-      _log.warning(e);
-    }
-    return null;
-  }
+  LoaderImpl<L> clone() => super.clone() as LoaderImpl<L>;
 
   @override
-  Future<E> entity<E extends DataType>(final E entity) {
-    return Future<E>(() async {
+  Future<E?> entity<E extends DataType>(final E entity) {
+    return Future<E?>(() async {
       Map<int, E> entities = await this.entities(<E>[entity]);
-      return entities.values.length > 0 ? entities.values.first : null;
+      return entities.values.isNotEmpty ? entities.values.first : null;
     });
   }
 
   @override
-  Future<T> id<T extends DataType>(final Class<T> type, final int id) {
-    return Future<T>(() async {
+  Future<T?> id<T extends DataType>(final Class<T> type, final int id) {
+    return Future<T?>(() async {
       Map<int, T> entities = await this.ids(type, <int>[id]);
-      return entities.values.length > 0 ? entities.values.first : null;
+      return entities.values.isNotEmpty ? entities.values.first : null;
     });
   }
 

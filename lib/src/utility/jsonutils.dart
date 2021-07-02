@@ -53,7 +53,7 @@ class JsonUtils {
     return cleaned;
   }
 
-  static String _strip(String json, List<String> values) {
+  static String _strip(String json, List<String>? values) {
     if (values == null) return json;
 
     StringBuffer stripped = StringBuffer();
@@ -121,9 +121,9 @@ class JsonUtils {
   }
 
   static String _putBack(String stripped, List<String> values) {
-    StringBuffer putBack = null;
+    StringBuffer? putBack = null;
 
-    if (values.length > 0) {
+    if (values.isNotEmpty) {
       putBack = StringBuffer();
       String c;
       int replaced = 0;

@@ -346,7 +346,7 @@ const String _CAMEL_PASCAL_ALLOWED = _UPPER + _LOWER + _NUMBERS;
 abstract class StringUtils {
   StringUtils._();
 
-  static String sanitise(String value) {
+  static String? sanitise(String? value) {
     return value;
     // value.replace("<", "").replace(">", "");
   }
@@ -354,7 +354,7 @@ abstract class StringUtils {
   /// Strip slashes from string specifically for un-escaping slashes (\) and single quotes (')
   /// @param value string to strip
   /// @return striped string
-  static String stripslashes(String value) {
+  static String? stripslashes(String? value) {
     return value == null
         ? null
         : value
@@ -366,7 +366,7 @@ abstract class StringUtils {
   /// Strip slashes from string specifically for escaping slashes (\) and single quotes (')
   /// @param value string to escape
   /// @return escaped string
-  static String addslashes(String value) {
+  static String? addslashes(String? value) {
     return value == null
         ? null
         : value
@@ -452,12 +452,14 @@ abstract class StringUtils {
   /// Make the first character of the string upper-case
   /// @param value string to process
   /// @return string with upper-case first letter
-  static String upperCaseFirstLetter(String value) {
-    String upperCaseFirstLetter = null;
+  static String? upperCaseFirstLetter(String? value) {
+    String? upperCaseFirstLetter = value;
 
-    String firstLetter = value.substring(0, 1);
-    upperCaseFirstLetter =
-        value.replaceFirst(firstLetter, firstLetter.toUpperCase());
+    if (isNotEmpty(value)) {
+      String firstLetter = value!.substring(0, 1);
+      upperCaseFirstLetter =
+          value.replaceFirst(firstLetter, firstLetter.toUpperCase());
+    }
 
     return upperCaseFirstLetter;
   }
@@ -465,12 +467,14 @@ abstract class StringUtils {
   /// Make the first character of the string lower-case
   /// @param value string to process
   /// @return string with lower-case first letter
-  static String lowerCaseFirstLetter(String value) {
-    String lowerCaseFirstLetter = null;
+  static String? lowerCaseFirstLetter(String? value) {
+    String? lowerCaseFirstLetter = value;
 
-    String firstLetter = value.substring(0, 1);
-    lowerCaseFirstLetter =
-        value.replaceFirst(firstLetter, firstLetter.toLowerCase());
+    if (isNotEmpty(value)) {
+      String firstLetter = value!.substring(0, 1);
+      lowerCaseFirstLetter =
+          value.replaceFirst(firstLetter, firstLetter.toLowerCase());
+    }
 
     return lowerCaseFirstLetter;
   }
@@ -484,14 +488,14 @@ abstract class StringUtils {
   /// @param maxLength a cap for the maximum characters processed from the value
   /// @return process/restricted string
   ///
-  static String restrict(String value,
+  static String restrict(String? value,
       [String allowed = _ALLOWED_CHARS,
       String replacement = "-",
       int maxLength = 100]) {
     StringBuffer restricted = StringBuffer();
 
-    if (value != null && value.length > 0) {
-      value = value.toLowerCase();
+    if (isNotEmpty(value)) {
+      value = value!.toLowerCase();
 
       int size = min(value.length, maxLength);
       String c;
@@ -512,11 +516,11 @@ abstract class StringUtils {
     return restricted.toString();
   }
 
-  static String camelCase(String value) {
+  static String camelCase(String? value) {
     StringBuffer restricted = StringBuffer();
 
-    if (value != null && value.length > 0) {
-      int size = value.length;
+    if (isNotEmpty(value)) {
+      int size = value!.length;
       bool replacedOne = false;
       bool foundOne = false;
       String characterAsString;
@@ -560,11 +564,11 @@ abstract class StringUtils {
     return restricted.toString();
   }
 
-  static String pascalCase(String value) {
+  static String pascalCase(String? value) {
     StringBuffer restricted = StringBuffer();
 
-    if (value != null && value.length > 0) {
-      int size = value.length;
+    if (isNotEmpty(value)) {
+      int size = value!.length;
       bool replacedOne = false;
       bool foundOne = false;
       String characterAsString;
@@ -604,11 +608,11 @@ abstract class StringUtils {
     return restricted.toString();
   }
 
-  static String expandByCase(String value, bool capitalFirst,
+  static String expandByCase(String? value, bool capitalFirst,
       bool capitalAfterSpace, String space, String append) {
     StringBuffer expanded = StringBuffer();
-    if (value != null && value.length > 0) {
-      int size = value.length;
+    if (isNotEmpty(value)) {
+      int size = value!.length;
       bool inNumbers = false, isNumber = false, addSpace = false;
       String characterAsString;
       for (int i = 0; i < size; i++) {
@@ -661,15 +665,15 @@ abstract class StringUtils {
     return expanded.toString();
   }
 
-  static String constantName(String value, String prefix, String suffix) {
+  static String constantName(String? value, String? prefix, String suffix) {
     StringBuffer constant = StringBuffer();
 
     constant.write(prefix);
 
-    bool addedPrefixSeparator = prefix == null || prefix.length == 0;
+    bool addedPrefixSeparator = isEmpty(prefix);
 
-    if (value != null && value.length > 0) {
-      int size = value.length;
+    if (isNotEmpty(value)) {
+      int size = value!.length;
       bool replacedOne = false;
       bool foundOne = false;
       String characterAsString;
@@ -703,9 +707,9 @@ abstract class StringUtils {
       }
     }
 
-    if (constant.length > 0 &&
+    if (constant.isNotEmpty &&
         constant.toString()[constant.length - 1] != '_' &&
-        suffix.length > 0) {
+        suffix.isNotEmpty) {
       constant.write("_");
     }
 
@@ -730,9 +734,9 @@ abstract class StringUtils {
   }
 
   static Iterable<String> longestCommonParts(String lhs, String rhs) {
-    List<List<int>> table = List.generate(
+    List<List<int?>> table = List.generate(
         lhs.length,
-        (i) => List<int>.filled(
+        (i) => List<int?>.filled(
               rhs.length,
               null,
               growable: true,
@@ -743,9 +747,9 @@ abstract class StringUtils {
     for (int i = 0; i < lhs.length; i++) {
       for (int j = 0; j < rhs.length; j++) {
         if (lhs[i] == rhs[j]) {
-          table[i][j] = (i == 0 || j == 0) ? 1 : 1 + table[i - 1][j - 1];
-          if (table[i][j] > longest) {
-            longest = table[i][j];
+          table[i][j] = (i == 0 || j == 0) ? 1 : 1 + (table[i - 1][j - 1] ?? 0);
+          if ((table[i][j] ?? 0) > longest) {
+            longest = (table[i][j] ?? 0);
             result.clear();
           }
 
@@ -803,7 +807,7 @@ abstract class StringUtils {
     return trimmed;
   }
 
-  static Iterable<String> matchParts(Iterable<String> strings) {
+  static Iterable<String> matchParts(Iterable<String?>? strings) {
     Set<String> matchParts = HashSet<String>();
 
     if (strings != null) {
@@ -811,7 +815,7 @@ abstract class StringUtils {
       String modified;
       StringBuffer buffer = StringBuffer();
 
-      for (String string in strings) {
+      for (String? string in strings) {
         modified = restrict(string, _ALLOWED_CHARS, " ", 2147483647);
         split = modified.split(" ");
         for (String part in split) {
@@ -830,14 +834,14 @@ abstract class StringUtils {
     return matchParts;
   }
 
-  static bool isEmpty(String value) {
+  static bool isEmpty(String? value) {
     return value == null || value.isEmpty;
   }
 
-  static bool isNotEmpty(String value) {
+  static bool isNotEmpty(String? value) {
     return !isEmpty(value);
   }
 
-  static bool equalsIgnoreCase(String s1, String s2) =>
+  static bool equalsIgnoreCase(String? s1, String? s2) =>
       s1?.toLowerCase() == s2?.toLowerCase();
 }

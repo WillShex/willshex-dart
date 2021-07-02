@@ -23,7 +23,7 @@ class KeyRegion implements Region<int> {
 
   @override
   bool intersects(Region<int> region) {
-    return _intersects(region);
+    return _intersects(region as KeyRegion);
   }
 
   bool _intersects(KeyRegion region) {
@@ -40,6 +40,8 @@ class KeyRegion implements Region<int> {
       case 1:
         part = KeyRegion(halfWay, end);
         break;
+      default:
+        throw Exception("value can only be 0 or 1");
     }
 
     return part;

@@ -9,7 +9,7 @@
 import 'package:willshex/src/jsonable.dart';
 
 class Request extends Jsonable {
-  String accessCode;
+  String? accessCode;
 
   Request({
     this.accessCode,

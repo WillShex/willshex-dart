@@ -9,8 +9,8 @@
 import 'package:willshex/src/jsonable.dart';
 
 class Error extends Jsonable {
-  int code;
-  String message;
+  int? code;
+  String? message;
 
   Error({
     this.code,

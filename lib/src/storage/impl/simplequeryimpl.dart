@@ -21,13 +21,13 @@ import 'queryimpl.dart';
 /// @author William Shakour (billy1380)
 ///
 abstract class SimpleQueryImpl<T extends DataType> implements SimpleQuery<T> {
-  LoaderImpl<Loader> loader;
-  Class<T> dataClass;
+  LoaderImpl<Loader>? loader;
+  Class<T>? dataClass;
 
   SimpleQueryImpl.protected();
 
-  SimpleQueryImpl(LoaderImpl<Loader> loader) {
-    this.loader = loader == null ? this : loader;
+  SimpleQueryImpl(LoaderImpl<Loader>? loader) {
+    this.loader = (loader == null ? this : loader) as LoaderImpl<Loader>;
   }
 
   @override
@@ -73,18 +73,18 @@ abstract class SimpleQueryImpl<T extends DataType> implements SimpleQuery<T> {
     q.isIdsOnly = true;
     return QueryExecute<int>(() {
       return Future<int>(() async {
-        List<int> ids = await loader.createQueryEngine().queryIds(q.limit(1));
-        return ids.length > 0 ? ids.first : null;
+        List<int> ids = await loader!.createQueryEngine().queryIds(q.limit(1));
+        return ids.first;
       });
     }, () async {
-      return loader.createQueryEngine().queryIds(q);
+      return loader!.createQueryEngine().queryIds(q);
     });
   }
 
   SimpleQueryImpl<T> clone() {
-    SimpleQueryImpl<T> impl = newInstance;
+    SimpleQueryImpl<T>? impl = newInstance;
 
-    if (impl == null) throw Exception(Class(this.runtimeType).getName());
+    if (impl == null) throw Exception(Class(this.runtimeType).name);
 
     impl.loader = this.loader;
     impl.dataClass = this.dataClass;
@@ -92,5 +92,5 @@ abstract class SimpleQueryImpl<T extends DataType> implements SimpleQuery<T> {
     return impl;
   }
 
-  SimpleQueryImpl<T> get newInstance;
+  SimpleQueryImpl<T>? get newInstance;
 }

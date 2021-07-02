@@ -39,7 +39,7 @@ class DeleterImpl implements Deleter {
   @override
   Future<void> entities<T extends DataType>(Iterable<T> entities) {
     List<int> ids = <int>[];
-    Class<T> type;
+    Class<T>? type;
 
     for (T t in entities) {
       if (type == null) {
@@ -47,10 +47,10 @@ class DeleterImpl implements Deleter {
       }
 
       if (t.id != null) {
-        ids.add(t.id);
+        ids.add(t.id!);
       }
     }
 
-    return store.createWriteEngine().delete(type, ids);
+    return store.createWriteEngine().delete(type!, ids);
   }
 }

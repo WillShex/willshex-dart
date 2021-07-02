@@ -24,64 +24,72 @@ class Filter {
   String fieldName;
   Object value;
 
-  Filter();
+  Filter({
+    required this.operation,
+    required this.fieldName,
+    required this.value,
+  });
 }
 
-String fromFilterOperationToString(FilterOperation value) {
-  String filterOperation;
+String? fromFilterOperationToString(FilterOperation? value) {
+  String? filterOperation;
 
-  switch (value) {
-    case FilterOperation.NotEquals:
-      filterOperation = "!=";
-      break;
-    case FilterOperation.GreaterThan:
-      filterOperation = ">";
-      break;
-    case FilterOperation.GreaterThanOrEqual:
-      filterOperation = ">=";
-      break;
-    case FilterOperation.LessThan:
-      filterOperation = "<";
-      break;
-    case FilterOperation.LessThanOrEqual:
-      filterOperation = "<=";
-      break;
-    case FilterOperation.In:
-      filterOperation = "in";
-      break;
-    case FilterOperation.Equals:
-      filterOperation = "=";
-      break;
+  if (value != null) {
+    switch (value) {
+      case FilterOperation.NotEquals:
+        filterOperation = "!=";
+        break;
+      case FilterOperation.GreaterThan:
+        filterOperation = ">";
+        break;
+      case FilterOperation.GreaterThanOrEqual:
+        filterOperation = ">=";
+        break;
+      case FilterOperation.LessThan:
+        filterOperation = "<";
+        break;
+      case FilterOperation.LessThanOrEqual:
+        filterOperation = "<=";
+        break;
+      case FilterOperation.In:
+        filterOperation = "in";
+        break;
+      case FilterOperation.Equals:
+        filterOperation = "=";
+        break;
+    }
   }
 
   return filterOperation;
 }
 
-FilterOperation fromStringToFilterOperation(String value) {
-  FilterOperation filterOperation;
+FilterOperation? fromStringToFilterOperation(String? value) {
+  FilterOperation? filterOperation;
 
-  switch (value) {
-    case "!=":
-      filterOperation = FilterOperation.NotEquals;
-      break;
-    case ">":
-      filterOperation = FilterOperation.GreaterThan;
-      break;
-    case ">=":
-      filterOperation = FilterOperation.GreaterThanOrEqual;
-      break;
-    case "<":
-      filterOperation = FilterOperation.LessThan;
-      break;
-    case "<=":
-      filterOperation = FilterOperation.LessThanOrEqual;
-      break;
-    case "in":
-      filterOperation = FilterOperation.In;
-      break;
-    case "=":
-      filterOperation = FilterOperation.Equals;
-      break;
+  if (filterOperation != null) {
+    switch (value) {
+      case "!=":
+        filterOperation = FilterOperation.NotEquals;
+        break;
+      case ">":
+        filterOperation = FilterOperation.GreaterThan;
+        break;
+      case ">=":
+        filterOperation = FilterOperation.GreaterThanOrEqual;
+        break;
+      case "<":
+        filterOperation = FilterOperation.LessThan;
+        break;
+      case "<=":
+        filterOperation = FilterOperation.LessThanOrEqual;
+        break;
+      case "in":
+        filterOperation = FilterOperation.In;
+        break;
+      case "=":
+        filterOperation = FilterOperation.Equals;
+        break;
+    }
   }
 
   return filterOperation;

@@ -22,10 +22,10 @@ import 'queryimpl.dart';
 abstract class Queryable<T extends DataType> extends SimpleQueryImpl<T> {
   Queryable.protected() : super.protected();
 
-  Queryable(LoaderImpl<Loader> loader) : super(loader);
+  Queryable(LoaderImpl<Loader>? loader) : super(loader);
 
   @override
-  Future<T> get first {
+  Future<T?> get first {
     QueryImpl<T> q = createQuery();
     return q.first;
   }
@@ -43,6 +43,6 @@ abstract class Queryable<T extends DataType> extends SimpleQueryImpl<T> {
   }
 
   Queryable<T> clone() {
-    return super.clone();
+    return super.clone() as Queryable<T>;
   }
 }

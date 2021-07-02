@@ -40,7 +40,7 @@ class DeleteTypeImpl implements DeleteType {
   Future<void> entities<T extends DataType>(Iterable<T> entities) {
     List<int> ids = <int>[];
     for (T entity in entities) {
-      ids.add(entity.id);
+      ids.add(entity.id!);
     }
 
     return this.deleter.ids(type, ids);

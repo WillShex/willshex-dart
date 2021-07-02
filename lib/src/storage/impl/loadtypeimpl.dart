@@ -23,18 +23,19 @@ import 'simplequeryimpl.dart';
 ///
 class LoadTypeImpl<T extends DataType> extends Queryable<T>
     implements LoadType<T> {
-  LoadTypeImpl(LoaderImpl<Loader> loader, Class<T> type) : super(loader) {
+  
+  LoadTypeImpl(LoaderImpl<Loader>? loader, Class<T>? type) : super(loader) {
     this.dataClass = type;
   }
 
   @override
-  Future<T> id(final int id) {
-    return loader.id(dataClass, id);
+  Future<T?> id(final int id) {
+    return loader!.id(dataClass!, id);
   }
 
   @override
   Future<Map<int, T>> ids(Iterable<int> ids) {
-    return loader.ids(dataClass, ids);
+    return loader!.ids(dataClass!, ids);
   }
 
   @override
@@ -60,7 +61,7 @@ class LoadTypeImpl<T extends DataType> extends Queryable<T>
 
   @override
   QueryImpl<T> createQuery() {
-    return QueryImpl<T>.typed(loader, dataClass);
+    return QueryImpl<T>.typed(loader!, dataClass!);
   }
 
   @override

@@ -32,8 +32,8 @@ class LoadEngine {
     return Future<Map<int, T>>(() async {
       final Map<int, T> loaded = <int, T>{};
       File recordFileHandle;
-      T entity;
-      Directory folder = await store.ensureFolder(type.getSimpleName());
+      T? entity;
+      Directory folder = await store.ensureFolder(type.simpleName);
       for (int id in ids) {
         entity = null;
 
@@ -45,11 +45,12 @@ class LoadEngine {
           recordFileHandle = File("${folder.path}/${id.toString()}.json");
 
           if (await recordFileHandle.exists()) {
-            final CreateFunction<T> creator = store.creators[type];
+            final CreateFunction<T>? creator =
+                store.creators?[type] as CreateFunction<T>;
 
             if (creator == null) {
               throw Exception(
-                  "Looks like ${type.getName()} was not registered");
+                  "Looks like ${type.name} was not registered");
             }
 
             (entity = creator())

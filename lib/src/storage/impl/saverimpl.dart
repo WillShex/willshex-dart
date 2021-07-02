@@ -25,7 +25,7 @@ class SaverImpl implements Saver {
   Future<int> entity<E extends DataType>(E entity) {
     return Future<int>(() async {
       Map<int, E> saved = await entities(<E>[entity]);
-      return saved.values.length > 0 ? saved.values.first.id : null;
+      return saved.values.first.id!;
     });
   }
 

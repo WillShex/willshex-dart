@@ -19,6 +19,7 @@ class Key extends AbstractTree<int> {
   }
 
   static Key createKey([int capacity = 10]) {
-    return AbstractTree.createTree(KeyRegion(0, max), capacity, _creator);
+    return AbstractTree.createTree(KeyRegion(0, max), capacity, _creator)
+        as Key;
   }
 }

@@ -16,8 +16,9 @@ class IndexRegion<T extends num> implements Region<Pair<T, int>> {
   final T halfWay;
 
   IndexRegion(this.start, this.end)
-      : halfWay =
-            start is int ? ((end - start) * 0.5).round() : (end - start) * 0.5;
+      : halfWay = (start is int
+            ? ((end - start) * 0.5).round()
+            : (end - start) * 0.5) as T;
 
   bool _contains(T t) {
     return t >= start && t < end;
@@ -30,7 +31,7 @@ class IndexRegion<T extends num> implements Region<Pair<T, int>> {
 
   @override
   bool intersects(Region<Pair<T, int>> region) {
-    return _intersects(region);
+    return _intersects(region as IndexRegion<T>);
   }
 
   bool _intersects(IndexRegion<T> region) {
@@ -40,6 +41,7 @@ class IndexRegion<T extends num> implements Region<Pair<T, int>> {
   @override
   Region<Pair<T, int>> split(int value) {
     Region<Pair<T, int>> part;
+
     switch (value) {
       case 0:
         part = IndexRegion(start, halfWay);
@@ -47,6 +49,8 @@ class IndexRegion<T extends num> implements Region<Pair<T, int>> {
       case 1:
         part = IndexRegion(halfWay, end);
         break;
+      default:
+        throw Exception("value can only be 0 or 1");
     }
 
     return part;

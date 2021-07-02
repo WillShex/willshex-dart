@@ -9,8 +9,8 @@
 import 'package:willshex/willshex.dart' as ws;
 
 class Response extends ws.Jsonable {
-  ws.StatusType status;
-  ws.Error error;
+  ws.StatusType? status;
+  ws.Error? error;
 
   Response({
     this.status,
@@ -38,11 +38,11 @@ class Response extends ws.Jsonable {
     Map<String, dynamic> json = super.toJson();
 
     if (status != null) {
-      json["status"] = ws.fromStatusTypeToString(status);
+      json["status"] = ws.fromStatusTypeToString(status!);
     }
 
     if (error != null) {
-      json["error"] = error.toJson();
+      json["error"] = error!.toJson();
     }
 
     return json;

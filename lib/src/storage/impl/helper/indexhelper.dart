@@ -12,7 +12,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:logging/logging.dart';
-import 'package:meta/meta.dart';
 
 import '../../class.dart';
 import '../../storage.dart';
@@ -26,77 +25,75 @@ import '../storageimpl.dart';
 class IndexHelper {
   static final Logger _log = Logger("IndexHelper");
 
-  static Future<Index<I>> loadIndex<T, I>({
-    @required StorageImpl<Storage> storage,
-    Class<T> type,
-    String colName,
-    String path,
+  static Future<Index<I>?> loadIndex<T, I>({
+    required StorageImpl<Storage> storage,
+    Class<T>? type,
+    String? colName,
+    String? path,
   }) async {
     // TODO: load index
     return null;
   }
 
   static Future<void> saveIndex<T, I>({
-    @required StorageImpl<Storage> storage,
-    Index<I> index,
-    Class<T> type,
-    String colName,
-    String path,
+    required StorageImpl<Storage> storage,
+    Index<I>? index,
+    Class<T>? type,
+    String? colName,
+    String? path,
   }) async {
     // TODO: save index
   }
 
-  static Future<Key> loadKey<T>({
-    @required StorageImpl<Storage> storage,
-    Class<T> type,
-    String path,
+  static Future<Key?> loadKey<T>({
+    required StorageImpl<Storage> storage,
+    Class<T>? type,
+    String? path,
   }) async {
     return null;
   }
 
   static Future<void> saveKey<T>({
-    @required StorageImpl<Storage> storage,
-    @required Key key,
-    @required Class<T> type,
-    String path,
+    required StorageImpl<Storage> storage,
+    required Key key,
+    required Class<T> type,
+    String? path,
   }) async {
-    if (type != null) {
-      Directory keyFolder = Directory(
-          "${(await storage.ensureFolder(type.getSimpleName())).path}/.key/");
+    Directory keyFolder = Directory(
+        "${(await storage.ensureFolder(type.simpleName)).path}/.key/");
 
-      // remove .key folder
-      if (await keyFolder.exists() && path == null) {
-        await keyFolder.delete(
-          recursive: true,
-        );
+    // remove .key folder
+    if (await keyFolder.exists() && path == null) {
+      await keyFolder.delete(
+        recursive: true,
+      );
 
-        // recreate the folder
-        await keyFolder.create();
-      }
+      // recreate the folder
+      await keyFolder.create();
+    }
 
-      if (key.points != null) {
-        File pointsFile = File("${keyFolder.absolute.path}ids${path ?? ""}");
-        pointsFile = await pointsFile.create(
-          recursive: true,
-        );
+    if (key.points != null) {
+      File pointsFile = File("${keyFolder.absolute.path}ids${path ?? ""}");
+      pointsFile = await pointsFile.create(
+        recursive: true,
+      );
 
-        await pointsFile.writeAsBytes(
-            utf8.encode((key.points.map((e) => e.toString()).join("\n"))));
+      await pointsFile.writeAsBytes(
+          utf8.encode((key.points!.map((e) => e.toString()).join("\n"))));
 
-        for (int i = 0; i < key.children.length; i++) {
-          if (key.children[i] != null) {
-            await saveKey(
-                storage: storage,
-                key: key.children[i],
-                type: type,
-                path: _path(path, i));
-          }
+      for (int i = 0; i < key.children.length; i++) {
+        if (key.children[i] != null) {
+          await saveKey(
+              storage: storage,
+              key: key.children[i] as Key,
+              type: type,
+              path: _path(path, i));
         }
       }
     }
   }
 
-  static String _path(String path, int index) {
+  static String _path(String? path, int index) {
     return path == null ? "${index}" : "${path}${index}";
   }
 

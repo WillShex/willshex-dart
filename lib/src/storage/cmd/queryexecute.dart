@@ -24,7 +24,7 @@ class QueryExecute<T> {
     return _listCall();
   }
 
-  Future<T> get first {
+  Future<T?> get first {
     return _firstCall();
   }
 }
