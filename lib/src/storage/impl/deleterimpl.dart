@@ -43,7 +43,7 @@ class DeleterImpl implements Deleter {
 
     for (T t in entities) {
       if (type == null) {
-        type = Class(t.runtimeType);
+        type = t.sc as Class<T>;
       }
 
       if (t.id != null) {

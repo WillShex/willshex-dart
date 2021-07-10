@@ -6,18 +6,32 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
+import 'dart:convert';
+
+import 'package:willshex/willshex.dart';
+
 import 'jsonable.dart';
 
-class DataType extends Jsonable {
+mixin Storable<T> {
+  late Class<T> sc;
+
+  Map<String, dynamic> toJsonStorable();
+  String toStorable() => jsonEncode(toJsonStorable());
+}
+
+abstract class DataType<T> extends Jsonable with Storable<T> {
   int? id;
   DateTime? created;
   bool? deleted;
 
   DataType({
+    required Class<T> sc,
     this.id,
     this.created,
     this.deleted,
-  });
+  }) {
+    this.sc = sc;
+  }
 
   DataType.json(Map<String, dynamic> json) : super.json(json);
   DataType.string(String string) : super.string(string);
@@ -31,7 +45,7 @@ class DataType extends Jsonable {
     }
 
     if (json["created"] != null) {
-      created = DateTime.fromMillisecondsSinceEpoch(json["created"]);
+      created = DateTime.tryParse(json["created"]);
     }
 
     if (json["deleted"] != null) {
@@ -48,7 +62,7 @@ class DataType extends Jsonable {
     }
 
     if (created != null) {
-      json["created"] = created?.millisecondsSinceEpoch;
+      json["created"] = created?.toIso8601String();
     }
 
     if (deleted != null) {
@@ -57,4 +71,17 @@ class DataType extends Jsonable {
 
     return json;
   }
+
+  Map<String, dynamic> toJsonRef() {
+    Map<String, dynamic> json = super.toJson();
+
+    if (id != null) {
+      json["id"] = id;
+    }
+
+    return json;
+  }
+
+  @override
+  Map<String, dynamic> toJsonStorable() => toJson();
 }

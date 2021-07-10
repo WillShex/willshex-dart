@@ -11,15 +11,16 @@
 ///
 class Class<T> {
   final Type _t;
+  final String _name;
 
-  const Class(this._t);
+  const Class(this._t, this._name);
 
   String get simpleName {
-    return _t.toString();
+    return _name.split(".").last;
   }
 
   String get name {
-    return _t.toString();
+    return _name;
   }
 
   @override

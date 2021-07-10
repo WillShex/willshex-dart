@@ -11,7 +11,15 @@ Future<String> path() {
   return Future.value("./data");
 }
 
-const Class<DataType> CLASS_DATA_TYPE = Class(DataType);
+const Class<Data> CLASS_DATA_TYPE = Class(Data, "Data");
+
+class Data extends DataType<Data> {
+  Data({int? id})
+      : super(
+          sc: CLASS_DATA_TYPE,
+          id: id,
+        ) {}
+}
 
 final Logger _log = Logger("main");
 final Random random = Random(1);
@@ -23,14 +31,14 @@ main() async {
 
   awesome.register(
     CLASS_DATA_TYPE,
-    () => DataType(),
+    () => Data(),
   );
 
   Key key = Key.createKey(100);
 
   _log.info("Creating entities");
   for (int i = 0; i < 1000; i++) {
-    DataType e = DataType(id: random.nextInt(Key.max));
+    DataType e = Data(id: random.nextInt(Key.max));
     await awesome.save.entity(e);
     key.add(e.id!);
   }

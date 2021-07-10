@@ -5,21 +5,39 @@ import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 import 'package:willshex/willshex.dart';
 
-class Test1Type extends DataType {
+class Test1Type extends DataType<Test1Type> {
   Test1Type({int? id, DateTime? created, bool? deleted})
-      : super(id: id, created: created, deleted: deleted);
+      : super(sc: T1, id: id, created: created, deleted: deleted) {}
+  
+  @override
+  String toStorable() => toString();
 }
 
-class Test2Type extends DataType {}
+class Test2Type extends DataType<Test2Type> {
+  Test2Type() : super(sc: T2);
 
-class Test3Type extends DataType {}
+  @override
+  String toStorable() => toString();
+}
 
-class Test4Type extends DataType {}
+class Test3Type extends DataType<Test3Type> {
+  Test3Type() : super(sc: T3);
 
-const Class<Test1Type> T1 = Class<Test1Type>(Test1Type);
-const Class<Test2Type> T2 = Class<Test2Type>(Test2Type);
-const Class<Test3Type> T3 = Class<Test3Type>(Test3Type);
-const Class<Test4Type> T4 = Class<Test4Type>(Test4Type);
+  @override
+  String toStorable() => toString();
+}
+
+class Test4Type extends DataType<Test4Type> {
+  Test4Type() : super(sc: T4);
+
+  @override
+  String toStorable() => toString();
+}
+
+const Class<Test1Type> T1 = Class<Test1Type>(Test1Type, "Test1Type");
+const Class<Test2Type> T2 = Class<Test2Type>(Test2Type, "Test2Type");
+const Class<Test3Type> T3 = Class<Test3Type>(Test3Type, "Test3Type");
+const Class<Test4Type> T4 = Class<Test4Type>(Test4Type, "Test4Type");
 
 void main() {
   Logger.root.level = Level.ALL; // defaults to Level.INFO
@@ -31,8 +49,7 @@ void main() {
 
   group("Storage Tests", () {
     late Storage cached, uncached;
-
-    Future<String> path() => Future.value("./data");
+    Future<String> path() async => "./data";
 
     setUpAll(() async {
       Directory(await path()).delete(

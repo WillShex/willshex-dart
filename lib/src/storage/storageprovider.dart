@@ -12,7 +12,9 @@ import 'impl/storageimpl.dart';
 ///
 /// @author William Shakour (billy1380)
 ///
-class StorageProvider {
+abstract class StorageProvider {
+  StorageProvider._();
+  
   static Storage provide(PathProvider path) {
     return StorageImpl<Storage>(path);
   }

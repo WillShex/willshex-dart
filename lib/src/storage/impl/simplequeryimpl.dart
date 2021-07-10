@@ -84,7 +84,7 @@ abstract class SimpleQueryImpl<T extends DataType> implements SimpleQuery<T> {
   SimpleQueryImpl<T> clone() {
     SimpleQueryImpl<T>? impl = newInstance;
 
-    if (impl == null) throw Exception(Class(this.runtimeType).name);
+    if (impl == null) throw Exception("SimpleQueryImpl");
 
     impl.loader = this.loader;
     impl.dataClass = this.dataClass;

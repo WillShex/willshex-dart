@@ -31,7 +31,7 @@ import 'simplequeryimpl.dart';
 class LoaderImpl<L extends Loader> extends Queryable<DataType>
     implements Loader, Cloneable {
   static final Logger _log = Logger("LoaderImpl");
-  
+
   late StorageImpl<Storage> store;
 
   LoaderImpl._() : super.protected();
@@ -55,7 +55,7 @@ class LoaderImpl<L extends Loader> extends Queryable<DataType>
     Class<E>? type;
     for (E entity in entities) {
       if (type == null) {
-        type = Class(entity.runtimeType);
+        type = entity.sc as Class<E>;
       }
 
       ids.add(entity.id!);
