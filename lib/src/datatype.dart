@@ -45,7 +45,9 @@ abstract class DataType<T> extends Jsonable with Storable<T> {
     }
 
     if (json["created"] != null) {
-      created = DateTime.tryParse(json["created"]);
+      created = json["created"] is int
+          ? DateTime.fromMillisecondsSinceEpoch(json["created"])
+          : DateTime.tryParse(json["created"]);
     }
 
     if (json["deleted"] != null) {
