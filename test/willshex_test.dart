@@ -8,30 +8,18 @@ import 'package:willshex/willshex.dart';
 class Test1Type extends DataType<Test1Type> {
   Test1Type({int? id, DateTime? created, bool? deleted})
       : super(sc: T1, id: id, created: created, deleted: deleted) {}
-  
-  @override
-  String toStorable() => toString();
 }
 
 class Test2Type extends DataType<Test2Type> {
   Test2Type() : super(sc: T2);
-
-  @override
-  String toStorable() => toString();
 }
 
 class Test3Type extends DataType<Test3Type> {
   Test3Type() : super(sc: T3);
-
-  @override
-  String toStorable() => toString();
 }
 
 class Test4Type extends DataType<Test4Type> {
   Test4Type() : super(sc: T4);
-
-  @override
-  String toStorable() => toString();
 }
 
 const Class<Test1Type> T1 = Class<Test1Type>(Test1Type, "Test1Type");
