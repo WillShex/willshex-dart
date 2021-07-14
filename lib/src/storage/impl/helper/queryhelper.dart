@@ -97,6 +97,9 @@ class QueryHelper {
               QueryHelper.isMatch(
                   object[filter.fieldName], filter.operation, filter.value);
           if (!isMatch) break;
+        } else {
+          isMatch = false;
+          break;
         }
       }
     }

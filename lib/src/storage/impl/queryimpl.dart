@@ -95,7 +95,9 @@ class QueryImpl<T extends DataType> extends SimpleQueryImpl<T>
       String? sign = fromFilterOperationToString(operation);
       if (condition.endsWith(sign!)) {
         filterOperation = operation;
-        condition = condition.replaceFirst(sign, "").trim();
+        condition = condition
+            .replaceRange(condition.length - sign.length, condition.length, "")
+            .trim();
         foundOperation = true;
         break;
       }
