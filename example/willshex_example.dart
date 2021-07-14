@@ -11,9 +11,10 @@ Future<String> path() {
   return Future.value("./data");
 }
 
-const Class<Data> CLASS_DATA_TYPE = Class(Data, "Data");
+Data data() => Data();
+const Class<Data> CLASS_DATA_TYPE = Class<Data>("Data", data);
 
-class Data extends DataType<Data> {
+class Data extends DataType {
   Data({int? id})
       : super(
           sc: CLASS_DATA_TYPE,
@@ -28,11 +29,6 @@ main() async {
   _setupLogging();
 
   Storage awesome = StorageProvider.provide(path).cache(false);
-
-  awesome.register(
-    CLASS_DATA_TYPE,
-    () => Data(),
-  );
 
   Key key = Key.createKey(100);
 

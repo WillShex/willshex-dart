@@ -12,20 +12,20 @@ import 'package:willshex/willshex.dart';
 
 import 'jsonable.dart';
 
-mixin Storable<T> {
-  late Class<T> sc;
-
+mixin Storable {
   Map<String, dynamic> toJsonStorable();
   String toStorable() => jsonEncode(toJsonStorable());
 }
 
-abstract class DataType<T> extends Jsonable with Storable<T> {
+abstract class DataType extends Jsonable with Storable {
+  late Class sc;
+
   int? id;
   DateTime? created;
   bool? deleted;
 
   DataType({
-    required Class<T> sc,
+    required Class sc,
     this.id,
     this.created,
     this.deleted,

@@ -6,14 +6,16 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
+typedef T CreateFunction<T>();
+
 ///
 /// @author William Shakour (billy1380)
 ///
 class Class<T> {
-  final Type _t;
   final String _name;
+  final CreateFunction<T> _createFunction;
 
-  const Class(this._t, this._name);
+  const Class(this._name, this._createFunction);
 
   String get simpleName {
     return _name.split(".").last;
@@ -25,11 +27,13 @@ class Class<T> {
 
   @override
   int get hashCode {
-    return _t.hashCode;
+    return name.hashCode;
   }
 
   @override
   bool operator ==(dynamic other) {
-    return other != null && other is Class && other._t == this._t;
+    return other != null && other is Class && other.name == this.name;
   }
+
+  T instance() => _createFunction();
 }

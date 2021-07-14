@@ -19,7 +19,7 @@ import 'cmd/loader.dart';
 /// @author William Shakour (billy1380)
 ///
 abstract class Storage {
-  static const String VERSION = "0.0.1";
+  static const String VERSION = "0.0.2";
 
   Loader get load;
 
@@ -30,9 +30,4 @@ abstract class Storage {
   Storage cache(bool cache);
 
   Compactor get compact;
-
-  void register<T extends DataType>(
-    Class<T> type,
-    CreateFunction<T> create,
-  );
 }

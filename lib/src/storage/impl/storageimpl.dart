@@ -33,8 +33,7 @@ class StorageImpl<S extends Storage> extends Storage {
   Directory? _storageHandle;
   PathProvider _pathProvider;
   bool? _useCache;
-  Map<Class<DataType>, Map<int, DataType>>? c;
-  Map<Class<DataType>, CreateFunction<DataType>>? creators;
+  Map<String, Map>? c;
 
   bool get useCache {
     return _useCache ?? false;
@@ -97,30 +96,17 @@ class StorageImpl<S extends Storage> extends Storage {
     return CompactorImpl(this);
   }
 
-  @override
-  void register<T extends DataType>(Class<T> type, CreateFunction<T> create) {
-    ensureCreators()[type] = create;
-  }
-
-  Map<Class, CreateFunction<DataType>> ensureCreators() {
-    if (creators == null) {
-      creators = <Class<DataType>, CreateFunction<DataType>>{};
+  Map ensureCacheType<T extends DataType>(Class<T> type) {
+    if (!ensureCache<T>().containsKey(type.name)) {
+      ensureCache<T>()[type.name] = {};
     }
 
-    return creators!;
+    return ensureCache<T>()[type.name]!;
   }
 
-  Map<int, T> ensureCacheType<T extends DataType>(Class<T> type) {
-    if (!ensureCache<T>().containsKey(type)) {
-      ensureCache<T>()[type] = <int, T>{};
-    }
-
-    return ensureCache<T>()[type]!;
-  }
-
-  Map<Class<T>, Map<int, T>> ensureCache<T extends DataType>() {
+  Map<String, Map<int, dynamic>> ensureCache<T extends DataType>() {
     if (c == null) {
-      c = <Class<DataType>, Map<int, DataType>>{};
+      c = {};
     }
 
     return c!.cast();

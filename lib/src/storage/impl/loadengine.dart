@@ -13,7 +13,6 @@ import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/storage/class.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
 import 'package:willshex/src/storage/storage.dart';
-import 'package:willshex/src/utility/typedef.dart';
 
 import 'loaderimpl.dart';
 import 'storageimpl.dart';
@@ -45,15 +44,7 @@ class LoadEngine {
           recordFileHandle = File("${folder.path}/${id.toString()}.json");
 
           if (await recordFileHandle.exists()) {
-            final CreateFunction<T>? creator =
-                store.creators?[type] as CreateFunction<T>;
-
-            if (creator == null) {
-              throw Exception(
-                  "Looks like ${type.name} was not registered");
-            }
-
-            (entity = creator())
+            (entity = type.instance())
                 .fromString(await recordFileHandle.readAsString());
 
             if (entity.id != null) {

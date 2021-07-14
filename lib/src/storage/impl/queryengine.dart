@@ -65,7 +65,7 @@ class QueryEngine {
           int? possibleId = int.tryParse(name);
 
           if (possibleId != null) {
-            T? found = store.ensureCacheType(query.dataClass!)[possibleId];
+            T? found = store.ensureCacheType<T>(query.dataClass!)[possibleId];
 
             if (found != null) object = found.toJson();
           }
@@ -105,10 +105,9 @@ class QueryEngine {
     List<T> matched = <T>[];
 
     if (query.isIdsOnly) {
-      CreateFunction<T> create =
-          store.creators![query.dataClass] as CreateFunction<T>;
+      
       matched.addAll(objects.map((f) {
-        return create()..id = f["id"];
+        return query.dataClass!.instance()..id = f["id"];
       }));
     } else {
       Map<int, T> loaded = await loader

@@ -5,27 +5,34 @@ import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 import 'package:willshex/willshex.dart';
 
-class Test1Type extends DataType<Test1Type> {
+class Test1Type extends DataType {
   Test1Type({int? id, DateTime? created, bool? deleted})
       : super(sc: T1, id: id, created: created, deleted: deleted) {}
 }
 
-class Test2Type extends DataType<Test2Type> {
+class Test2Type extends DataType {
   Test2Type() : super(sc: T2);
 }
 
-class Test3Type extends DataType<Test3Type> {
+class Test3Type extends DataType {
   Test3Type() : super(sc: T3);
 }
 
-class Test4Type extends DataType<Test4Type> {
+class Test4Type extends DataType {
   Test4Type() : super(sc: T4);
 }
 
-const Class<Test1Type> T1 = Class<Test1Type>(Test1Type, "Test1Type");
-const Class<Test2Type> T2 = Class<Test2Type>(Test2Type, "Test2Type");
-const Class<Test3Type> T3 = Class<Test3Type>(Test3Type, "Test3Type");
-const Class<Test4Type> T4 = Class<Test4Type>(Test4Type, "Test4Type");
+Test1Type t1() => Test1Type();
+const Class<Test1Type> T1 = Class<Test1Type>("Test1Type", t1);
+
+Test2Type t2() => Test2Type();
+const Class<Test2Type> T2 = Class<Test2Type>("Test2Type", t2);
+
+Test3Type t3() => Test3Type();
+const Class<Test3Type> T3 = Class<Test3Type>("Test3Type", t3);
+
+Test4Type t4() => Test4Type();
+const Class<Test4Type> T4 = Class<Test4Type>("Test4Type", t4);
 
 void main() {
   Logger.root.level = Level.ALL; // defaults to Level.INFO
@@ -46,12 +53,7 @@ void main() {
 
       cached = StorageProvider.provide(path).cache(true);
 
-      cached.register(T1, () => Test1Type());
-      cached.register(T2, () => Test2Type());
-      cached.register(T3, () => Test3Type());
-
       uncached = StorageProvider.provide(path).cache(false);
-      uncached.register(T4, () => Test4Type());
     });
 
     test("Store data with set id", () async {

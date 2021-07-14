@@ -21,7 +21,6 @@ export 'src/storage/storageprovider.dart';
 
 export 'src/utility/jsonutils.dart';
 export 'src/utility/stringutils.dart';
-export 'src/utility/typedef.dart';
 
 
 export 'src/storage/cmd/compactor.dart';
