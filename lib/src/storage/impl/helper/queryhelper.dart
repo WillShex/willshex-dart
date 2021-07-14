@@ -95,7 +95,10 @@ class QueryHelper {
         if (object.containsKey(filter.fieldName)) {
           isMatch = isMatch &&
               QueryHelper.isMatch(
-                  object[filter.fieldName], filter.operation, filter.value);
+                  object[filter.fieldName],
+                  filter.operation,
+                  _convertToStoredTypeIfDate(
+                      filter.value, object[filter.fieldName]));
           if (!isMatch) break;
         } else {
           isMatch = false;
@@ -139,9 +142,8 @@ class QueryHelper {
         // TODO: 6- possibly with lists of primitives that contain the same elements
         break;
       case FilterOperation.GreaterThan:
-        if (_isJsonPrimitive(toCompare) && toCompare is num && against is num) {
-          passed = (toCompare > against);
-        }
+        passed = _isJsonPrimitive(toCompare) &&
+            comparePrimitives(toCompare, against) > 0;
         break;
       case FilterOperation.GreaterThanOrEqual:
         passed = !isMatch(toCompare, FilterOperation.LessThan, against);
@@ -157,9 +159,8 @@ class QueryHelper {
         }
         break;
       case FilterOperation.LessThan:
-        if (_isJsonPrimitive(toCompare) && toCompare is num && against is num) {
-          passed = (toCompare < against);
-        }
+        passed = _isJsonPrimitive(toCompare) &&
+            comparePrimitives(toCompare, against) < 0;
         break;
       case FilterOperation.LessThanOrEqual:
         passed = !isMatch(toCompare, FilterOperation.GreaterThan, against);
@@ -174,5 +175,19 @@ class QueryHelper {
 
   static bool _isJsonPrimitive(dynamic value) {
     return !(value is Map || value is List);
+  }
+
+  static dynamic _convertToStoredTypeIfDate(dynamic value, dynamic stored) {
+    dynamic converted = value;
+
+    if (value is DateTime) {
+      if (stored is String) {
+        converted = value.toIso8601String();
+      } else if (value is int) {
+        converted = value.millisecondsSinceEpoch;
+      }
+    }
+
+    return converted;
   }
 }
