@@ -15,7 +15,6 @@ import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/sortdirectiontype.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
 import 'package:willshex/src/storage/storage.dart';
-import 'package:willshex/src/utility/typedef.dart';
 
 import 'helper/queryhelper.dart';
 import 'loaderimpl.dart';

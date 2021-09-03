@@ -16,7 +16,6 @@ import 'package:willshex/src/storage/cmd/deleter.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
 import 'package:willshex/src/storage/cmd/saver.dart';
 import 'package:willshex/src/storage/storage.dart';
-import 'package:willshex/src/utility/typedef.dart';
 
 import 'compactorimpl.dart';
 import 'deleterimpl.dart';
