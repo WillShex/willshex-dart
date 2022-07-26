@@ -10,8 +10,6 @@ import 'dart:async';
 
 import 'package:willshex/willshex.dart';
 
-import 'deletetype.dart';
-
 ///
 /// @author William Shakour (billy1380)
 ///

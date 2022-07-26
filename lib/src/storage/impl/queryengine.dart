@@ -104,7 +104,6 @@ class QueryEngine {
     List<T> matched = <T>[];
 
     if (query.isIdsOnly) {
-      
       matched.addAll(objects.map((f) {
         return query.dataClass!.instance()..id = f["id"];
       }));

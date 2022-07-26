@@ -8,29 +8,27 @@
 
 import 'dart:async';
 
-import 'package:logging/logging.dart';
-import 'package:willshex/src/storage/cloneable.dart';
-import 'package:willshex/src/storage/class.dart';
-import 'package:willshex/src/storage/cmd/loader.dart';
-import 'package:willshex/src/storage/storage.dart';
 import 'package:willshex/src/datatype.dart';
+import 'package:willshex/src/storage/class.dart';
+import 'package:willshex/src/storage/cloneable.dart';
+import 'package:willshex/src/storage/cmd/loader.dart';
 import 'package:willshex/src/storage/cmd/loadtype.dart';
-
-import 'queryable.dart';
-import 'queryimpl.dart';
-import 'storageimpl.dart';
+import 'package:willshex/src/storage/storage.dart';
 
 import 'loadengine.dart';
-import 'queryengine.dart';
 import 'loadtypeimpl.dart';
+import 'queryable.dart';
+import 'queryengine.dart';
+import 'queryimpl.dart';
 import 'simplequeryimpl.dart';
+import 'storageimpl.dart';
 
 ///
 /// @author William Shakour (billy1380)
 ///
 class LoaderImpl<L extends Loader> extends Queryable<DataType>
     implements Loader, Cloneable {
-  static final Logger _log = Logger("LoaderImpl");
+  // static final Logger _log = Logger("LoaderImpl");
 
   late StorageImpl<Storage> store;
 

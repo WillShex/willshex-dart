@@ -10,8 +10,6 @@ import 'dart:convert';
 
 import 'package:willshex/willshex.dart';
 
-import 'jsonable.dart';
-
 mixin Storable {
   Map<String, dynamic> toJsonStorable();
   String toStorable() => jsonEncode(toJsonStorable());

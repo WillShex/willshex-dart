@@ -8,13 +8,11 @@
 
 import 'dart:async';
 
-
-import 'package:willshex/src/storage/cmd/loader.dart';
 import 'package:willshex/willshex.dart';
 
-import 'simplequeryimpl.dart';
 import 'loaderimpl.dart';
 import 'queryimpl.dart';
+import 'simplequeryimpl.dart';
 
 ///
 /// @author William Shakour (billy1380)

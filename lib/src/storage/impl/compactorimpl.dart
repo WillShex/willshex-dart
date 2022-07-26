@@ -6,7 +6,6 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import 'package:willshex/src/storage/cmd/compactor.dart';
 import 'package:willshex/willshex.dart';
 
 import 'storageimpl.dart';

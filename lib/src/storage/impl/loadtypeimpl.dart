@@ -8,9 +8,6 @@
 
 import 'dart:async';
 
-import 'package:willshex/src/storage/cmd/loader.dart';
-import 'package:willshex/src/storage/cmd/loadtype.dart';
-import 'package:willshex/src/storage/cmd/query.dart';
 import 'package:willshex/src/storage/impl/loaderimpl.dart';
 import 'package:willshex/src/storage/impl/queryable.dart';
 import 'package:willshex/src/storage/impl/queryimpl.dart';
@@ -23,7 +20,6 @@ import 'simplequeryimpl.dart';
 ///
 class LoadTypeImpl<T extends DataType> extends Queryable<T>
     implements LoadType<T> {
-  
   LoadTypeImpl(LoaderImpl<Loader>? loader, Class<T>? type) : super(loader) {
     this.dataClass = type;
   }

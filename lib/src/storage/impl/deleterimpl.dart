@@ -8,8 +8,6 @@
 
 import 'dart:async';
 
-import 'package:willshex/src/storage/cmd/deleter.dart';
-import 'package:willshex/src/storage/cmd/deletetype.dart';
 import 'package:willshex/src/storage/impl/deletetypeimpl.dart';
 import 'package:willshex/src/storage/impl/storageimpl.dart';
 import 'package:willshex/willshex.dart';

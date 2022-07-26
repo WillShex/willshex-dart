@@ -8,22 +8,19 @@
 
 import 'dart:async';
 
-import 'package:logging/logging.dart';
-import 'package:willshex/src/storage/cmd/loader.dart';
-import 'package:willshex/src/storage/cmd/query.dart';
 import 'package:willshex/willshex.dart';
 
-import 'simplequeryimpl.dart';
-import 'order.dart';
 import 'filter.dart';
 import 'loaderimpl.dart';
+import 'order.dart';
+import 'simplequeryimpl.dart';
 
 ///
 /// @author William Shakour (billy1380)
 ///
 class QueryImpl<T extends DataType> extends SimpleQueryImpl<T>
     implements Query<T>, Cloneable<QueryImpl<T>> {
-  static final Logger _log = Logger("QueryImpl");
+  // static final Logger _log = Logger("QueryImpl");
   List<Order>? _order;
   List<Filter>? _filters;
   List<String>? _group;
