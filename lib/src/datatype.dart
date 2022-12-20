@@ -16,14 +16,14 @@ mixin Storable {
 }
 
 abstract class DataType extends Jsonable with Storable {
-  late Class sc;
+  late Class<dynamic> sc;
 
   int? id;
   DateTime? created;
   bool? deleted;
 
   DataType({
-    required Class sc,
+    required Class<dynamic> sc,
     this.id,
     this.created,
     this.deleted,

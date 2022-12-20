@@ -6,7 +6,7 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../../../abstracttree.dart';
+import 'package:willshex/src/abstracttree.dart';
 
 class KeyRegion implements Region<int> {
   final int start;

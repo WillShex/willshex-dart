@@ -6,7 +6,7 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import 'simplequery.dart';
+import 'package:willshex/src/storage/cmd/simplequery.dart';
 
 ///
 /// @author William Shakour (billy1380)

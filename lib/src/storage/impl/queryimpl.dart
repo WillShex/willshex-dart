@@ -10,10 +10,10 @@ import 'dart:async';
 
 import 'package:willshex/willshex.dart';
 
-import 'filter.dart';
-import 'loaderimpl.dart';
-import 'order.dart';
-import 'simplequeryimpl.dart';
+import 'package:willshex/src/storage/impl/filter.dart';
+import 'package:willshex/src/storage/impl/loaderimpl.dart';
+import 'package:willshex/src/storage/impl/order.dart';
+import 'package:willshex/src/storage/impl/simplequeryimpl.dart';
 
 ///
 /// @author William Shakour (billy1380)
@@ -190,7 +190,7 @@ class QueryImpl<T extends DataType> extends SimpleQueryImpl<T>
 
   @override
   SimpleQueryImpl<T> get newInstance {
-    return QueryImpl._();
+    return QueryImpl<T>._();
   }
 
   List<Filter>? get allFilters => this._filters;

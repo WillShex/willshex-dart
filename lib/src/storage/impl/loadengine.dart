@@ -12,10 +12,9 @@ import 'dart:io';
 import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/storage/class.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
+import 'package:willshex/src/storage/impl/loaderimpl.dart';
+import 'package:willshex/src/storage/impl/storageimpl.dart';
 import 'package:willshex/src/storage/storage.dart';
-
-import 'loaderimpl.dart';
-import 'storageimpl.dart';
 
 ///
 /// @author William Shakour (billy1380)

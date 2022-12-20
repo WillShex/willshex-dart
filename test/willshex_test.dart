@@ -36,7 +36,7 @@ const Class<Test4Type> T4 = Class<Test4Type>("Test4Type", t4);
 
 void main() {
   Logger.root.level = Level.ALL; // defaults to Level.INFO
-  Logger.root.onRecord.listen((record) {
+  Logger.root.onRecord.listen((LogRecord record) {
     print('${record.level.name}: ${record.time}: ${record.message}');
   });
 

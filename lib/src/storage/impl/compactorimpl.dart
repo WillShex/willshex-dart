@@ -8,7 +8,7 @@
 
 import 'package:willshex/willshex.dart';
 
-import 'storageimpl.dart';
+import 'package:willshex/src/storage/impl/storageimpl.dart';
 
 import 'dart:async';
 

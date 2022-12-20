@@ -6,11 +6,11 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../../../abstracttree.dart';
-import 'keyregion.dart';
+import 'package:willshex/src/abstracttree.dart';
+import 'package:willshex/src/storage/impl/index/keyregion.dart';
 
 class Key extends AbstractTree<int> {
-  static const max = 4294967296;
+  static const int max = 4294967296;
 
   Key._() : super(_creator, 2);
 

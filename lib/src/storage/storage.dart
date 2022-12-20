@@ -6,10 +6,10 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import 'cmd/compactor.dart';
-import 'cmd/deleter.dart';
-import 'cmd/loader.dart';
-import 'cmd/saver.dart';
+import 'package:willshex/src/storage/cmd/compactor.dart';
+import 'package:willshex/src/storage/cmd/deleter.dart';
+import 'package:willshex/src/storage/cmd/loader.dart';
+import 'package:willshex/src/storage/cmd/saver.dart';
 
 ///
 /// @author William Shakour (billy1380)

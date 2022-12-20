@@ -24,7 +24,7 @@ class Jsonable {
   }
 
   Map<String, dynamic> toJson() {
-    return {};
+    return <String, dynamic>{};
   }
 
   String toString() {

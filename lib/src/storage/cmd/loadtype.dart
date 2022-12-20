@@ -7,8 +7,8 @@
 //
 
 import 'package:willshex/src/datatype.dart';
-import 'loadids.dart';
-import 'query.dart';
+import 'package:willshex/src/storage/cmd/loadids.dart';
+import 'package:willshex/src/storage/cmd/query.dart';
 
 ///
 /// @author William Shakour (billy1380)

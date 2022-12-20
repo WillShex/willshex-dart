@@ -17,11 +17,11 @@ import 'package:willshex/src/storage/cmd/loader.dart';
 import 'package:willshex/src/storage/cmd/saver.dart';
 import 'package:willshex/src/storage/storage.dart';
 
-import 'compactorimpl.dart';
-import 'deleterimpl.dart';
-import 'loaderimpl.dart';
-import 'saverimpl.dart';
-import 'writeengine.dart';
+import 'package:willshex/src/storage/impl/compactorimpl.dart';
+import 'package:willshex/src/storage/impl/deleterimpl.dart';
+import 'package:willshex/src/storage/impl/loaderimpl.dart';
+import 'package:willshex/src/storage/impl/saverimpl.dart';
+import 'package:willshex/src/storage/impl/writeengine.dart';
 
 typedef Future<String> PathProvider();
 
@@ -32,7 +32,7 @@ class StorageImpl<S extends Storage> extends Storage {
   Directory? _storageHandle;
   PathProvider _pathProvider;
   bool? _useCache;
-  Map<String, Map>? c;
+  Map<String, Map<String, dynamic>>? c;
 
   bool get useCache {
     return _useCache ?? false;
@@ -95,9 +95,9 @@ class StorageImpl<S extends Storage> extends Storage {
     return CompactorImpl(this);
   }
 
-  Map ensureCacheType<T extends DataType>(Class<T> type) {
+  Map<int, dynamic> ensureCacheType<T extends DataType>(Class<T> type) {
     if (!ensureCache<T>().containsKey(type.name)) {
-      ensureCache<T>()[type.name] = {};
+      ensureCache<T>()[type.name] = <int, dynamic>{};
     }
 
     return ensureCache<T>()[type.name]!;
@@ -105,7 +105,7 @@ class StorageImpl<S extends Storage> extends Storage {
 
   Map<String, Map<int, dynamic>> ensureCache<T extends DataType>() {
     if (c == null) {
-      c = {};
+      c = <String, Map<String, dynamic>>{};
     }
 
     return c!.cast();

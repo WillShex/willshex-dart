@@ -6,8 +6,8 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import 'jsonable.dart';
-import 'sortdirectiontype.dart';
+import 'package:willshex/src/jsonable.dart';
+import 'package:willshex/src/sortdirectiontype.dart';
 
 class Pager extends Jsonable {
   int? start;

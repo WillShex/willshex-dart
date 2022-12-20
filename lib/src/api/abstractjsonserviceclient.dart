@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:willshex/src/utility/typedef.dart';
 
-import 'request.dart';
-import 'response.dart';
+import 'package:willshex/src/api/request.dart';
+import 'package:willshex/src/api/response.dart';
 
 typedef void SuccessCallback<S extends Request, T extends Response>(
     S input, T? output);
@@ -72,15 +72,17 @@ abstract class AbstractJsonServiceClient {
     _log.info("Sending [$input] to [$url] with action [$action]");
 
     return await http.post(Uri.parse(url!),
-        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        headers: <String, String>{
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
         body: requestData);
   }
 
   void onCallStart<T extends Response>(
       AbstractJsonServiceClient origin, String callName, Request input) {}
 
-  void onCallSuccess<T extends Response>(AbstractJsonServiceClient origin, String callName,
-      Request input, T? output) {}
+  void onCallSuccess<T extends Response>(AbstractJsonServiceClient origin,
+      String callName, Request input, T? output) {}
 
   void onCallFailure(AbstractJsonServiceClient origin, String callName,
       Request input, Exception caught) {}

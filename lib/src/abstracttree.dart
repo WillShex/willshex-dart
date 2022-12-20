@@ -22,7 +22,7 @@ abstract class AbstractTree<T> {
   CreateFunction<AbstractTree<T>> creator;
 
   AbstractTree(this.creator, int branches)
-      : children = List.filled(
+      : children = List<AbstractTree<T>?>.filled(
           branches,
           null,
         );
@@ -43,7 +43,7 @@ abstract class AbstractTree<T> {
         added = _addToChildren(p);
       } else {
         if (points == null) {
-          points = [];
+          points = <T>[];
         }
 
         points!.add(p);
@@ -85,7 +85,7 @@ abstract class AbstractTree<T> {
   }
 
   List<T> resultQuery(Region<T> r) {
-    List<T> found = [];
+    List<T> found = <T>[];
 
     countQuery(r, found);
 

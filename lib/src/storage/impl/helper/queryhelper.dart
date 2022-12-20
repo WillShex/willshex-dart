@@ -6,10 +6,10 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../order.dart';
-import '../../../sortdirectiontype.dart';
-import '../filter.dart';
-import '../../../datatype.dart';
+import 'package:willshex/src/storage/impl/order.dart';
+import 'package:willshex/src/sortdirectiontype.dart';
+import 'package:willshex/src/storage/impl/filter.dart';
+import 'package:willshex/src/datatype.dart';
 
 ///
 /// @author William Shakour (billy1380)
@@ -17,7 +17,7 @@ import '../../../datatype.dart';
 class QueryHelper {
   static void sort(
       List<Map<String, dynamic>> objects, final List<Order>? order) {
-    objects.sort((o1, o2) {
+    objects.sort((Map<String, dynamic> o1, Map<String, dynamic> o2) {
       dynamic value, value2;
       int result;
       if (order != null) {
@@ -150,7 +150,7 @@ class QueryHelper {
         break;
       case FilterOperation.In:
         if (against is Iterable) {
-          Iterable iterable = against;
+          Iterable<dynamic> iterable = against;
 
           for (dynamic againsItem in iterable) {
             passed = isMatch(toCompare, FilterOperation.Equals, againsItem);

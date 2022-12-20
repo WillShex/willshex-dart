@@ -6,8 +6,8 @@
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
 
-import '../../../abstracttree.dart';
-import 'pair.dart';
+import 'package:willshex/src/abstracttree.dart';
+import 'package:willshex/src/storage/impl/index/pair.dart';
 
 class IndexRegion<T extends num> implements Region<Pair<T, int>> {
   final T start;
@@ -44,10 +44,10 @@ class IndexRegion<T extends num> implements Region<Pair<T, int>> {
 
     switch (value) {
       case 0:
-        part = IndexRegion(start, halfWay);
+        part = IndexRegion<T>(start, halfWay);
         break;
       case 1:
-        part = IndexRegion(halfWay, end);
+        part = IndexRegion<T>(halfWay, end);
         break;
       default:
         throw Exception("value can only be 0 or 1");

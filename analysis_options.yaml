@@ -12,3 +12,10 @@ linter:
     - test_types_in_equals
     - unrelated_type_equality_checks
     - valid_regexps
+    - always_declare_return_types
+    - always_specify_types
+    - always_use_package_imports
+    - avoid_bool_literals_in_conditional_expressions
+    - avoid_print
+    - avoid_init_to_null
+    - unnecessary_new

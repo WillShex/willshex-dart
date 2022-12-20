@@ -11,8 +11,8 @@ import 'dart:async';
 import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/storage/class.dart';
 
-import 'simplequery.dart';
-import 'loadtype.dart';
+import 'package:willshex/src/storage/cmd/simplequery.dart';
+import 'package:willshex/src/storage/cmd/loadtype.dart';
 
 ///
 /// @author William Shakour (billy1380)

@@ -8,7 +8,7 @@ import 'package:willshex/willshex.dart';
 import 'package:logging/logging.dart';
 
 Future<String> path() {
-  return Future.value("./data");
+  return Future<String>.value("./data");
 }
 
 Data data() => Data();
@@ -25,7 +25,7 @@ class Data extends DataType {
 final Logger _log = Logger("main");
 final Random random = Random(1);
 
-main() async {
+Future<void> main() async {
   _setupLogging();
 
   Storage awesome = StorageProvider.provide(path).cache(false);
@@ -52,7 +52,7 @@ main() async {
 
 void _setupLogging() {
   Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((record) {
+  Logger.root.onRecord.listen((LogRecord record) {
     print("${record.level.name}: ${record.time}: ${record.message}");
   });
 }

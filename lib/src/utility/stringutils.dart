@@ -10,7 +10,7 @@ import 'dart:collection';
 
 import 'dart:math';
 
-const List<String> _ESCAPE_CHARS = [
+const List<String> _ESCAPE_CHARS = <String>[
   "%",
   " ",
   "{",
@@ -171,7 +171,7 @@ const List<String> _ESCAPE_CHARS = [
   "ÿ"
 ];
 
-const List<String> _REPLACE_CHARS = [
+const List<String> _REPLACE_CHARS = <String>[
   "%25",
   "%20",
   "%7B",
@@ -734,9 +734,9 @@ abstract class StringUtils {
   }
 
   static Iterable<String> longestCommonParts(String lhs, String rhs) {
-    List<List<int?>> table = List.generate(
+    List<List<int?>> table = List<List<int?>>.generate(
         lhs.length,
-        (i) => List<int?>.filled(
+        (int i) => List<int?>.filled(
               rhs.length,
               null,
               growable: true,

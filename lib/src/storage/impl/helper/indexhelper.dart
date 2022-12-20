@@ -13,11 +13,11 @@ import 'dart:math';
 
 import 'package:logging/logging.dart';
 
-import '../../class.dart';
-import '../../storage.dart';
-import '../index/index.dart';
-import '../index/key.dart';
-import '../storageimpl.dart';
+import 'package:willshex/src/storage/class.dart';
+import 'package:willshex/src/storage/storage.dart';
+import 'package:willshex/src/storage/impl/index/index.dart';
+import 'package:willshex/src/storage/impl/index/key.dart';
+import 'package:willshex/src/storage/impl/storageimpl.dart';
 
 ///
 /// @author William Shakour (billy1380)
@@ -79,7 +79,7 @@ class IndexHelper {
       );
 
       await pointsFile.writeAsBytes(
-          utf8.encode((key.points!.map((e) => e.toString()).join("\n"))));
+          utf8.encode((key.points!.map((int e) => e.toString()).join("\n"))));
 
       for (int i = 0; i < key.children.length; i++) {
         if (key.children[i] != null) {

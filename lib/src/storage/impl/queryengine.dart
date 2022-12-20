@@ -14,13 +14,12 @@ import 'package:path/path.dart';
 import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/sortdirectiontype.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';
+import 'package:willshex/src/storage/impl/helper/queryhelper.dart';
+import 'package:willshex/src/storage/impl/loaderimpl.dart';
+import 'package:willshex/src/storage/impl/order.dart';
+import 'package:willshex/src/storage/impl/queryimpl.dart';
+import 'package:willshex/src/storage/impl/storageimpl.dart';
 import 'package:willshex/src/storage/storage.dart';
-
-import 'helper/queryhelper.dart';
-import 'loaderimpl.dart';
-import 'order.dart';
-import 'queryimpl.dart';
-import 'storageimpl.dart';
 
 ///
 /// @author William Shakour (billy1380)
@@ -104,13 +103,12 @@ class QueryEngine {
     List<T> matched = <T>[];
 
     if (query.isIdsOnly) {
-      matched.addAll(objects.map((f) {
+      matched.addAll(objects.map((Map<String, dynamic> f) {
         return query.dataClass!.instance()..id = f["id"];
       }));
     } else {
-      Map<int, T> loaded = await loader
-          .createLoadEngine()
-          .load(query.dataClass!, objects.map((f) => f["id"]));
+      Map<int, T> loaded = await loader.createLoadEngine().load(
+          query.dataClass!, objects.map((Map<String, dynamic> f) => f["id"]));
 
       for (Map<String, dynamic> object in objects) {
         matched.add(loaded[object["id"]]!);

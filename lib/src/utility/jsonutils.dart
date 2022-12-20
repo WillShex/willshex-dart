@@ -16,7 +16,7 @@ class JsonUtils {
   }
 
   static String _cleanJson(String json, bool stripStrings) {
-    List<String> values = [];
+    List<String> values = <String>[];
 
     String stripped = json;
 
@@ -121,7 +121,7 @@ class JsonUtils {
   }
 
   static String _putBack(String stripped, List<String> values) {
-    StringBuffer? putBack = null;
+    StringBuffer? putBack;
 
     if (values.isNotEmpty) {
       putBack = StringBuffer();
@@ -156,7 +156,7 @@ class JsonUtils {
 	 * @return processed json
 	 */
   static String _beautifyJson(String json, String level, String line) {
-    List<String> values = [];
+    List<String> values = <String>[];
     String stripped = _strip(json, values);
 
     int length = stripped.length;
@@ -197,7 +197,7 @@ class JsonUtils {
   }
 
   static String uglifyJson(String json) {
-    List<String> values = [];
+    List<String> values = <String>[];
     String stripped = _strip(json, values);
 
     int length = stripped.length;
