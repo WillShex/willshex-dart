@@ -14,8 +14,8 @@ import 'package:willshex/src/storage/cmd/loader.dart';
 import 'package:willshex/src/storage/cmd/queryexecute.dart';
 import 'package:willshex/src/storage/cmd/simplequery.dart';
 
-import 'loaderimpl.dart';
-import 'queryimpl.dart';
+import 'package:willshex/src/storage/impl/loaderimpl.dart';
+import 'package:willshex/src/storage/impl/queryimpl.dart';
 
 ///
 /// @author William Shakour (billy1380)
