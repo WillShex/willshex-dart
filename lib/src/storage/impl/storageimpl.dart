@@ -32,7 +32,7 @@ class StorageImpl<S extends Storage> extends Storage {
   Directory? _storageHandle;
   PathProvider _pathProvider;
   bool? _useCache;
-  Map<String, Map<String, dynamic>>? c;
+  Map<String, Map<int, dynamic>>? c;
 
   bool get useCache {
     return _useCache ?? false;
@@ -95,17 +95,12 @@ class StorageImpl<S extends Storage> extends Storage {
     return CompactorImpl(this);
   }
 
-  Map<int, dynamic> ensureCacheType<T extends DataType>(Class<T> type) {
-    if (!ensureCache<T>().containsKey(type.name)) {
-      ensureCache<T>()[type.name] = <int, dynamic>{};
-    }
-
-    return ensureCache<T>()[type.name]!;
-  }
+  Map<int, dynamic> ensureCacheType<T extends DataType>(Class<T> type) =>
+      ensureCache<T>().putIfAbsent(type.name, () => <int, dynamic>{});
 
   Map<String, Map<int, dynamic>> ensureCache<T extends DataType>() {
     if (c == null) {
-      c = <String, Map<String, dynamic>>{};
+      c = <String, Map<int, dynamic>>{};
     }
 
     return c!.cast();
