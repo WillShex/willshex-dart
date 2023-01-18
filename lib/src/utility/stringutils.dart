@@ -608,8 +608,12 @@ abstract class StringUtils {
     return restricted.toString();
   }
 
-  static String expandByCase(String? value, bool capitalFirst,
-      bool capitalAfterSpace, String space, String append) {
+  static String snakeCase(String? value) =>
+      expandByCase(value, false, false, "_");
+
+  static String expandByCase(
+      String? value, bool capitalFirst, bool capitalAfterSpace, String space,
+      [String? append = ""]) {
     StringBuffer expanded = StringBuffer();
     if (isNotEmpty(value)) {
       int size = value!.length;
@@ -844,4 +848,7 @@ abstract class StringUtils {
 
   static bool equalsIgnoreCase(String? s1, String? s2) =>
       s1?.toLowerCase() == s2?.toLowerCase();
+
+  static bool isAllCaps(String? value) =>
+      value != null && value == value.toUpperCase();
 }
