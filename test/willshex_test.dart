@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:logging/logging.dart';
 import 'package:test/test.dart';
+import 'package:willshex/src/utility/logging.dart';
 import 'package:willshex/willshex.dart';
 
 class Test1Type extends DataType {
@@ -35,10 +35,7 @@ Test4Type t4() => Test4Type();
 const Class<Test4Type> T4 = Class<Test4Type>("Test4Type", t4);
 
 void main() {
-  Logger.root.level = Level.ALL; // defaults to Level.INFO
-  Logger.root.onRecord.listen((LogRecord record) {
-    print('${record.level.name}: ${record.time}: ${record.message}');
-  });
+  setupLogging();
 
   // Logger log = Logger("test:main");
 

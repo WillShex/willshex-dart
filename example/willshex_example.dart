@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:willshex/src/storage/impl/helper/indexhelper.dart';
 import 'package:willshex/src/storage/impl/index/key.dart';
 import 'package:willshex/src/storage/impl/storageimpl.dart';
+import 'package:willshex/src/utility/logging.dart';
 import 'package:willshex/willshex.dart';
 import 'package:logging/logging.dart';
 
@@ -26,7 +27,7 @@ final Logger _log = Logger("main");
 final Random random = Random(1);
 
 Future<void> main() async {
-  _setupLogging();
+  setupLogging();
 
   Storage awesome = StorageProvider.provide(path).cache(false);
 
@@ -48,11 +49,4 @@ Future<void> main() async {
     key: key,
     type: CLASS_DATA_TYPE,
   );
-}
-
-void _setupLogging() {
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((LogRecord record) {
-    print("${record.level.name}: ${record.time}: ${record.message}");
-  });
 }
