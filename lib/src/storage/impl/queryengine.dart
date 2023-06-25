@@ -10,6 +10,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:logging/logging.dart';
 import 'package:path/path.dart';
 import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/sortdirectiontype.dart';
@@ -25,6 +26,8 @@ import 'package:willshex/src/storage/storage.dart';
 /// @author William Shakour (billy1380)
 ///
 class QueryEngine {
+  Logger _log = Logger("QueryEngine");
+
   static const List<Order> DEFAULT_ORDER = const <Order>[
     const Order("id", SortDirectionType.ascending)
   ];
@@ -53,7 +56,7 @@ class QueryEngine {
     List<Map<String, dynamic>> objects = <Map<String, dynamic>>[];
 
     // int startAt = query.startAt == null ? 0 : query.startAt;
-    // int matchedCount = 0;
+    int matchedCount = 0;
     await for (FileSystemEntity record in records) {
       Map<String, dynamic> object;
 
@@ -77,10 +80,12 @@ class QueryEngine {
           // if (query.stopAfter != null &&
           //     matchedCount - startAt == query.stopAfter - 1) break;
           // }
-          // matchedCount++;
+          matchedCount++;
         }
       }
     }
+
+    _log.fine("Matched count ${query.dataClass?.name}: $matchedCount");
 
     // TODO: process distinct and group
 
