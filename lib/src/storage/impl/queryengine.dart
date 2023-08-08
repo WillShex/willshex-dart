@@ -8,10 +8,10 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:logging/logging.dart';
 import 'package:path/path.dart';
+import 'package:universal_file/universal_file.dart';
 import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/sortdirectiontype.dart';
 import 'package:willshex/src/storage/cmd/loader.dart';

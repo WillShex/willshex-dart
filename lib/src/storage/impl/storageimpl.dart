@@ -7,8 +7,8 @@
 //
 
 import 'dart:async';
-import 'dart:io';
 
+import 'package:universal_file/universal_file.dart';
 import 'package:willshex/src/datatype.dart';
 import 'package:willshex/src/storage/class.dart';
 import 'package:willshex/src/storage/cmd/compactor.dart';

@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:logging/logging.dart';
 import 'package:test/test.dart';
+import 'package:universal_file/universal_file.dart';
 import 'package:willshex/src/utility/logging.dart';
 import 'package:willshex/willshex.dart';
 
@@ -37,16 +38,19 @@ const Class<Test4Type> T4 = Class<Test4Type>("Test4Type", t4);
 void main() {
   setupLogging();
 
-  // Logger log = Logger("test:main");
+  final Logger log = Logger("test:main");
 
   group("Storage Tests", () {
     late Storage cached, uncached;
     Future<String> path() async => "./data";
 
     setUpAll(() async {
-      Directory(await path()).delete(
-        recursive: true,
-      );
+      Directory output = Directory(await path())
+        ..delete(
+          recursive: true,
+        );
+
+      log.info("Data path ${output.absolute.path}");
 
       cached = StorageProvider.provide(path).cache(true);
 
