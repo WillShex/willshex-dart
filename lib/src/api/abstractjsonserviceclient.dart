@@ -56,10 +56,15 @@ abstract class AbstractJsonServiceClient {
         "null" != responseText.toLowerCase()) {
       output = create()..fromString(responseText);
 
-      _log.info("Recieved [$responseText] to [${response.request?.url}");
-    } else if (response.statusCode >= 400)
+      _log.info(
+          "Recieved body [$responseText] and status [${response.statusCode}] to [${response.request?.url}");
+    } else if (response.statusCode >= 400) {
+      _log.info(
+          "Recieved status [${response.statusCode}] to [${response.request?.url}");
+
       throw HttpException("$response.statusCode: $response.reasonPhrase",
           uri: response.request?.url);
+    }
 
     return output;
   }
