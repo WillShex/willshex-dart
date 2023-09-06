@@ -66,30 +66,28 @@ String? fromFilterOperationToString(FilterOperation? value) {
 FilterOperation? fromStringToFilterOperation(String? value) {
   FilterOperation? filterOperation;
 
-  if (filterOperation != null) {
-    switch (value) {
-      case "!=":
-        filterOperation = FilterOperation.NotEquals;
-        break;
-      case ">":
-        filterOperation = FilterOperation.GreaterThan;
-        break;
-      case ">=":
-        filterOperation = FilterOperation.GreaterThanOrEqual;
-        break;
-      case "<":
-        filterOperation = FilterOperation.LessThan;
-        break;
-      case "<=":
-        filterOperation = FilterOperation.LessThanOrEqual;
-        break;
-      case "in":
-        filterOperation = FilterOperation.In;
-        break;
-      case "=":
-        filterOperation = FilterOperation.Equals;
-        break;
-    }
+  switch (value) {
+    case "!=":
+      filterOperation = FilterOperation.NotEquals;
+      break;
+    case ">":
+      filterOperation = FilterOperation.GreaterThan;
+      break;
+    case ">=":
+      filterOperation = FilterOperation.GreaterThanOrEqual;
+      break;
+    case "<":
+      filterOperation = FilterOperation.LessThan;
+      break;
+    case "<=":
+      filterOperation = FilterOperation.LessThanOrEqual;
+      break;
+    case "in":
+      filterOperation = FilterOperation.In;
+      break;
+    case "=":
+      filterOperation = FilterOperation.Equals;
+      break;
   }
 
   return filterOperation;

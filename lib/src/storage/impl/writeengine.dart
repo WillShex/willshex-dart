@@ -67,7 +67,7 @@ class WriteEngine {
         }
 
         if (store.useCache) {
-          store.ensureCache().remove(id);
+          store.ensureCache().remove(id.toString());
         }
       }
     });
