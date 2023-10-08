@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
-import 'package:universal_file/universal_file.dart';
 import 'package:willshex/src/api/request.dart';
 import 'package:willshex/src/api/response.dart';
+import 'package:willshex/src/http_exception.dart';
 import 'package:willshex/src/utility/typedef.dart';
 
 typedef void SuccessCallback<S extends Request, T extends Response>(
