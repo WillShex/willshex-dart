@@ -17,7 +17,6 @@
 import 'dart:math';
 
 import 'package:willshex/src/functions.dart';
-import 'package:willshex/src/utility/containerhelpers.dart';
 import 'package:willshex/willshex.dart';
 
 typedef KeyProvider<T> = int Function(T object);
@@ -45,8 +44,14 @@ class SparseArray<E> extends Iterable<E> implements Cloneable<SparseArray<E>> {
       _values = ContainerHelpers.emptyObjects;
     } else {
       initialCapacity = ContainerHelpers.idealIntArraySize(initialCapacity);
-      _keys = <int>[]..length = initialCapacity;
-      _values = <Object>[]..length = initialCapacity;
+      _keys = List<int>.filled(
+        initialCapacity,
+        -1,
+      );
+      _values = List<E?>.filled(
+        initialCapacity,
+        null,
+      );
     }
   }
 
@@ -68,14 +73,17 @@ class SparseArray<E> extends Iterable<E> implements Cloneable<SparseArray<E>> {
   /// if no such mapping has been made.
   ///
   E? operator [](int key) {
-    return get(key, null);
+    return get(key);
   }
 
   ///
   /// Gets the Object mapped from the specified key, or the specified Object
   /// if no such mapping has been made.
   ///
-  E? get(int key, E? valueIfKeyNotFound) {
+  E? get(
+    int key, [
+    E? valueIfKeyNotFound,
+  ]) {
     int i = ContainerHelpers.binarySearch(_keys, _length, key);
 
     if (i < 0 || _values[i] == _deleted) {
@@ -186,8 +194,14 @@ class SparseArray<E> extends Iterable<E> implements Cloneable<SparseArray<E>> {
       if (_length >= _keys.length) {
         int n = ContainerHelpers.idealIntArraySize(_length + 1);
 
-        List<int> nkeys = <int>[]..length = n;
-        List<Object> nvalues = <Object>[]..length = n;
+        List<int> nkeys = List<int>.filled(
+          n,
+          -1,
+        );
+        List<E?> nvalues = List<E?>.filled(
+          n,
+          null,
+        );
 
         // Log.e("SparseArray", "grow " + mKeys.length + " to " + n);
         _arrayCopy(_keys, 0, nkeys, 0, _keys.length);
@@ -329,8 +343,14 @@ class SparseArray<E> extends Iterable<E> implements Cloneable<SparseArray<E>> {
     if (pos >= _keys.length) {
       int n = ContainerHelpers.idealIntArraySize(pos + 1);
 
-      List<int> nkeys = <int>[]..length = n;
-      List<Object> nvalues = <Object>[]..length = n;
+      List<int> nkeys = List<int>.filled(
+        n,
+        -1,
+      );
+      List<E?> nvalues = List<E?>.filled(
+        n,
+        null,
+      );
 
       // Log.e("SparseArray", "grow " + mKeys.length + " to " + n);
       _arrayCopy(_keys, 0, nkeys, 0, _keys.length);

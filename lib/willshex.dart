@@ -7,6 +7,7 @@ export 'src/datatype.dart';
 export 'src/jsonable.dart';
 export 'src/pager.dart';
 export 'src/sortdirectiontype.dart';
+export 'src/sparsearray.dart';
 
 export 'src/api/abstractjsonserviceclient.dart';
 export 'src/api/error.dart';
@@ -21,7 +22,8 @@ export 'src/storage/storageprovider.dart';
 
 export 'src/utility/jsonutils.dart';
 export 'src/utility/stringutils.dart';
-
+export 'src/utility/containerhelpers.dart';
+export 'src/utility/logging.dart';
 
 export 'src/storage/cmd/compactor.dart';
 export 'src/storage/cmd/simplequery.dart';
