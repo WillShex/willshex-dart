@@ -1,6 +1,6 @@
-import 'package:universal_file/universal_file.dart';
+import 'package:willshex/src/io_exception.dart';
 
-class HttpException implements IOException {
+class HttpException implements IoException {
   final String message;
   final Uri? uri;
 
