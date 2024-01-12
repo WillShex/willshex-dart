@@ -9,6 +9,6 @@ environment:
 
 dependencies:
   path: ^1.8.2
-  http: ^0.13.5
+  http: ^1.1.2
   universal_file: ^1.0.0
   logging: ^1.1.0
