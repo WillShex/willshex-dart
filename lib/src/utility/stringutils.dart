@@ -858,6 +858,7 @@ abstract class StringUtils {
     int length, {
     String? prefix,
     Random? generator,
+    String alphabet = _CAMEL_PASCAL_ALLOWED,
   }) {
     if (generator == null) {
       generator = r;
@@ -870,8 +871,8 @@ abstract class StringUtils {
     }
 
     for (int i = 0; i < length; i++) {
-      int index = generator.nextInt(_CAMEL_PASCAL_ALLOWED.length);
-      generated.write(_CAMEL_PASCAL_ALLOWED[index]);
+      int index = generator.nextInt(alphabet.length);
+      generated.write(alphabet[index]);
     }
 
     return generated.toString();
