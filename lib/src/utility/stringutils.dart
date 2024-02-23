@@ -10,6 +10,8 @@ import 'dart:collection';
 
 import 'dart:math';
 
+final Random r = Random();
+
 const List<String> _ESCAPE_CHARS = <String>[
   "%",
   " ",
@@ -851,4 +853,27 @@ abstract class StringUtils {
 
   static bool isAllCaps(String? value) =>
       value != null && value == value.toUpperCase();
+
+  static String random(
+    int length, {
+    String? prefix,
+    Random? generator,
+  }) {
+    if (generator == null) {
+      generator = r;
+    }
+
+    StringBuffer generated = StringBuffer();
+
+    if (prefix != null) {
+      generated.write(prefix);
+    }
+
+    for (int i = 0; i < length; i++) {
+      int index = generator.nextInt(_CAMEL_PASCAL_ALLOWED.length);
+      generated.write(_CAMEL_PASCAL_ALLOWED[index]);
+    }
+
+    return generated.toString();
+  }
 }
