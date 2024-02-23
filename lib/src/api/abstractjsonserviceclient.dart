@@ -22,7 +22,7 @@ abstract class AbstractJsonServiceClient {
       S input,
       SuccessCallback<S, T>? onSuccess,
       FailureCallback<S>? onFailure,
-      CreateFunction<T> creator) async {
+      CreateFromStringFunction<T> creator) async {
     try {
       onCallStart(this, callName, input);
       http.Response response = await sendRequest(callName, input);
@@ -47,14 +47,14 @@ abstract class AbstractJsonServiceClient {
   }
 
   T? parseResponse<T extends Response>(
-      http.Response response, CreateFunction<T> create) {
+      http.Response response, CreateFromStringFunction<T> create) {
     String responseText;
     T? output;
     if (response.statusCode >= 200 &&
         response.statusCode < 300 &&
         (responseText = response.body).isNotEmpty &&
         "null" != responseText.toLowerCase()) {
-      output = create()..fromString(responseText);
+      output = create(responseText);
 
       _log.info(
           "Recieved body [$responseText] and status [${response.statusCode}] to [${response.request?.url}");

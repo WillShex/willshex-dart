@@ -5,8 +5,7 @@
 //  Created by William Shakour (billy1380) on 28 Mar 2018.
 //  Copyright © 2018 WillShex Limited. All rights reserved.
 //
-
-typedef T CreateFunction<T>();
+import 'package:willshex/src/utility/typedef.dart';
 
 ///
 /// @author William Shakour (billy1380)
@@ -14,8 +13,15 @@ typedef T CreateFunction<T>();
 class Class<T> {
   final String _name;
   final CreateFunction<T> _createFunction;
+  final CreateFromStringFunction<T> _createFromStringFunction;
+  final CreateFromMapFunction<T> _createFromMapFunction;
 
-  const Class(this._name, this._createFunction);
+  const Class(
+    this._name,
+    this._createFunction,
+    this._createFromStringFunction,
+    this._createFromMapFunction,
+  );
 
   String get simpleName {
     return _name.split(".").last;
@@ -36,4 +42,6 @@ class Class<T> {
   }
 
   T instance() => _createFunction();
+  T instanceWithString(String string) => _createFromStringFunction(string);
+  T instanceWithMap(Map<String, dynamic> map) => _createFromMapFunction(map);
 }

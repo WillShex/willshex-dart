@@ -18,3 +18,4 @@ export 'src/utility/containerhelpers.dart';
 export 'src/utility/jsonutils.dart';
 export 'src/utility/logging.dart';
 export 'src/utility/stringutils.dart';
+export 'src/utility/typedef.dart';
