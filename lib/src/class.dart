@@ -37,8 +37,8 @@ class Class<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
-    return other != null && other is Class && other.name == this.name;
+  bool operator ==(Object other) {
+    return other is Class && other.name == this.name;
   }
 
   T instance() => _createFunction();

@@ -366,7 +366,6 @@ class SparseArray<E> extends Iterable<E> implements Cloneable<SparseArray<E>> {
   }
 
   ///
-  /// {@inheritDoc}
   /// <p>This implementation composes a string by iterating over its mappings. If
   /// this map contains itself as a value, the string "(this Map)"
   /// will appear in its place.

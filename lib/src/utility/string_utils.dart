@@ -7,7 +7,7 @@
 //
 
 import 'dart:collection';
-
+import 'dart:convert' as c;
 import 'dart:math';
 
 final Random r = Random();
@@ -883,4 +883,76 @@ abstract class StringUtils {
 
     return generated.toString();
   }
+
+  static List<String> base64EncodingTable = <String>[
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'u',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z',
+    '0',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '+',
+    '/'
+  ];
+
+  static String base64(String string) => c.base64.encode(c.utf8.encode(string));
+
+  static String unbase64(String string) =>
+      c.utf8.decode(c.base64.decode(string));
 }
