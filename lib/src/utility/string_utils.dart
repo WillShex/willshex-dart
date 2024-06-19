@@ -388,12 +388,15 @@ abstract class StringUtils {
   static String urldecode(String value) {
     StringBuffer replaced = StringBuffer(value);
 
-    int i, start = 0;
+    int i, start;
     for (i = 0; i < _REPLACE_CHARS.length; i++) {
+      start = 0;
       while ((start = replaced.toString().indexOf(_REPLACE_CHARS[i], start)) >=
           0) {
-        replaced.toString().replaceRange(
+        String updated = replaced.toString().replaceRange(
             start, start + _REPLACE_CHARS[i].length, _ESCAPE_CHARS[i]);
+        replaced.clear();
+        replaced.write(updated);
         start += _ESCAPE_CHARS[i].length;
       }
     }
@@ -414,12 +417,15 @@ abstract class StringUtils {
   static String urlencode(String value) {
     StringBuffer replaced = StringBuffer(value);
 
-    int i, start = 0;
+    int i, start;
     for (i = 0; i < _ESCAPE_CHARS.length; i++) {
+      start = 0;
       while (
           (start = replaced.toString().indexOf(_ESCAPE_CHARS[i], start)) >= 0) {
-        replaced.toString().replaceRange(
+        String updated = replaced.toString().replaceRange(
             start, start + _ESCAPE_CHARS[i].length, _REPLACE_CHARS[i]);
+        replaced.clear();
+        replaced.write(updated);
         start += _REPLACE_CHARS[i].length;
       }
     }

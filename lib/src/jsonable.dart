@@ -27,6 +27,7 @@ class Jsonable {
     return <String, dynamic>{};
   }
 
+  @override
   String toString() {
     return jsonEncode(toJson());
   }

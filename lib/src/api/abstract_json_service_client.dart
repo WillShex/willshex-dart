@@ -13,7 +13,7 @@ typedef void FailureCallback<T extends Request>(T input, Exception caught);
 
 abstract class AbstractJsonServiceClient {
   static final Logger _log = Logger("AbstractJsonServiceClient");
-  String? url;
+  final String? url;
 
   AbstractJsonServiceClient({this.url});
 

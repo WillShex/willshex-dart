@@ -7,7 +7,7 @@
 //
 
 import 'package:willshex/src/jsonable.dart';
-import 'package:willshex/src/sortdirectiontype.dart';
+import 'package:willshex/src/sort_direction_type.dart';
 
 class Pager extends Jsonable {
   int? start;
