@@ -27,21 +27,22 @@ class JsonUtils {
     String cleaned = stripped;
     do {
       stripped = cleaned;
-      cleaned = cleaned.replaceAll("\"[a-zA-z]+[a-zA-Z0-9]*\":null", "");
-      cleaned = cleaned.replaceAll(",,", ",");
-      cleaned = cleaned.replaceAll(", ", ",");
-      cleaned = cleaned.replaceAll("\\{,", "{");
-      cleaned = cleaned.replaceAll(",\\}", "}");
-      cleaned = cleaned.replaceAll("\\[,", "[");
-      cleaned = cleaned.replaceAll(",\\]", "]");
-      cleaned = cleaned.replaceAll(":\\{\\}", ":null");
-      cleaned = cleaned.replaceAll(":\\{ \\}", ":null");
-      cleaned = cleaned.replaceAll(":\\[\\]", ":[]");
-      cleaned = cleaned.replaceAll(":\\[ \\]", ":{}");
-      cleaned = cleaned.replaceAll("\\{\\}", "");
-      cleaned = cleaned.replaceAll("\\[\\]", "");
-      cleaned = cleaned.replaceAll(":,", ":null,");
-      cleaned = cleaned.replaceAll(":\\}", ":null}");
+      cleaned =
+          cleaned.replaceAll(RegExp("\"[a-zA-z]+[a-zA-Z0-9]*\":null"), "");
+      cleaned = cleaned.replaceAll(RegExp(",,"), ",");
+      cleaned = cleaned.replaceAll(RegExp(", "), ",");
+      cleaned = cleaned.replaceAll(RegExp("\\{,"), "{");
+      cleaned = cleaned.replaceAll(RegExp(",\\}"), "}");
+      cleaned = cleaned.replaceAll(RegExp("\\[,"), "[");
+      cleaned = cleaned.replaceAll(RegExp(",\\]"), "]");
+      cleaned = cleaned.replaceAll(RegExp(":\\{\\}"), ":null");
+      cleaned = cleaned.replaceAll(RegExp(":\\{ \\}"), ":null");
+      cleaned = cleaned.replaceAll(RegExp(":\\[\\]"), ":[]");
+      cleaned = cleaned.replaceAll(RegExp(":\\[ \\]"), ":{}");
+      cleaned = cleaned.replaceAll(RegExp("\\{\\}"), "");
+      cleaned = cleaned.replaceAll(RegExp("\\[\\]"), "");
+      cleaned = cleaned.replaceAll(RegExp(":,"), ":null,");
+      cleaned = cleaned.replaceAll(RegExp(":\\}"), ":null}");
     } while (stripped != cleaned);
 
     cleaned = _putBack(cleaned, values);
