@@ -386,21 +386,27 @@ abstract class StringUtils {
   /// @param value string to decode
   /// @return decoded string
   static String urldecode(String value) {
-    StringBuffer replaced = StringBuffer(value);
+    String urlDecoded = "";
 
-    int i, start = 0;
-    for (i = 0; i < _REPLACE_CHARS.length; i++) {
-      while ((start = replaced.toString().indexOf(_REPLACE_CHARS[i], start)) >=
-          0) {
-        String updated = replaced.toString().replaceRange(
-            start, start + _REPLACE_CHARS[i].length, _ESCAPE_CHARS[i]);
-        replaced.clear();
-        replaced.write(updated);
-        start += _ESCAPE_CHARS[i].length;
+    if (value.isNotEmpty) {
+      StringBuffer replaced = StringBuffer(value);
+
+      int i, start = 0;
+      for (i = 0; i < _REPLACE_CHARS.length; i++) {
+        while ((start =
+                replaced.toString().indexOf(_REPLACE_CHARS[i], start)) >=
+            0) {
+          String updated = replaced.toString().replaceRange(
+              start, start + _REPLACE_CHARS[i].length, _ESCAPE_CHARS[i]);
+          replaced.clear();
+          replaced.write(updated);
+          start += _ESCAPE_CHARS[i].length;
+        }
       }
+      urlDecoded = replaced.toString();
     }
 
-    return replaced.toString();
+    return urlDecoded;
   }
 
   /**
@@ -414,21 +420,27 @@ abstract class StringUtils {
 	 * @return encoded string
 	 */
   static String urlencode(String value) {
-    StringBuffer replaced = StringBuffer(value);
+    String urlEncoded = "";
 
-    int i, start = 0;
-    for (i = 0; i < _ESCAPE_CHARS.length; i++) {
-      while (
-          (start = replaced.toString().indexOf(_ESCAPE_CHARS[i], start)) >= 0) {
-        String updated = replaced.toString().replaceRange(
-            start, start + _ESCAPE_CHARS[i].length, _REPLACE_CHARS[i]);
-        replaced.clear();
-        replaced.write(updated);
-        start += _REPLACE_CHARS[i].length;
+    if (value.isNotEmpty) {
+      StringBuffer replaced = StringBuffer(value);
+
+      int i, start = 0;
+      for (i = 0; i < _ESCAPE_CHARS.length; i++) {
+        while ((start = replaced.toString().indexOf(_ESCAPE_CHARS[i], start)) >=
+            0) {
+          String updated = replaced.toString().replaceRange(
+              start, start + _ESCAPE_CHARS[i].length, _REPLACE_CHARS[i]);
+          replaced.clear();
+          replaced.write(updated);
+          start += _REPLACE_CHARS[i].length;
+        }
       }
+
+      urlEncoded = replaced.toString();
     }
 
-    return replaced.toString();
+    return urlEncoded;
   }
 
   /// Replace every alpha character in a string with the character 13 over
