@@ -12,3 +12,6 @@ dependencies:
   http: ^1.1.2
   universal_file: ^1.0.0
   logging: ^1.1.0
+
+dev_dependencies:
+  test: ^1.25.8

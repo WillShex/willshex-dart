@@ -393,6 +393,10 @@ abstract class StringUtils {
 
       int i, start = 0;
       for (i = 0; i < _REPLACE_CHARS.length; i++) {
+        if (start < 0) {
+          start = 0;
+        }
+
         while ((start =
                 replaced.toString().indexOf(_REPLACE_CHARS[i], start)) >=
             0) {
@@ -427,6 +431,10 @@ abstract class StringUtils {
 
       int i, start = 0;
       for (i = 0; i < _ESCAPE_CHARS.length; i++) {
+        if (start < 0) {
+          start = 0;
+        }
+
         while ((start = replaced.toString().indexOf(_ESCAPE_CHARS[i], start)) >=
             0) {
           String updated = replaced.toString().replaceRange(
@@ -965,4 +973,8 @@ abstract class StringUtils {
 
   static String unbase64(String string) =>
       c.utf8.decode(c.base64.decode(string));
+}
+
+void main(List<String> args) {
+  StringUtils.urldecode("this is a test");
 }

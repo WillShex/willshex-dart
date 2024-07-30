@@ -19,3 +19,7 @@ export 'src/utility/json_utils.dart';
 export 'src/utility/logging.dart';
 export 'src/utility/string_utils.dart';
 export 'src/utility/typedef.dart';
+export 'src/abstract_tree.dart';
+export 'src/functions.dart';
+export 'src/http_exception.dart';
+export 'src/io_exception.dart';

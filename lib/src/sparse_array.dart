@@ -16,7 +16,6 @@
 
 import 'dart:math';
 
-import 'package:willshex/src/functions.dart';
 import 'package:willshex/willshex.dart';
 
 typedef KeyProvider<T> = int Function(T object);
