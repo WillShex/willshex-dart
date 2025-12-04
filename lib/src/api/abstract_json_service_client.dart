@@ -62,7 +62,7 @@ abstract class AbstractJsonServiceClient {
       _log.info(
           "Recieved status [${response.statusCode}] to [${response.request?.url}");
 
-      throw HttpException("$response.statusCode: $response.reasonPhrase",
+      throw HttpException("${response.statusCode}: ${response.reasonPhrase}",
           uri: response.request?.url);
     }
 
